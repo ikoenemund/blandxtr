@@ -1,105 +1,104 @@
-# set working directory
-setwd("~/blandxtr")
+# calculating basic variables for datatable (dt)
+# dt: 3 columns (subject, measurementX, measurementY) necessary
 
-# read data (csv)
-library(data.table)
-dataOlofsen<-fread("data/dataOlofsen.csv")
+# basicVariables <- function(dt){
 
-# data.frame to data.table
-setDT(dataOlofsen)
+  # ----------------------------
+  # some preparation
 
-# copy input data
-outputMeasurements <- copy (dataOlofsen)
-outputSubjects <- dataOlofsen[, .(.N), by = .(subject)]
-# rename column
-setnames(outputSubjects,"N", "sum_measurements")
+  # copy input data for modification as output
+  outputMeasurements <- copy (dt)
+  # add measurement IDs in outputMeasurements
+  outputMeasurements[, measurement_id := rowid(subject)]
 
-# add measurement IDs in outputMeasurements
-outputMeasurements[, measurement_id := rowid(subject)]
+  outputSubjects <- dt[, .(.N), by = .(subject)]
+  # rename column
+  setnames(outputSubjects,"N", "m_i")
 
-# ----------------------------
+  # ----------------------------
 
-# number of subjects (n)
-n <- uniqueN(dataOlofsen, by="subject")
+  # number of subjects (n)
+  n <- uniqueN(dt, by="subject")
 
-# ----------------------------
+  # ----------------------------
 
-# number of measurements of each subject (i=subject, m_i)
-summing_measurements_i <- function(i) {
-  m_i <- dataOlofsen[, sum( subject==i )]
-}
+  # total number of observations (pairs of values, n_obs)
+  n_obs <-nrow(dt)
 
-# ----------------------------
+  # ----------------------------
 
-# total number of observations (pairs of values, n_obs)
-n_obs <-nrow(dataOlofsen)
+  # difference_ij for all measurements
+  # functional: return a new data table (don't alter the existing one)
+  outputMeasurements[, d_ij := (measurementX-measurementY)]
 
-# ----------------------------
+  # ----------------------------
 
-# difference_mk (subject i, measurement j) as double (D_ij)
-difference_ij<- function(i, j) {
-  measurement_ij <- dataOlofsen[subject == i & measurement_id == j]
-  measurementX_ij <- as.double(measurement_ij[1,"measurementX"])
-  measurementY_ij <- as.double(measurement_ij[1,"measurementY"])
-  d_ij <- measurementX_ij - measurementY_ij
-}
+  # mean_ij for all measurements
+  outputMeasurements[, m_ij := (measurementX+measurementY)/2]
 
-    # difference_mk for all measurements
-    # functional: return a new data table (don't alter the existing one)
-    outputMeasurements[, d_ij := (measurementX-measurementY)]
+  # ------------------------------
 
-# ----------------------------
+  # all subjects (each subject): mean of differences between measurements (each subject)
+  ans <- outputMeasurements[, mean(d_ij), by = .(subject)]
+  setnames(ans,"V1", "d_i")
 
-# mean_mk (subject m, measurement k) as double (M_ij)
-mean_ij <- function(i, j) {
-  measurement_ij <- dataOlofsen[subject == i & measurement_id == j]
-  measurementX_ij <- as.double(measurement_ij[1,"measurementX"])
-  measurementY_ij <- as.double(measurement_ij[1,"measurementY"])
-  m_ij <- (measurementX_ij + measurementY_ij)/2
-}
+  outputSubjects <- merge(ans, outputSubjects, by="subject")
+  rm(ans)
 
-    # mean_mk for all measurements
-    outputMeasurements[, m_ij := (measurementX+measurementY)/2]
+        # TO DO: make nicer (above), some ideas:
+        # works
+        # outputSubjects[, mean_diff:=outputMeasurements[, .(mean(difference_mk)), by = .(subject)]]
+        # test
+        #outputSubjects[, mean_diff:=[, outputMeasurements[, .(mean(difference_mk)), by =.(subject)]]
 
-# ------------------------------
+  # -------------------------------
 
-# single subject: mean_diff_i mean of differences of subject i as double (D_i)
-library(data.table)
-mean_diff_i <- function(i) {
-  d_i <- dataOlofsen[subject == i,
-    mean(m_ij)]
-}
+  # variance of differences for each subject
+  # TO DO: leave out? (not needed), make nicer (sum)
+  # i: number of subject
 
-# all subjects (each subject): mean of differences between measurements (each subject)
-ans <- outputMeasurements[, mean(d_ij), by = .(subject)]
-setnames(ans,"V1", "d_i")
+  variance_diff <- function(i) {
+    d_i <- outputSubjects[subject == i,
+      d_i]
+    m_i <- outputSubjects[subject == i,
+      m_i]
+    ans <- (outputMeasurements[subject == i,
+      d_ij]-d_i)^2
 
-outputSubjects <- merge(ans, outputSubjects, by="subject")
+    var_d_i <- sum(ans)/(m_i-1)
+  }
 
-      # TO DO: make nicer (above), some ideas:
-      # works
-      # outputSubjects[, mean_diff:=outputMeasurements[, .(mean(difference_mk)), by = .(subject)]]
-      # test
-      #outputSubjects[, mean_diff:=[, outputMeasurements[, .(mean(difference_mk)), by =.(subject)]]
+  # variance of differences for each subject (calculation for all subjects)
+  ans <- outputSubjects[, variance_diff(subject), by = .(subject)]
+  setnames(ans,"V1", "var_d_i")
 
-# -------------------------------
-# variance of differences (each subject)
-# TO DO: leave out? (not needed), make nicer (sum)
-# i: number of subject
+  outputSubjects <- merge(ans, outputSubjects, by="subject")
+  rm(ans)
+  rm(variance_diff)
 
-variance_diff <- function(i) {
-  d_i <- outputSubjects[subject == i,
-    d_i]
-  m_i <- outputSubjects[subject == i,
-    sum_measurements]
-  ans <- (outputMeasurements[subject == i,
-    d_ij]-d_i)^2
+  # -------------------------------------
 
-  var_d_i <- sum(ans)/(m_i-1)
-}
+  # mean of all differences/ bias (D/ B)
+  ans <- outputMeasurements[, d_ij]
+  d <- mean (ans)
 
-# variance of differences for all subjects
-ans <- outputSubjects[, variance_diff(subject), by = .(subject)]
-setnames(ans,"V1", "var_d_i")
+  rm(ans)
+  # -------------------------------------
 
-outputSubjects <- merge(ans, outputSubjects, by="subject")
+  # alternative mean of all differences/ bias (D_a/ B_a)
+  ans <- outputSubjects[, d_i]
+  d_a <- mean (ans)
+
+  rm(ans)
+
+#   return(
+#     list(
+#       outputMeasurements = outputMeasurements,
+#       outputSubjects = outputSubjects,
+#       n = n,
+#       n_obs = n_obs,
+#       d = d,
+#       d_a = d_a
+#     )  #CLOSE OF LIST
+#   ) #CLOSE OF RETURN
+# }
