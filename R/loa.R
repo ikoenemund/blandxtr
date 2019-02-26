@@ -1,18 +1,22 @@
 # calculation of limits of agreement (LoA)
-# collection of functions
 
 # ---------------------------
 # limits of agreement (loa)
+ calc_loa <- function(d, sd_d){
 
-# lower
-calc_loa_l <- function (d, sd_d){
+   # lower
   loa_l <- d-(1.96*sd_d)
-}
 
-# upper
-calc_loa_u <- function (d, sd_d){
+   # upper
   loa_u <- d+(1.96*sd_d)
-}
+
+   return(
+     list(
+       loa_l = loa_l,
+       loa_u = loa_u
+     )
+   )
+ }
 
 
 # # ---------------------------
