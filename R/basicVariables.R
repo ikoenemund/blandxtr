@@ -1,7 +1,7 @@
 # calculating basic variables for datatable (dt)
 # dt: 3 columns (subject, measurementX, measurementY) necessary
 
-# basicVariables <- function(dt){
+calc_basicVariables <- function(dt){
 
   # ----------------------------
   # some preparation
@@ -91,14 +91,14 @@
 
   rm(ans)
 
-#   return(
-#     list(
-#       outputMeasurements = outputMeasurements,
-#       outputSubjects = outputSubjects,
-#       n = n,
-#       n_obs = n_obs,
-#       d = d,
-#       d_a = d_a
-#     )  #CLOSE OF LIST
-#   ) #CLOSE OF RETURN
-# }
+  return(
+    list(
+      outputMeasurements = outputMeasurements,
+      outputSubjects = outputSubjects,
+      n = n,
+      n_obs = n_obs,
+      d = d,
+      d_a = d_a
+    )
+  )
+}
