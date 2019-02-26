@@ -2,7 +2,7 @@
 
 # expected value (ev) of variance of all differnces (ev_var_d)
 # variance of mean of all differences (bias, var_d)
-# alternative variance of mean of all differences (bias, var_d_a)
+# alternative variance of mean of all differences (bias, var_d_mod)
 # variance of the standard deviation of the differences (var_sd_d)
 
 # case discrimination for Var(LoA) depending on bsv/ wsv
@@ -19,22 +19,17 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth){
     ans2 <- ans2 + (1/m_i)
   }
   ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
-  var_d <- (wsv/n_obs)+((ans1/(n_obs^2))*bsv)
 
-  var_d_a <- ((1/(n^2))*ans2*wsv)+(bsv/n)
+  if (meth == 0) {
+    var_bias <- (wsv/n_obs)+((ans1/(n_obs^2))*bsv)
+  } else if (meth == 1) {
+    var_bias <- ((1/(n^2))*ans2*wsv)+(bsv/n)
+  }
 
   var_sd_d <- var_var_d/(4*ev_var_d)
 
-  if (meth==0) {
-    var_loa <- var_d+((1.96^2)*var_sd_d)
-  }else{
-    var_loa <- var_d_a+((1.96^2)*var_sd_d)
-  }
-  # return(
-  #   list(
-  #     var_loa = var_loa
-  #     )
-  # )
+  var_loa <- var_bias+((1.96^2)*var_sd_d)
+  )
 }
 
 # ---------------------------
@@ -52,13 +47,13 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth){
 # # ---------------------------
 # # alternative variance of mean of all differences (bias)
 # ans <- 0
-# calc_var_d_a <- function (n, bsv, wsv, outputSubjects){
+# calc_var_d_mod <- function (n, bsv, wsv, outputSubjects){
 #   for(i in 1:n) {
 #     m_i <- outputSubjects[subject == i,
 #       m_i]
 #     ans <- ans + (1/m_i)
 #   }
-#   var_d_a <- ((1/(n^2))*ans*wsv)+(bsv/n)
+#   var_d_mod <- ((1/(n^2))*ans*wsv)+(bsv/n)
 # }
 #
 # # ---------------------------
@@ -74,3 +69,4 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth){
 # calc_var_loa <- function(var_d, var_sd_d){
 #   var_loa <- var_d+((1.96^2)*var_sd_d)
 # }
+
