@@ -1,6 +1,32 @@
-# Mover method (Zou 2013): calculation of confidence intervals (CI) for limits of agreement
+#' @title 95\%-confidence intervals for LoA (MOVER)
+#'
+#' @description \code{calc_ci_loa_mover} returns 95\%-confidence intervals
+#' (95\%-CI) for limits of agreement (LoA) based on MOVER-method
+#' (Methods of Variance Estimates Recovery) proposed
+#' by Zou (2013).
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param n number of subjects
+#' @param n_obs number of measurements
+#' @param outputSubjects data.table containing subject ID and
+#' number of measurements of each subject (m_i)
+#' @param bsv_mod between-subject variance (modified calculation)
+#' @param wsv within-subject variance
+#' @param loa_l lower limit of agreement
+#' @param loa_u upper limit of agreement
+#'
+#' @return A list with the following elements is returned
+#' \itemize{
+#'  \item{\code{ci_l_loa_l_mover}} {lower limit of 95\%-CI for lower LoA}
+#'  \item{\code{ci_u_loa_l_mover}} {upper limit of 95\%-CI for lower LoA}
+#'  \item{\code{ci_l_loa_u_mover}} {lower limit of 95\%-CI for upper LoA}
+#'  \item{\code{ci_u_loa_u_mover}} {upper limit of 95\%-CI for upper LoA}
+#' }
+#'
 
-calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, loa_u) {
+calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
+  loa_u) {
   # harmonic mean (m_h)
   ans <- 0
   for(i in 1:n) {
@@ -14,19 +40,21 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, lo
 
 
   # s ((s_tot)^2)
-  s= bsv_mod+((1-(1/m_h))*wsv)
+  s <- bsv_mod+((1-(1/m_h))*wsv)
 
   # l
   chi1 <- qchisq(0.975, df=19, ncp = 0, lower.tail = TRUE, log.p = FALSE)
   chi2 <- qchisq(0.975, df=280, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  l <- s - ((((bsv_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*(1-((n_obs-n)/(chi2))))^2))^(1/2))
+  l <- s - ((((bsv_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*
+      (1-((n_obs-n)/(chi2))))^2))^(1/2))
 
   rm (chi1, chi2)
 
   # u
   chi3 <- qchisq(0.025, df=19, ncp = 0, lower.tail = TRUE, log.p = FALSE)
   chi4 <- qchisq(0.025, df=280, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  u <- s+((((bsv_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*((((n_obs-n)/chi4))-1))^2))^(1/2))
+  u <- s+((((bsv_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*
+      ((((n_obs-n)/chi4))-1))^2))^(1/2))
 
   rm (chi3, chi4)
 
