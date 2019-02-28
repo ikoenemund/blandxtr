@@ -1,7 +1,33 @@
-# calculating basic variables for datatable (dt)
-# dt: 3 columns (subject, measurementX, measurementY) necessary
+#' @title Basic variables
+#'
+#' @description \code{basicVariables} returns basic variables of an input
+#' data.table containing three columns (subject, measurementX and measurementY).
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param dt input data.table
+#' @return A list with the following elements is returned
+#'  \item{outputMeasurements}{data.table with}
+#'  \itemize{
+#'      \item{\code{subject}} {subject ID}
+#'      \item{\code{measurementX}} {results of measurement with X}
+#'      \item{\code{measurementY}} {results of measurement with Y}
+#'      \item{\code{d_ij}} {difference of each pair of measurement}
+#'      \item{\code{m_ij}} {mean of each pair of measurement}
+#'  }
+#'  \item{outputSubjects}{data.table with}
+#'  \itemize{
+#'      \item{\code{subject}} {subject ID}
+#'      \item{\code{m_i}} {number of measurements of each subject}
+#'      \item{\code{d_i}} {mean of differences for each subject}
+#'      \item{\code{var_d_i}} {variance of d_i for each subject}
+#'  }
+#'   \item{n}{number of subjects}
+#'   \item{n_obs}{number of measurements}
+#'   \item{d}{mean of all differences}
+#'   \item{d_a}{modified mean of all differences}
 
-calc_basicVariables <- function(dt){
+basicVariables <- function(dt){
 
   # ----------------------------
   # some preparation
@@ -38,7 +64,8 @@ calc_basicVariables <- function(dt){
 
   # ------------------------------
 
-  # all subjects (each subject): mean of differences between measurements (each subject)
+  # all subjects (each subject):
+  # mean of differences between measurements (each subject)
   ans <- outputMeasurements[, mean(d_ij), by = .(subject)]
   setnames(ans,"V1", "d_i")
 
