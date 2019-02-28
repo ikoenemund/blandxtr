@@ -3,4 +3,6 @@
 #' @author Inga Koenemund \email{inga.koenemund@web.de}
 #'
 #' @name blandextr
+#'
+#' @import data.table
 NULL
