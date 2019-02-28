@@ -1,5 +1,4 @@
-# main blandxtr function for data of Olofsen et al. 2015
-# executes standard tvv and modified tvv
+# main blandxtr function for data from Olofsen et al. 2015
 
 #####
 # Fallunterscheidungen
@@ -15,9 +14,6 @@
 # automatically for unbalanced case: meth = 1 (see below)
 meth <- 0;
 #####
-
-  # set working directory
-  # setwd("~/blandxtr")
 
 # # function for reading csv-data from given path
 # readData <- function (path){
@@ -39,10 +35,11 @@ dt <- fread(path)
 setDT(dt)
 rm(path)
 
+# -----------------------------------------
 
 # calculate basic variables
 source("R/basicVariables.R")
-bv <- calc_basicVariables(dt)
+bv <- basicVariables(dt)
 
 
 # unbalanced case: meth = 1
@@ -57,30 +54,27 @@ if (meth == 1){
   bv$d <- bv$d_a
 }
 
-
 # TEST: with function "readData"
 # bv <- basicVariables(readData(path))
 
 # # calculate variances (tvv: standard version)
 # source("R/var_tvv.R")
-# var_tvv_std <- calc_var_tvv_std(bv$n, bv$n_obs, bv$d, bv$outputSubjects, bv$outputMeasurements)
+# var_tvv_std <- calc_var_tvv_std(bv$n, bv$n_obs, bv$d, bv$outputSubjects,
+# bv$outputMeasurements)
 #
 # # calculate variances (tvv: modified version)
 # source("R/var_tvv_mod.R")
-# var_tvv_mod <- calc_var_tvv_mod(bv$n, bv$n_obs, bv$d_a, bv$outputSubjects, bv$outputMeasurements)
+# var_tvv_mod <- calc_var_tvv_mod(bv$n, bv$n_obs, bv$d_a, bv$outputSubjects,
+# bv$outputMeasurements)
 
-# calculate variances
+# analysis of variances
 source("R/var.tvv.R")
-var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$outputSubjects, bv$outputMeasurements)
+var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$outputSubjects,
+  bv$outputMeasurements)
 
 # -----------------------------------------
-# calculate limits of agreement (loa) (modified and standard)
+# calculate limits of agreement (loa) (standard and modified)
 source("R/loa.R")
-
-#####
-# TODO: case discrimination (standard or modified loa?)?
-# both cases calculated at the moment
-#####
 
 # limits of agreement (based on standard tvv)
 loa <- calc_loa(bv$d, var_tvv$sd_d)
@@ -93,21 +87,23 @@ loa_mod <- calc_loa(bv$d_a, var_tvv$sd_d_mod)
 source("R/var.loa.R")
 
 # variance of loa (based on standard tvv)
-var_loa <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv, bv$outputSubjects, var_tvv$var_var_d, meth)
+var_loa <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
+  bv$outputSubjects, var_tvv$var_var_d, meth)
 
 # variance of loa (based on modified tvv)
-var_loa_mod <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod, bv$outputSubjects, var_tvv$var_var_d_mod, meth)
+var_loa_mod <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
+  bv$outputSubjects, var_tvv$var_var_d_mod, meth)
 
 # -----------------------------------------
 
 # CI Bland Altman
-# mod: uses modified versions of loa (modified tvv)
 source("R/ci.loa.ba.R")
 # CI Bland Altman (based on standard tvv)
-loa_ba <- calc_ci_loa_ba (loa$loa_l, loa$loa_u, var_loa$var_loa)
+loa_ba <- calc_ci_loa_ba (loa$loa_l, loa$loa_u, var_loa)
 
 # CI Bland Altman (based on modified tvv)
-loa_ba_mod <- calc_ci_loa_ba (loa_mod$loa_l, loa_mod$loa_u, var_loa_mod$var_loa)
+# mod: uses modified versions of loa (modified tvv)
+loa_ba_mod <- calc_ci_loa_ba (loa_mod$loa_l, loa_mod$loa_u, var_loa_mod)
 
 # -----------------------------------------
 
@@ -116,7 +112,9 @@ loa_ba_mod <- calc_ci_loa_ba (loa_mod$loa_l, loa_mod$loa_u, var_loa_mod$var_loa)
 source("R/ci.loa.mover.R")
 
 # CI mover (based on standard tvv)
-loa_mover <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects, var_tvv$bsv_mod, var_tvv$wsv, loa$loa_l, loa$loa_u)
+loa_mover <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
+  var_tvv$bsv_mod, var_tvv$wsv, loa$loa_l, loa$loa_u)
 
 # CI mover (based on modified tvv)
-loa_mover_mod <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects, var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u)
+loa_mover_mod <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
+  var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u)
