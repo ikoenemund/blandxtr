@@ -1,4 +1,19 @@
-# calculation of limits of agreement (LoA)
+#' @title Limits of agreement (LoA)
+#'
+#' @description \code{calc_loa} returns limits of agreement (LoA)
+#' based on a method proposed by Bland and Altman (1999).
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param d mean of all differences
+#' @param sd_d standard deviation of d
+#'
+#' @return A list with the following elements is returned
+#' \itemize{
+#'  \item{\code{loa_l}} {lower limit of agreement}
+#'  \item{\code{loa_u}} {upper limit of agreement}
+#' }
+#'
 
 # ---------------------------
 # limits of agreement (loa)
