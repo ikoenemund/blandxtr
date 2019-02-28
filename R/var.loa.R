@@ -1,13 +1,31 @@
-# calculating variance of limits of agreement (var_loa) with some helper variables
-
-# expected value (ev) of variance of all differnces (ev_var_d)
-# variance of mean of all differences (bias, var_d)
-# alternative variance of mean of all differences (bias, var_d_mod)
-# variance of the standard deviation of the differences (var_sd_d)
-
-# case discrimination for Var(LoA) depending on bsv/ wsv
-# meth = 0 for standard (small bsv)
-# meth = 1 for modified (small wsv)
+#' @title Variance of limits of agreement
+#'
+#' @description \code{calc_var_loa} returns variance of
+#' limits of agreement (LoA) based on a method proposed
+#' by Bland and Altman (1999).
+#'
+#' @note function calculates other variables as well (but does not return)
+#' \itemize{
+#'  \item{\code{ev_var_d}} {expected value of variance of all differnces}
+#'  \item{\code{var_d}} {variance of mean of all differences}
+#'  \item{\code{var_d_mod}} {modified variance of mean of all differences}
+#'  \item{\code{var_sd_d}} {variance of the standard deviation of the differences}
+#' }
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param n number of subjects
+#' @param n_obs number of measurements
+#' @param bsv between-subject variance
+#' @param wsv within-subject variance
+#' @param outputSubjects data.table containing subject ID and
+#' number of measurements of each subject (m_i)
+#' @param var_var_d variance of the variance of mean of all differences
+#' @param meth set 0 for standard calculation of the variance (small bsv),
+#' set 1 for modified calculation of the variance (small wsv)
+#'
+#' @return \code{var_loa} variance of limits of agreement
+#'
 
 calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth){
   ans1 <- 0
