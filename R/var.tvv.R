@@ -1,5 +1,35 @@
-# calculation of variances with true value varying (tvv) for calculation of limits of agreement (LoA)
-# Olofsen et al. 2015
+#' @title Analysis of variance
+#'
+#' @description \code{calc_var_tvv} executes analysis of variance for
+#' quantities measured with true value varying
+#' (includes standard and modified version)
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param n number of subjects
+#' @param n_obs number of measurements
+#' @param d mean of all differences
+#' @param d_a modified mean of all differences
+#' @param outputSubjects data.table containing subject ID and
+#' number of measurements of each subject (m_i)
+#' @param outputMeasurements data.table containing
+#'
+#' @return A list with the following elements is returned
+#' \itemize{
+#'  \item{\code{wsv}} {within-subjects variance}
+#'  \item{\code{bsv}} {between-subjects variance}
+#'  \item{\code{bsv_mod}} {modified between-subjects variance}
+#'  \item{\code{wsv_mod}} {modified within-subjects variance}
+#'  \item{\code{var_d}} {variance of mean of all differences}
+#'  \item{\code{sd_d}} {standard deviation of all differences}
+#'  \item{\code{var_var_d}} {variance of the variance of mean
+#'  of all differences}
+#'  \item{\code{var_d_mod}} {modified variance of mean of all differences}
+#'  \item{\code{sd_d_mod}} {modified standard deviation of all differences}
+#'  \item{\code{var_var_d_mod}} {modified variance of the variance of
+#'  mean of all differences}
+#' }
+#'
 
 calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
@@ -82,9 +112,6 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
   var_var_d <- ((2*(((1-(1/lambda))*wsv)^2))/(n_obs-n)) + ((2*(((wsv/lambda)+bsv)^2))/(n-1))
   rm(i, j, d_i, d_ij, m_i)
-
-  # -------------------------------------
-
 
   # -------------------------------------
   # modified tvv
