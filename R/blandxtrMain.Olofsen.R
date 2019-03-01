@@ -2,17 +2,17 @@
 
 #####
 # Fallunterscheidungen
-# Var_loa/ B <--> B_a: meth = 0 --> B; meth = 1 --> B_a
+# Var_loa/ B <--> B_a: biasMod = FALSE --> B; biasMod = TRUE --> B_a
 # std. + mod. Berechnung von LoA (MSSI/ MSSIa) durchgehend berücksichtigt
 #####
 
 #####
-# Choose meth
+# Choose biasMod
 ####
-# meth = 0 for standard (small bsv/ B)
-# meth = 1 for modified (small wsv/ B_a)
-# automatically for unbalanced case: meth = 1 (see below)
-meth <- 0;
+# biasMod = FALSE for standard (small bsv/ B)
+# biasMod = TRUE for modified (small wsv/ B_a)
+# automatically for unbalanced case: biasMod = TRUE (see below)
+biasMod <- FALSE;
 #####
 
 # # function for reading csv-data from given path
@@ -42,15 +42,15 @@ source("R/basicVariables.R")
 bv <- basicVariables(dt)
 
 
-# unbalanced case: meth = 1
+# unbalanced case: biasMod = TRUE
 for (i in 1:bv$n){
   if (bv$outputSubjects$m_i[i]!=(bv$n_obs/bv$n)){
-    meth <- 1
+    biasMod <- TRUE
   }
 }
 rm(i)
 
-if (meth == 1){
+if (biasMod){
   bv$d <- bv$d_a
 }
 
@@ -88,11 +88,11 @@ source("R/var.loa.R")
 
 # variance of loa (based on standard tvv)
 var_loa <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
-  bv$outputSubjects, var_tvv$var_var_d, meth)
+  bv$outputSubjects, var_tvv$var_var_d, biasMod)
 
 # variance of loa (based on modified tvv)
 var_loa_mod <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
-  bv$outputSubjects, var_tvv$var_var_d_mod, meth)
+  bv$outputSubjects, var_tvv$var_var_d_mod, biasMod)
 
 # -----------------------------------------
 

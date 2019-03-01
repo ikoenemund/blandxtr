@@ -21,13 +21,13 @@
 #' @param outputSubjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
 #' @param var_var_d variance of the variance of mean of all differences
-#' @param meth set 0 for standard calculation of the variance (small bsv),
-#' set 1 for modified calculation of the variance (small wsv)
+#' @param biasMod set FALSE for standard calculation of the variance (small bsv),
+#' set TRUE for modified calculation of the variance (small wsv)
 #'
 #' @return \code{var_loa} variance of limits of agreement
 #'
 
-calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth){
+calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, biasMod){
   ans1 <- 0
   ans2 <- 0
   for(i in 1:n) {
@@ -38,10 +38,10 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth){
   }
   ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
 
-  if (meth == 0) {
-    var_bias <- (wsv/n_obs)+((ans1/(n_obs^2))*bsv)
-  } else if (meth == 1) {
+  if (biasMod) {
     var_bias <- ((1/(n^2))*ans2*wsv)+(bsv/n)
+  } else {
+    var_bias <- (wsv/n_obs)+((ans1/(n_obs^2))*bsv)
   }
 
   var_sd_d <- var_var_d/(4*ev_var_d)
