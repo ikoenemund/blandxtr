@@ -7,7 +7,7 @@
 #' @author Inga Koenemund \email{inga.koenemund@web.de}
 #'
 #' @param n number of subjects
-#' @param n_obs number of measurements
+#' @param n_obs number of observations
 #' @param d mean of all differences
 #' @param d_a modified mean of all differences
 #' @param outputSubjects data.table containing subject ID and

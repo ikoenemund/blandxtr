@@ -27,7 +27,7 @@ A list with the following elements is returned
      \item{\code{var_d_i}} {variance of d_i for each subject}
  }
   \item{n}{number of subjects}
-  \item{n_obs}{number of measurements}
+  \item{n_obs}{number of observations}
   \item{d}{mean of all differences}
   \item{d_a}{modified mean of all differences}
 }

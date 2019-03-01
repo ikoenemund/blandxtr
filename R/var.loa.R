@@ -15,7 +15,7 @@
 #' @author Inga Koenemund \email{inga.koenemund@web.de}
 #'
 #' @param n number of subjects
-#' @param n_obs number of measurements
+#' @param n_obs number of observations
 #' @param bsv between-subject variance
 #' @param wsv within-subject variance
 #' @param outputSubjects data.table containing subject ID and
@@ -27,7 +27,8 @@
 #' @return \code{var_loa} variance of limits of agreement
 #'
 
-calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d, biasMod){
+calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
+  biasMod){
   ans1 <- 0
   ans2 <- 0
   for(i in 1:n) {

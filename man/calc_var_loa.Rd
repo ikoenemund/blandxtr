@@ -4,12 +4,12 @@
 \alias{calc_var_loa}
 \title{Variance of limits of agreement}
 \usage{
-calc_var_loa(n, n_obs, bsv, wsv, outputSubjects, var_var_d, meth)
+calc_var_loa(n, n_obs, bsv, wsv, outputSubjects, var_var_d, biasMod)
 }
 \arguments{
 \item{n}{number of subjects}
 
-\item{n_obs}{number of measurements}
+\item{n_obs}{number of observations}
 
 \item{bsv}{between-subject variance}
 
@@ -20,8 +20,8 @@ number of measurements of each subject (m_i)}
 
 \item{var_var_d}{variance of the variance of mean of all differences}
 
-\item{meth}{set 0 for standard calculation of the variance (small bsv),
-set 1 for modified calculation of the variance (small wsv)}
+\item{biasMod}{set FALSE for standard calculation of the variance (small bsv),
+set TRUE for modified calculation of the variance (small wsv)}
 }
 \value{
 \code{var_loa} variance of limits of agreement

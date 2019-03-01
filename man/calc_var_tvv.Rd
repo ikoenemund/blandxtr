@@ -9,7 +9,7 @@ calc_var_tvv(n, n_obs, d, d_a, outputSubjects, outputMeasurements)
 \arguments{
 \item{n}{number of subjects}
 
-\item{n_obs}{number of measurements}
+\item{n_obs}{number of observations}
 
 \item{d}{mean of all differences}
 

@@ -23,7 +23,7 @@
 #'      \item{\code{var_d_i}} {variance of d_i for each subject}
 #'  }
 #'   \item{n}{number of subjects}
-#'   \item{n_obs}{number of measurements}
+#'   \item{n_obs}{number of observations}
 #'   \item{d}{mean of all differences}
 #'   \item{d_a}{modified mean of all differences}
 
@@ -54,7 +54,6 @@ basicVariables <- function(dt){
   # ----------------------------
 
   # difference_ij for all measurements
-  # functional: return a new data table (don't alter the existing one)
   outputMeasurements[, d_ij := (measurementX-measurementY)]
 
   # ----------------------------
@@ -118,6 +117,7 @@ basicVariables <- function(dt){
 
   rm(ans)
 
+  # -------------------------------------
   return(
     list(
       outputMeasurements = outputMeasurements,

@@ -9,7 +9,7 @@ calc_ci_loa_mover(n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, loa_u)
 \arguments{
 \item{n}{number of subjects}
 
-\item{n_obs}{number of measurements}
+\item{n_obs}{number of observations}
 
 \item{outputSubjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}
