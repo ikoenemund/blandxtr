@@ -2,7 +2,7 @@
 #'
 #' @author Inga Koenemund \email{inga.koenemund@web.de}
 #'
-#' @name blandextr
+#' @name blandxtr
 #'
 #' @import data.table
 NULL
