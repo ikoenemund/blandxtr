@@ -26,8 +26,11 @@
 #'   \item{n_obs}{number of observations}
 #'   \item{d}{mean of all differences}
 #'   \item{d_a}{modified mean of all differences}
+#'
 
 basicVariables <- function(dt){
+
+  library(data.table)
 
   # ----------------------------
   # some preparation

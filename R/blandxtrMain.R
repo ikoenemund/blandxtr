@@ -21,10 +21,9 @@ blandxtrMain <- function(path, biasMod){
 
   # -----------------------------------------
   # read data from given path
-  library(data.table)
-  dt <- fread(path)
+  dt <- data.table::fread(path)
   # data.frame to data.table
-  setDT(dt)
+  data.table::setDT(dt)
 
   # -----------------------------------------
   # calculate basic variables
