@@ -36,9 +36,9 @@ basicVariables <- function(dt){
   # some preparation
 
   # copy input data for modification as output
-  outputMeasurements <- copy (dt)
+  outputMeasurements <- data.table(dt)
   # add measurement IDs in outputMeasurements
-  outputMeasurements[, measurement_id := rowid(subject)]
+  outputMeasurements[, measurement_id:= rowid(outputMeasurements$subject)]
 
   outputSubjects <- dt[, .(.N), by = .(subject)]
   # rename column
@@ -119,6 +119,18 @@ basicVariables <- function(dt){
   d_a <- mean (ans)
 
   rm(ans)
+
+  # -------------------------------------
+
+  # residuals (r_ij = d_ij - d_i)
+  outputMeasurements[, r_ij:=double()]
+  for (i in 1:length(outputMeasurements)){
+    outputMeasurements$r_ij[i] <- outputMeasurements$d_ij[i]-
+      outputSubjects$d_i[outputSubjects$subject==outputMeasurements$
+          subject[i]]
+  }
+  rm(i)
+
 
   # -------------------------------------
   return(
