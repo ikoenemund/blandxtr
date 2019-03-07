@@ -3,5 +3,9 @@
 
 path <- "data/dataOlofsen.csv"
 biasMod <- FALSE
+source("R/blandxtr.readData.R")
+olofsen_dt <- blandxtr_readData(path)
+
 source("R/blandxtrMain.R")
-olofsen <- blandxtrMain (path, biasMod)
+bt <- 10
+olofsen_result <- blandxtrMain (bt, olofsen_dt, biasMod)
