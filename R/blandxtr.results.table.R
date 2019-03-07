@@ -11,10 +11,10 @@ source("R/blandxtrMain.Olofsen.R")
 # table with Bland Altman results
 # # using data.frame and xtable (not working: should transpose rows and columns)
 # library(xtable)
-# analysis_results_df <- data.frame("Bias" = olofsen$bv$d,
-#   "SD of the differences" = olofsen$var_tvv$sd_d,
-#   "lower limit of agreement" = olofsen$loa$loa_l,
-#   "upper limit of agreement" = olofsen$loa$loa_u)
+# analysis_results_df <- data.frame("Bias" = olofsen_result$bv$d,
+#   "SD of the differences" = olofsen_result$var_tvv$sd_d,
+#   "lower limit of agreement" = olofsen_result$loa$loa_l,
+#   "upper limit of agreement" = olofsen_result$loa$loa_u)
 # test_df <- xtable(analysis_results_df)
 # print(test_df, type="latex")
 
@@ -27,15 +27,15 @@ rownames(analysis_results_m)=(c("Bias", "SD of the differences",
   "BA CI lower LoA", "BA CI upper LoA",
   "Within-subject variance (WSV)", "Between-subject variance (BSV)"))
 colnames(analysis_results_m) = (c("value", " ", "+/- SE"))
-analysis_results_m["Bias",1]=olofsen$bv$d
-analysis_results_m[,1] = c(olofsen$bv$d, olofsen$var_tvv$sd_d,
-  olofsen$loa$loa_l, olofsen$loa$loa_u, olofsen$loa_mover$ci_l_loa_l_mover,
-  olofsen$loa_mover$ci_l_loa_u_mover, olofsen$loa_ba$ci_l_loa_l_ba,
-  olofsen$loa_ba$ci_l_loa_u_ba, olofsen$var_tvv$wsv, olofsen$var_tvv$bsv)
+analysis_results_m["Bias",1]=olofsen_result$bv$d
+analysis_results_m[,1] = c(olofsen_result$bv$d, olofsen_result$var_tvv$sd_d,
+  olofsen_result$loa$loa_l, olofsen_result$loa$loa_u, olofsen_result$loa_mover$ci_l_loa_l_mover,
+  olofsen_result$loa_mover$ci_l_loa_u_mover, olofsen_result$loa_ba$ci_l_loa_l_ba,
+  olofsen_result$loa_ba$ci_l_loa_u_ba, olofsen_result$var_tvv$wsv, olofsen_result$var_tvv$bsv)
 
-analysis_results_m[,2]=c(NA,NA,NA,NA,olofsen$loa_mover$ci_u_loa_l_mover,
-  olofsen$loa_mover$ci_u_loa_u_mover, olofsen$loa_ba$ci_u_loa_l_ba,
-  olofsen$loa_ba$ci_u_loa_u_ba, NA, NA)
+analysis_results_m[,2]=c(NA,NA,NA,NA,olofsen_result$loa_mover$ci_u_loa_l_mover,
+  olofsen_result$loa_mover$ci_u_loa_u_mover, olofsen_result$loa_ba$ci_u_loa_l_ba,
+  olofsen_result$loa_ba$ci_u_loa_u_ba, NA, NA)
 test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
 print(test_m, type="latex")
 
@@ -44,7 +44,7 @@ print(test_m, type="latex")
 # using data.table and xtable
 
 library(xtable)
-ind_means <- copy(olofsen$bv$outputSubjects)
+ind_means <- copy(olofsen_result$bv$outputSubjects)
 # remove column "var_d_i"
 ind_means[, var_d_i:=NULL]
 setnames(ind_means,"d_i", "Mean")
