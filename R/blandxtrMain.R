@@ -18,30 +18,58 @@
 #'
 #' @return A list containing the return values of all used functions.
 
-blandxtrMain <- function(bt, input_dt, biasMod){
+## ----- analysisResults
+
+blandxtrMain <- function(bt, path, biasMod){
+
+  source("R/blandxtr.readData.R")
 
   source("R/blandxtrMain.pre.R")
   source("R/blandxtr.ci.R")
+
+  # TEST
+  source("R/blandxtr.results.plot.R")
+  source("R/blandxtr.results.table.R")
+  ####
+
+  # read input dataset and convert it to data.table
+  input_dt <- blandxtr_readData(path)
 
   pre <- blandxtrMain_pre (bt, input_dt, biasMod)
   ci <- blandxtr_ci(bt, input_dt, biasMod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
     pre$var_loa, pre$var_loa_mod)
 
+  res <- c(pre, ci)
+  tab <- blandxtr_results_table(res)
+  fig <- blandxtr_results_plot(res)
+
+  # -----------------------------------------
+  # create report (in latex) as pdf file
+  library(knitr)
+  setwd('./report/')
+  options(tinytex.verbose = TRUE)
+  knit2pdf(input = "report.blandxtr.Rnw")
+  setwd('..')
+
   # -----------------------------------------
   return(
     list(
-      bv = pre$bv,
-      var_tvv = pre$var_tvv,
-      loa = pre$loa,
-      loa_mod = pre$loa_mod,
-      var_loa = pre$var_loa,
-      var_loa_mod = pre$var_loa_mod,
-      loa_ba = ci$loa_ba,
-      loa_ba_mod = ci$loa_ba_mod,
-      loa_mover = ci$loa_mover,
-      loa_mover_mod = ci$loa_mover_mod,
-      loa_bt = ci$loa_bt,
-      loa_bt_mod = ci$loa_bt_mod
+      # bv = pre$bv,
+      # var_tvv = pre$var_tvv,
+      # loa = pre$loa,
+      # loa_mod = pre$loa_mod,
+      # var_loa = pre$var_loa,
+      # var_loa_mod = pre$var_loa_mod,
+      # loa_ba = ci$loa_ba,
+      # loa_ba_mod = ci$loa_ba_mod,
+      # loa_mover = ci$loa_mover,
+      # loa_mover_mod = ci$loa_mover_mod,
+      # loa_bt = ci$loa_bt,
+      # loa_bt_mod = ci$loa_bt_mod,
+      res = res,
+      tab = tab,
+      fig = fig
+
     )
   )
 }
