@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage[ngerman]{babel}
+\usepackage{svg}
+
+\title{Results of modified Bland Altman analysis}
+\author{Inga Könemund}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\section{Analysis results}
+
+% include analysis results as table
+\include{ana_res_tab}
+
+% include analysis results as plot
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{plot_res}
+\end{figure}
+
+\newpage
+\section {Individual means}
+% include individual means as table
+\include{ind_means_tab}
+
+\end {document}
