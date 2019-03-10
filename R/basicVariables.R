@@ -26,6 +26,8 @@
 #'   \item{n_obs}{number of observations}
 #'   \item{d}{mean of all differences}
 #'   \item{d_a}{modified mean of all differences}
+#'   \item{mean_x}{mean of all measurements with X}
+#'   \item{mean_y}{mean of all measurements with Y}
 #'
 
 basicVariables <- function(dt){
@@ -108,17 +110,22 @@ basicVariables <- function(dt){
   # -------------------------------------
 
   # mean of all differences/ bias (D/ B)
-  ans <- outputMeasurements[, d_ij]
-  d <- mean (ans)
+  d <- mean(outputMeasurements[, d_ij])
 
-  rm(ans)
   # -------------------------------------
 
   # alternative mean of all differences/ bias (D_a/ B_a)
-  ans <- outputSubjects[, d_i]
-  d_a <- mean (ans)
+  d_a <- mean(outputSubjects[, d_i])
 
-  rm(ans)
+  # -------------------------------------
+
+  # mean of measurementX
+  mean_x <- mean(outputMeasurements[, measurementX])
+
+  # -------------------------------------
+
+  # mean of measurementY
+  mean_y <- mean(outputMeasurements[, measurementY])
 
   # -------------------------------------
 
@@ -131,6 +138,10 @@ basicVariables <- function(dt){
   }
   rm(i)
 
+  # -------------------------------------
+  # repeatability coefficients
+  source("R/blandxtr.repeatability.R")
+  rep_coeff <- calc_repeat(mean_x, mean_y, dt$measurementX, dt$measurementY)
 
   # -------------------------------------
   return(
@@ -140,7 +151,10 @@ basicVariables <- function(dt){
       n = n,
       n_obs = n_obs,
       d = d,
-      d_a = d_a
+      d_a = d_a,
+      mean_x = mean_x,
+      mean_y = mean_y,
+      rep_coeff = rep_coeff
     )
   )
 }
