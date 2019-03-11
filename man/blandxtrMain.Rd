@@ -4,15 +4,15 @@
 \alias{blandxtrMain}
 \title{Main method for blandxtr}
 \usage{
-blandxtrMain(bt, input_dt, biasMod)
+blandxtrMain(bt, path, biasMod)
 }
 \arguments{
 \item{bt}{number of bootstrap samples}
 
-\item{input_dt}{data.table with input dataset}
-
 \item{biasMod}{set TRUE for modified calculation of bias (small wsv),
 set FALSE for standard calculation of bias (small bsv)}
+
+\item{input_dt}{data.table with input dataset}
 }
 \value{
 A list containing the return values of all used functions.
