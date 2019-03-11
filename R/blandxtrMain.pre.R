@@ -19,7 +19,7 @@
 #' @return A list containing the return values of all used functions.
 #'
 
-blandxtrMain_pre <- function (bt, input_dt, biasMod) {
+blandxtrMain_pre <- function (input_dt, bt, biasMod) {
   # -----------------------------------------
   start_time <- Sys.time()
   # calculate basic variables

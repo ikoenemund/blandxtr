@@ -35,7 +35,7 @@ blandxtrMain <- function(bt, path, biasMod){
   # read input dataset and convert it to data.table
   input_dt <- blandxtr_readData(path)
 
-  pre <- blandxtrMain_pre (bt, input_dt, biasMod)
+  pre <- blandxtrMain_pre (input_dt, bt, biasMod)
   ci <- blandxtr_ci(bt, input_dt, biasMod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
     pre$var_loa, pre$var_loa_mod)
 
