@@ -6,10 +6,16 @@
 # # idea: opts_knit$set(root.dir = '../..')
 # setwd("C:/Users/IK/Documents/blandxtr")
 # ###
+start_time <- Sys.time()
 
 source("R/blandxtrMain.R")
 path <- "data/dataOlofsen.csv"
-biasMod <- FALSE
-bt <- 1
+biasMod <- TRUE
+bt <- 200
 
 olofsen_result <- blandxtrMain (bt, path, biasMod)
+
+end_time <- Sys.time()
+time_total <- end_time - start_time
+time_total
+

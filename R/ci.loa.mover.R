@@ -28,15 +28,24 @@
 calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
   loa_u) {
   # harmonic mean (m_h)
-  ans <- 0
-  for(i in 1:n) {
-    m_i <- outputSubjects[subject == i,
-      m_i]
-    ans <- ans + (1/m_i)
-  }
+
+  # ans <- 0
+  # for(i in 1:n) {
+  #   m_i <- outputSubjects[subject == i,
+  #     m_i]
+  #   ans <- ans + (1/m_i)
+  # }
+
+  ### TEST
+  helper <- 0
+  helper <- 1/(outputSubjects[, m_i])
+  ans <- sum(helper)
+  ###
+
   m_h <- n/ans
 
-  rm(ans, i)
+  # rm(ans, i)
+  rm(ans, helper)
 
 
   # s ((s_tot)^2)

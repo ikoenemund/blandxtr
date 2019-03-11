@@ -50,6 +50,7 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
     var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u)
 
   # -----------------------------------------
+  start_time <- Sys.time()
   # CI bootstrap
   # mod: uses modified versions of loa (modified tvv)
   source("R/ci.loa.bt.R")
@@ -60,6 +61,8 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
   # CI bootstrap (based on modified tvv)
   loa_bt_mod <- calc_ci_loa_bt (bt, input_dt, biasMod, loa_mod$loa_l,
     loa_mod$loa_u, var_loa_mod)
+  end_time <- Sys.time()
+  time_ci_bt<- end_time - start_time
   # -----------------------------------------
 
   return(
@@ -69,7 +72,8 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
       loa_mover = loa_mover,
       loa_mover_mod = loa_mover_mod,
       loa_bt = loa_bt,
-      loa_bt_mod = loa_bt_mod
+      loa_bt_mod = loa_bt_mod,
+      time_ci_bt = time_ci_bt
     )
   )
 }

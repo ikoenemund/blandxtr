@@ -29,14 +29,29 @@
 
 calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
   biasMod){
+
+  ### TEST
   ans1 <- 0
   ans2 <- 0
-  for(i in 1:n) {
-    m_i <- outputSubjects[subject == i,
-      m_i]
-    ans1 <- ans1 + (m_i^2)
-    ans2 <- ans2 + (1/m_i)
-  }
+  helper <- 0
+  ans1 <- 0
+  helper <- ((outputSubjects[, m_i])^2)
+  ans1 <- sum(helper)
+
+  helper <- 0
+  helper <- 1/(outputSubjects[, m_i])
+  ans2 <- sum(helper)
+  ###
+
+  # ans1 <- 0
+  # ans2 <- 0
+  # for(i in 1:n) {
+  #   m_i <- outputSubjects[subject == i,
+  #     m_i]
+  #   ans1 <- ans1 + (m_i^2)
+  #   ans2 <- ans2 + (1/m_i)
+  # }
+
   ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
 
   if (biasMod) {
@@ -48,6 +63,8 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
   var_sd_d <- var_var_d/(4*ev_var_d)
 
   var_loa <- var_bias+((1.96^2)*var_sd_d)
+
+  # rm(helper, ans1, ans2)
 }
 
 # ---------------------------

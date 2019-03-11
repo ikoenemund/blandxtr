@@ -35,6 +35,7 @@ basicVariables <- function(dt){
   library(data.table)
 
   # ----------------------------
+  start_time <- Sys.time()
   # some preparation
 
   # copy input data for modification as output
@@ -46,6 +47,8 @@ basicVariables <- function(dt){
   # rename column
   setnames(outputSubjects,"N", "m_i")
 
+  end_time <- Sys.time()
+  time_prep <- end_time - start_time
   # ----------------------------
 
   # number of subjects (n)
@@ -68,6 +71,7 @@ basicVariables <- function(dt){
 
   # ------------------------------
 
+  start_time <- Sys.time()
   # all subjects (each subject):
   # mean of differences between measurements (each subject)
   ans <- outputMeasurements[, mean(d_ij), by = .(subject)]
@@ -82,31 +86,57 @@ basicVariables <- function(dt){
         # test
         #outputSubjects[, mean_diff:=[, outputMeasurements[, .(mean(difference_mk)), by =.(subject)]]
 
+  end_time <- Sys.time()
+  time_d_i <- end_time - start_time
   # -------------------------------
 
-  # variance of differences for each subject
-  # TO DO: leave out? (not needed), make nicer (sum)
-  # i: number of subject
-
-  variance_diff <- function(i) {
-    d_i <- outputSubjects[subject == i,
-      d_i]
-    m_i <- outputSubjects[subject == i,
-      m_i]
-    ans <- (outputMeasurements[subject == i,
-      d_ij]-d_i)^2
-
-    var_d_i <- sum(ans)/(m_i-1)
-  }
-
-  # variance of differences for each subject (calculation for all subjects)
-  ans <- outputSubjects[, variance_diff(subject), by = .(subject)]
-  setnames(ans,"V1", "var_d_i")
-
-  outputSubjects <- merge(ans, outputSubjects, by="subject")
-  rm(ans)
-  rm(variance_diff)
-
+  # # variance of differences for each subject
+  # # TO DO: leave out? (not needed), make nicer (sum)
+  #
+  # # # TO DO: leave out? (not needed), make nicer (sum)
+  # # # i: number of subject
+  # #
+  # # variance_diff <- function(i) {
+  # #   d_i <- outputSubjects[subject == i,
+  # #     d_i]
+  # #   m_i <- outputSubjects[subject == i,
+  # #     m_i]
+  # #   ans <- (outputMeasurements[subject == i,
+  # #     d_ij]-d_i)^2
+  # #
+  # #   var_d_i <- sum(ans)/(m_i-1)
+  # # }
+  # #
+  # # start_time <- Sys.time()
+  # # # variance of differences for each subject (calculation for all subjects)
+  # # ans <- outputSubjects[, variance_diff(subject), by = .(subject)]
+  # # setnames(ans,"V1", "var_d_i")
+  # #
+  # # outputSubjects <- merge(ans, outputSubjects, by="subject")
+  # # rm(ans)
+  # # rm(variance_diff)
+  #
+  # start_time <- Sys.time()
+  # ### TEST
+  # ans2 <- 0
+  # ans3 <- 0
+  # helper <- 0
+  # helper <- setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
+  # setkey(outputMeasurements, NULL)
+  # helper[, ans := (d_ij-d_i)^2]
+  #
+  # ans2 <- helper[, sum(ans), by = .(subject)]
+  # setnames(ans2,"V1", "ans2")
+  # outputMeasurements[, ans:=NULL]
+  # ans3 <- merge(ans2, outputSubjects, by="subject")
+  # ans3[, var_d_i := ans2/(m_i-1)]
+  # outputSubjects <- merge(ans3[, c("subject", "var_d_i")], outputSubjects, by="subject")
+  #
+  # rm(helper, ans2, ans3)
+  # ###
+  #
+  # end_time <- Sys.time()
+  # time_var_d_i <- end_time - start_time
   # -------------------------------------
 
   # mean of all differences/ bias (D/ B)
@@ -129,20 +159,43 @@ basicVariables <- function(dt){
 
   # -------------------------------------
 
-  # residuals (r_ij = d_ij - d_i)
-  outputMeasurements[, r_ij:=double()]
-  for (i in 1:length(outputMeasurements)){
-    outputMeasurements$r_ij[i] <- outputMeasurements$d_ij[i]-
-      outputSubjects$d_i[outputSubjects$subject==outputMeasurements$
-          subject[i]]
-  }
-  rm(i)
+  # residuals (r_ij = d_ij - d_i) using left-join
+  helper <- 0
+  helper <- setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
+  setkey(outputMeasurements, NULL)
+  outputMeasurements[, r_ij := helper$d_ij - helper$d_i]
+  # outputMeasurements[, d_i:=NULL]
+  rm(helper)
 
   # -------------------------------------
   # repeatability coefficients
-  source("R/blandxtr.repeatability.R")
-  rep_coeff <- calc_repeat(mean_x, mean_y, dt$measurementX, dt$measurementY)
+  start_time <- Sys.time()
+  # source("R/blandxtr.repeatability.R")
+  # rep_coeff <- calc_repeat(mean_x, mean_y, dt$measurementX, dt$measurementY)
 
+  ans <- 0
+  ans <- sum((dt$measurementX-mean_x)^2)
+  mssr_x <- (1/(length(dt$measurementX)-1))*ans
+  rm(ans)
+
+  ans <- 0
+  ans <- sum((dt$measurementY-mean_y)^2)
+  mssr_y <- (1/(length(dt$measurementY)-1))*ans
+  rm(ans)
+
+  s_x <- sqrt(mssr_x)
+  s_y <- sqrt(mssr_y)
+  s_x_s_y <- s_x/s_y
+
+  rep_coeff <- list(
+    mssr_x = mssr_x,
+    mssr_y = mssr_y,
+    s_x = s_x,
+    s_y = s_y,
+    s_x_s_y = s_x_s_y
+  )
+  end_time <- Sys.time()
+  time_repeat <- end_time - start_time
   # -------------------------------------
   return(
     list(
@@ -154,7 +207,11 @@ basicVariables <- function(dt){
       d_a = d_a,
       mean_x = mean_x,
       mean_y = mean_y,
-      rep_coeff = rep_coeff
+      rep_coeff = rep_coeff,
+      time_prep = time_prep,
+      time_d_i = time_d_i,
+      time_repeat = time_repeat
+      # time_var_d_i = time_var_d_i
     )
   )
 }

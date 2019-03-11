@@ -40,6 +40,8 @@ blandxtrMain <- function(bt, path, biasMod){
     pre$var_loa, pre$var_loa_mod)
 
   res <- c(pre, ci)
+
+  start_time <- Sys.time()
   tab <- blandxtr_results_table(res)
   fig <- blandxtr_results_plot(res)
 
@@ -51,6 +53,8 @@ blandxtrMain <- function(bt, path, biasMod){
   knit2pdf(input = "report.blandxtr.Rnw")
   setwd('..')
 
+  end_time <- Sys.time()
+  time_report <- end_time - start_time
   # -----------------------------------------
   return(
     list(
@@ -68,7 +72,8 @@ blandxtrMain <- function(bt, path, biasMod){
       # loa_bt_mod = ci$loa_bt_mod,
       res = res,
       tab = tab,
-      fig = fig
+      fig = fig,
+      time_report = time_report
 
     )
   )
