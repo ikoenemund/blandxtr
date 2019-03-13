@@ -50,30 +50,42 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
     var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u)
 
   # -----------------------------------------
-  start_time <- Sys.time()
-  # CI bootstrap
+  # CI bootstrap: only executed if bt > 0
   # mod: uses modified versions of loa (modified tvv)
-  source("R/ci.loa.bt.R")
+  start_time <- Sys.time()
+  if (bt > 0){
+    source("R/ci.loa.bt.R")
 
-  # CI bootstrap (based on standard tvv)
-  loa_bt <- calc_ci_loa_bt (bt, input_dt, biasMod, loa$loa_l, loa$loa_u, var_loa)
+    # CI bootstrap (based on standard tvv)
+    loa_bt <- calc_ci_loa_bt (bt, input_dt, biasMod, loa$loa_l, loa$loa_u, var_loa)
 
-  # CI bootstrap (based on modified tvv)
-  loa_bt_mod <- calc_ci_loa_bt (bt, input_dt, biasMod, loa_mod$loa_l,
-    loa_mod$loa_u, var_loa_mod)
-  end_time <- Sys.time()
-  time_ci_bt<- end_time - start_time
+    # CI bootstrap (based on modified tvv)
+    loa_bt_mod <- calc_ci_loa_bt (bt, input_dt, biasMod, loa_mod$loa_l,
+      loa_mod$loa_u, var_loa_mod)
+    end_time <- Sys.time()
+    time_ci_bt<- end_time - start_time
+
+  }
   # -----------------------------------------
 
   return(
-    list(
-      loa_ba = loa_ba,
-      loa_ba_mod = loa_ba_mod,
-      loa_mover = loa_mover,
-      loa_mover_mod = loa_mover_mod,
-      loa_bt = loa_bt,
-      loa_bt_mod = loa_bt_mod,
-      time_ci_bt = time_ci_bt
-    )
+    if (bt > 0){
+      list(
+        loa_ba = loa_ba,
+        loa_ba_mod = loa_ba_mod,
+        loa_mover = loa_mover,
+        loa_mover_mod = loa_mover_mod,
+        loa_bt = loa_bt,
+        loa_bt_mod = loa_bt_mod,
+        time_ci_bt = time_ci_bt
+      )
+    } else {
+      list(
+        loa_ba = loa_ba,
+        loa_ba_mod = loa_ba_mod,
+        loa_mover = loa_mover,
+        loa_mover_mod = loa_mover_mod
+      )
+    }
   )
 }
