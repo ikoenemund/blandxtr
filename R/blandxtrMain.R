@@ -35,6 +35,10 @@ blandxtrMain <- function(input_dt, bt, biasMod){
   if (!(is.logical(biasMod)))
     stop("'biasMod' is not logical.")
 
+  # -----------------------------------------
+  # prepare input data for analysis
+  source("R/blandxtr.prepareData.R")
+  input_dt <- blandxtr_prepareData(input_dt)
 
   # -----------------------------------------
 
