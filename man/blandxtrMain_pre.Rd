@@ -4,12 +4,12 @@
 \alias{blandxtrMain_pre}
 \title{Helper function for main method for blandxtr}
 \usage{
-blandxtrMain_pre(bt, input_dt, biasMod)
+blandxtrMain_pre(input_dt, bt, biasMod)
 }
 \arguments{
-\item{bt}{number of bootstrap samples}
-
 \item{input_dt}{data.table with input dataset}
+
+\item{bt}{number of bootstrap samples}
 
 \item{biasMod}{set TRUE for modified calculation of bias (small wsv),
 set FALSE for standard calculation of bias (small bsv)}

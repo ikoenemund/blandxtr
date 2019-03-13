@@ -13,6 +13,10 @@ blandxtr_readData <- function(path){
 
   library(data.table)
 
+  # check input
+  if (!(is.character(path)))
+    stop("'path' is not a character.")
+
   # -----------------------------------------
   # read data from given path
   dt <- fread(path)

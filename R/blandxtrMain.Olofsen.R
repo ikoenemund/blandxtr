@@ -8,14 +8,16 @@
 # ###
 start_time <- Sys.time()
 
-source("R/blandxtrMain.R")
+source("R/blandxtr.readData.R")
 path <- "data/dataOlofsen.csv"
-biasMod <- TRUE
-bt <- 200
+input_dt <- blandxtr_readData(path)
 
-olofsen_result <- blandxtrMain (bt, path, biasMod)
+source("R/blandxtrMain.R")
+biasMod <- TRUE
+bt <- -1
+
+olofsen_result <- blandxtrMain (input_dt, bt, biasMod)
 
 end_time <- Sys.time()
 time_total <- end_time - start_time
 time_total
-
