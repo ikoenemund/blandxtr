@@ -28,6 +28,7 @@
 #'   \item{d_a}{modified mean of all differences}
 #'   \item{mean_x}{mean of all measurements with X}
 #'   \item{mean_y}{mean of all measurements with Y}
+#'   \item{rep_coeff}{repeatability coefficients}
 #'
 
 basicVariables <- function(dt){
@@ -90,9 +91,31 @@ basicVariables <- function(dt){
   time_d_i <- end_time - start_time
   # -------------------------------
 
-  # # variance of differences for each subject
-  # # TO DO: leave out? (not needed), make nicer (sum)
+  # variance of differences for each subject
+  # TO DO: leave out? (not needed), make nicer (sum)
+
+  # start_time <- Sys.time()
+  # ### TEST
+  # ans2 <- 0
+  # ans3 <- 0
+  # helper <- 0
+  # helper <- setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
+  # setkey(outputMeasurements, NULL)
+  # helper[, ans := (d_ij-d_i)^2]
   #
+  # ans2 <- helper[, sum(ans), by = .(subject)]
+  # setnames(ans2,"V1", "ans2")
+  # outputMeasurements[, ans:=NULL]
+  # ans3 <- merge(ans2, outputSubjects, by="subject")
+  # ans3[, var_d_i := ans2/(m_i-1)]
+  # outputSubjects <- merge(ans3[, c("subject", "var_d_i")], outputSubjects, by="subject")
+  #
+  # rm(helper, ans2, ans3)
+  # ###
+  #
+  # end_time <- Sys.time()
+  # time_var_d_i <- end_time - start_time
+
   # # # TO DO: leave out? (not needed), make nicer (sum)
   # # # i: number of subject
   # #
@@ -116,27 +139,6 @@ basicVariables <- function(dt){
   # # rm(ans)
   # # rm(variance_diff)
   #
-  # start_time <- Sys.time()
-  # ### TEST
-  # ans2 <- 0
-  # ans3 <- 0
-  # helper <- 0
-  # helper <- setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
-  # setkey(outputMeasurements, NULL)
-  # helper[, ans := (d_ij-d_i)^2]
-  #
-  # ans2 <- helper[, sum(ans), by = .(subject)]
-  # setnames(ans2,"V1", "ans2")
-  # outputMeasurements[, ans:=NULL]
-  # ans3 <- merge(ans2, outputSubjects, by="subject")
-  # ans3[, var_d_i := ans2/(m_i-1)]
-  # outputSubjects <- merge(ans3[, c("subject", "var_d_i")], outputSubjects, by="subject")
-  #
-  # rm(helper, ans2, ans3)
-  # ###
-  #
-  # end_time <- Sys.time()
-  # time_var_d_i <- end_time - start_time
   # -------------------------------------
 
   # mean of all differences/ bias (D/ B)
@@ -208,6 +210,7 @@ basicVariables <- function(dt){
       mean_x = mean_x,
       mean_y = mean_y,
       rep_coeff = rep_coeff,
+
       time_prep = time_prep,
       time_d_i = time_d_i,
       time_repeat = time_repeat

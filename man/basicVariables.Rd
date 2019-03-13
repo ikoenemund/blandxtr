@@ -30,6 +30,9 @@ A list with the following elements is returned
   \item{n_obs}{number of observations}
   \item{d}{mean of all differences}
   \item{d_a}{modified mean of all differences}
+  \item{mean_x}{mean of all measurements with X}
+  \item{mean_y}{mean of all measurements with Y}
+  \item{rep_coeff}{repeatability coefficients}
 }
 \description{
 \code{basicVariables} returns basic variables of an input
