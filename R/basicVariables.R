@@ -33,6 +33,11 @@
 
 basicVariables <- function(dt){
 
+  # check input
+  if (!(is.data.table(dt)))
+    stop("'input_dt' is not a data.table.")
+
+  # ----------------------------
   library(data.table)
 
   # ----------------------------
@@ -172,18 +177,29 @@ basicVariables <- function(dt){
   # -------------------------------------
   # repeatability coefficients
   start_time <- Sys.time()
-  # source("R/blandxtr.repeatability.R")
-  # rep_coeff <- calc_repeat(mean_x, mean_y, dt$measurementX, dt$measurementY)
 
   ans <- 0
-  ans <- sum((dt$measurementX-mean_x)^2)
-  mssr_x <- (1/(length(dt$measurementX)-1))*ans
+  ans <- input_dt[, mean(measurementX), by = .(subject)]
+  setnames(ans,"V1", "x_i")
+
+  helper <- 0
+  helper <- merge(input_dt, ans, by="subject")
   rm(ans)
 
-  ans <- 0
-  ans <- sum((dt$measurementY-mean_y)^2)
-  mssr_y <- (1/(length(dt$measurementY)-1))*ans
+  ans <- input_dt[, mean(measurementY), by = .(subject)]
+  setnames(ans,"V1", "y_i")
+  helper <- merge(helper, ans, by="subject")
   rm(ans)
+
+  ans1 <- sum((helper$measurementX - helper$x_i)^2)
+  ans2 <- sum((helper$measurementY - helper$y_i)^2)
+  rm(helper)
+
+  mssr_x <- (1/(length(dt$measurementX)-n))*ans1
+  rm(ans1)
+
+  mssr_y <- (1/(length(dt$measurementY)-n))*ans2
+  rm(ans2)
 
   s_x <- sqrt(mssr_x)
   s_y <- sqrt(mssr_y)
