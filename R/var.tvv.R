@@ -179,6 +179,12 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   lambda_mod <- (1/n)*ans
   # rm(ans, i, m_i)
   rm(ans)
+  # -------------------------------------
+  # modified within subject-variance (wsv_mod)
+  # no changes (compared to standard tvv)
+
+  mssr_mod <- mssr
+  wsv_mod <- wsv
 
   # -------------------------------------
   # modified between subject-variance (bsv_mod) based on mssi_mod
@@ -209,7 +215,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
   # modified between subject-variance (bsv)
 
-  bsv_mod <- mssi_mod
+  bsv_mod <- (mssi_mod - (lambda_mod*mssr_mod))
   end_time <- Sys.time()
   time_bsv_mod <- end_time - start_time
   # -------------------------------------
@@ -236,7 +242,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
       wsv = wsv,
       bsv = bsv,
       bsv_mod = bsv_mod,
-      wsv_mod = wsv,
+      wsv_mod = wsv_mod,
       var_d = var_d,
       sd_d = sd_d,
       var_var_d = var_var_d,
