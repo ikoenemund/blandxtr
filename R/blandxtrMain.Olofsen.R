@@ -14,9 +14,10 @@ input_dt <- blandxtr_readData(path)
 
 source("R/blandxtrMain.R")
 biasMod <- TRUE
-bt <- -1
+bt <- 10
 
 olofsen_result <- blandxtrMain (input_dt, bt, biasMod)
+biasMod <- olofsen_result$res$biasMod
 
 end_time <- Sys.time()
 time_total <- end_time - start_time

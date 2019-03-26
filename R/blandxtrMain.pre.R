@@ -33,6 +33,7 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod) {
   for (i in 1:bv$n){
     if (bv$outputSubjects$m_i[i]!=(bv$n_obs/bv$n)){
       biasMod <- TRUE
+      break
     }
   }
   rm(i)
@@ -89,7 +90,8 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod) {
       time_bv = time_bv,
       time_var = time_var,
       time_loa = time_loa,
-      time_varloa = time_varloa
+      time_varloa = time_varloa,
+      biasMod = biasMod
     )
   )
 }

@@ -18,20 +18,23 @@
 #' @note Bootstrapping affects runtime severely. Set bt<=0
 #' if you want to skip bootstrapping.
 #'
-#' @return A list containing the return values of all used functions.
+#' @return A list containing the return values of all used functions and a
+#' report showing the main results (as pdf/ LaTex).
 
 blandxtrMain <- function(input_dt, bt, biasMod){
 
   # -----------------------------------------
   # check input
+  if (!(is.data.table(input_dt)))
+    stop("'input_dt' is not a data.table.")
+  if (!(all.equal(bt, as.integer(bt))))
+    stop("'bt' is not an integer.")
   if(bt<0) {
     warning("'bt' has been given a negative value.
     It has been automatically set 0 and
     bootstrapping has been skipped.")
     bt <- 0
   }
-  if (!(is.data.table(input_dt)))
-    stop("'input_dt' is not a data.table.")
   if (!(is.logical(biasMod)))
     stop("'biasMod' is not logical.")
 
@@ -55,7 +58,7 @@ blandxtrMain <- function(input_dt, bt, biasMod){
   res <- c(pre, ci)
 
   start_time <- Sys.time()
-  tab <- blandxtr_results_table(res)
+  tab <- blandxtr_results_table(res, bt)
   fig <- blandxtr_results_plot(res)
 
   # -----------------------------------------
@@ -87,7 +90,6 @@ blandxtrMain <- function(input_dt, bt, biasMod){
       tab = tab,
       fig = fig,
       time_report = time_report
-
     )
   )
 }
