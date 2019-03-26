@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[ngerman]{babel}
 \usepackage{svg}
+\usepackage{longtable}
+\usepackage{float}
 
 \title{Results of modified Bland Altman analysis}
 \author{Inga Könemund}
@@ -22,9 +24,52 @@
 \includegraphics[width=1\textwidth]{plot_res}
 \end{figure}
 
-\newpage
-\section {Individual means}
+\section{Analysis results (modified)}
+
+% include modified analysis results as table
+\include{ana_res_mod_tab}
+
+% include modified analysis results as plot
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{plot_res_mod}
+\end{figure}
+
+\section {Repeatability coefficients}
+% include repeatability coefficients as table
+\include{rep_coeff_tab}
+
+\section {Q-Q plot of the residuals}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{qq_resid}
+\end{figure}
+
+\section {Q-Q plot of the individual means}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{qq_ind_means}
+\end{figure}
+
+\section {Plot of the residuals vs mean}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{plot_res_means}
+\end{figure}
+
+\section {Plot of the residuals vs ID}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{plot_res_id}
+\end{figure}
+
+\section {Individual means of differences}
 % include individual means as table
 \include{ind_means_tab}
+
+\newpage
+\section {Residuals}
+% include residuals as table
+\include{resid_tab}
 
 \end {document}
