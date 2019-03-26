@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
-.tex
-.pdf
-.aux
-.log
+report/**.tex
+report/**.pdf
+report/**.aux
+report/**.log
