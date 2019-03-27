@@ -15,7 +15,8 @@ blandxtrMain(input_dt, bt, biasMod)
 set FALSE for standard calculation of bias (small bsv)}
 }
 \value{
-A list containing the return values of all used functions.
+A list containing the return values of all used functions and a
+report showing the main results (as pdf/ LaTex).
 }
 \description{
 \code{blandxtrMain} performs modified Bland Altman-analysis as
