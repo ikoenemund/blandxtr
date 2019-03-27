@@ -9,8 +9,9 @@
 #'
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
 #' @param input_dt data.table with input dataset
-#' @param biasMod set TRUE for modified calculation of bias (small wsv),
-#' set FALSE for standard calculation of bias (small bsv)
+#' @param biasMod set TRUE for modified calculation of bias (small wsv) and
+#' its variance, set FALSE for standard calculation of bias (small bsv) and
+#' its variance
 #'
 #' @note \code{biasMod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
