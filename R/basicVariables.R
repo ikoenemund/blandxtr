@@ -179,14 +179,14 @@ basicVariables <- function(dt){
   start_time <- Sys.time()
 
   ans <- 0
-  ans <- input_dt[, mean(measurementX), by = .(subject)]
+  ans <- dt[, mean(measurementX), by = .(subject)]
   setnames(ans,"V1", "x_i")
 
   helper <- 0
-  helper <- merge(input_dt, ans, by="subject")
+  helper <- merge(dt, ans, by="subject")
   rm(ans)
 
-  ans <- input_dt[, mean(measurementY), by = .(subject)]
+  ans <- dt[, mean(measurementY), by = .(subject)]
   setnames(ans,"V1", "y_i")
   helper <- merge(helper, ans, by="subject")
   rm(ans)
