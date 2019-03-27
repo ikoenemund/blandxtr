@@ -1,4 +1,9 @@
+# Modified Bland Altman-analysis on data from
+# https://www-users.york.ac.uk/~mb55/datasets/datasets.htm
+
+# ----------------------------------
 # CardiacOutput
+# source (web): https://www-users.york.ac.uk/~mb55/datasets/cardiac.dct
 
 start_time <- Sys.time()
 
@@ -19,6 +24,7 @@ time_total
 
 # ----------------------------------
 # Saturation
+# source (web): https://www-users.york.ac.uk/~mb55/datasets/sealey.dct
 
 start_time <- Sys.time()
 

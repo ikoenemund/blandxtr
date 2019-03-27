@@ -1,3 +1,20 @@
+#' @title Tables with results of modified Bland Altman-analysis
+#'
+#' @description \code{blandxtr.results.table} summarizes the results of
+#' modified Bland Altman-analysis performed with \code{blandxtrMain} as
+#' LaTeX-tables.
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param res list with results from \code{blandxtrMain}
+#' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
+#'
+#' @return Table with analysis results
+#' @return Table with modified analysis results
+#' @return Table with repeatability coefficients
+#' @return Table with individual residuals
+#' @return Table with residuals
+
 blandxtr_results_table <- function (res, bt) {
   if (bt < 1){
     # analysis results: using matrix and xtable
@@ -164,9 +181,9 @@ blandxtr_results_table <- function (res, bt) {
     list(
       ana_res_tab = ana_res_tab,
       ana_res_mod_tab = ana_res_mod_tab,
+      rep_coeff_tab = rep_coeff_tab,
       ind_means_tab = ind_means_tab,
-      resid_tab = resid_tab,
-      rep_coeff_tab = rep_coeff_tab
+      resid_tab = resid_tab
     )
   )
 

@@ -1,4 +1,18 @@
-# function for visualization (plot) of the results of Olofsen
+#' @title Visualization (plot) of the results of modified Bland Altman-analysis
+#'
+#' @description \code{blandxtr.results.plot} visualizes (plot) the results of
+#' modified Bland Altman-analysis performed with \code{blandxtrMain}
+#'
+#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#'
+#' @param res list with results from \code{blandxtrMain}
+#'
+#' @return Plot showing analysis results
+#' @return Plot showing modified analysis results
+#' @return QQ-plot of individual means
+#' @return QQ-plot of individual residuals
+#' @return Plot of residuals vs mean
+#' @return Plot of residuals vs ID
 
 blandxtr_results_plot <- function (res) {
 
@@ -93,7 +107,9 @@ blandxtr_results_plot <- function (res) {
       plot_res = plot_res,
       plot_res_mod = plot_res_mod,
       qq_ind_means = qq_ind_means,
-      qq_resid = qq_resid
+      qq_resid = qq_resid,
+      plot_res_means = plot_res_means,
+      plot_res_id = plot_res_id
     )
   )
 
