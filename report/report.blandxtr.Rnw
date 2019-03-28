@@ -1,8 +1,9 @@
 \documentclass{article}
-\usepackage[ngerman]{babel}
+\usepackage{babel}
 \usepackage{svg}
-\usepackage{longtable}
+\usepackage{longtable, needspace}
 \usepackage{float}
+\usepackage{caption}
 
 \title{Results of modified Bland Altman analysis}
 \author{Inga Könemund}
@@ -19,9 +20,14 @@
 \include{ana_res_tab}
 
 % include analysis results as plot
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{plot_res}
+\caption{Analysis results\\\hspace{\textwidth}
+solid line = zeroline\\\hspace{\textwidth}
+dashed line = bias\\\hspace{\textwidth}
+dotdashed line = LoA\\\hspace{\textwidth}
+dotted line = 95\%-CI of LoA}
 \end{figure}
 
 \section{Analysis results (modified)}
@@ -30,9 +36,14 @@
 \include{ana_res_mod_tab}
 
 % include modified analysis results as plot
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{plot_res_mod}
+\caption{Analysis results (modified analysis)\\\hspace{\textwidth}
+solid line = zeroline\\\hspace{\textwidth}
+dashed line = bias\\\hspace{\textwidth}
+dotdashed line = LoA\\\hspace{\textwidth}
+dotted line = 95\%-CI of LoA}
 \end{figure}
 
 \section {Repeatability coefficients}
@@ -71,5 +82,10 @@
 \section {Residuals}
 % include residuals as table
 \include{resid_tab}
+
+\newpage
+\section {Input data}
+% include input data as table
+\include{input_data_tab}
 
 \end {document}
