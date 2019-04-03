@@ -41,7 +41,6 @@ basicVariables <- function(dt){
   library(data.table)
 
   # ----------------------------
-  start_time <- Sys.time()
   # some preparation
 
   # copy input data for modification as output
@@ -53,8 +52,6 @@ basicVariables <- function(dt){
   # rename column
   setnames(outputSubjects,"N", "m_i")
 
-  end_time <- Sys.time()
-  time_prep <- end_time - start_time
   # ----------------------------
 
   # number of subjects (n)
@@ -77,7 +74,6 @@ basicVariables <- function(dt){
 
   # ------------------------------
 
-  start_time <- Sys.time()
   # all subjects (each subject):
   # mean of differences between measurements (each subject)
   ans <- outputMeasurements[, mean(d_ij), by = .(subject)]
@@ -92,14 +88,11 @@ basicVariables <- function(dt){
         # test
         #outputSubjects[, mean_diff:=[, outputMeasurements[, .(mean(difference_mk)), by =.(subject)]]
 
-  end_time <- Sys.time()
-  time_d_i <- end_time - start_time
   # -------------------------------
 
   # variance of differences for each subject
   # TO DO: leave out? (not needed), make nicer (sum)
 
-  # start_time <- Sys.time()
   # ### TEST
   # ans2 <- 0
   # ans3 <- 0
@@ -117,9 +110,6 @@ basicVariables <- function(dt){
   #
   # rm(helper, ans2, ans3)
   # ###
-  #
-  # end_time <- Sys.time()
-  # time_var_d_i <- end_time - start_time
 
   # # # TO DO: leave out? (not needed), make nicer (sum)
   # # # i: number of subject
@@ -135,7 +125,6 @@ basicVariables <- function(dt){
   # #   var_d_i <- sum(ans)/(m_i-1)
   # # }
   # #
-  # # start_time <- Sys.time()
   # # # variance of differences for each subject (calculation for all subjects)
   # # ans <- outputSubjects[, variance_diff(subject), by = .(subject)]
   # # setnames(ans,"V1", "var_d_i")
@@ -176,7 +165,6 @@ basicVariables <- function(dt){
 
   # -------------------------------------
   # repeatability coefficients
-  start_time <- Sys.time()
 
   ans <- 0
   ans <- dt[, mean(measurementX), by = .(subject)]
@@ -212,8 +200,6 @@ basicVariables <- function(dt){
     s_y = s_y,
     s_x_s_y = s_x_s_y
   )
-  end_time <- Sys.time()
-  time_repeat <- end_time - start_time
   # -------------------------------------
   return(
     list(
@@ -225,12 +211,7 @@ basicVariables <- function(dt){
       d_a = d_a,
       mean_x = mean_x,
       mean_y = mean_y,
-      rep_coeff = rep_coeff,
-
-      time_prep = time_prep,
-      time_d_i = time_d_i,
-      time_repeat = time_repeat
-      # time_var_d_i = time_var_d_i
+      rep_coeff = rep_coeff
     )
   )
 }

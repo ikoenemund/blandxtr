@@ -38,7 +38,6 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # -------------------------------------
 
   # lambda
-  start_time <- Sys.time()
   ### TEST
   helper <- 0
   ans <- 0
@@ -58,14 +57,12 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   #
   # lambda <- ((n_obs^2)-ans)/((n-1)*n_obs)
   # rm(ans)
-  end_time <- Sys.time()
-  time_lambda <- end_time - start_time
+
   # -------------------------------------
   # within subject-variance (wsv) based on mssr
-  start_time <- Sys.time()
   # mssr
 
-  ### TEST (improved runtime from 2.5 to 0.004 sec!)
+  ### TEST
   # using left-join
 
   # helper <- setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
@@ -97,10 +94,8 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # within subject-variance (wsv)
   wsv <- mssr
 
-  end_time <- Sys.time()
-  time_wsv <- end_time - start_time
   # -------------------------------------
-  start_time <- Sys.time()
+
   # between subject-variance (bsv) based on mssi
 
   # mssi
@@ -128,35 +123,27 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # between subject-variance (bsv)
 
   bsv <- (mssi-wsv)/lambda
-  end_time <- Sys.time()
-  time_bsv <- end_time - start_time
   # -------------------------------------
-  start_time <- Sys.time()
+
   # variance of all differences (var_d)
 
   var_d <- ((1-(1/lambda))*mssr)+((1/lambda)*mssi)
-  end_time <- Sys.time()
-  time_var_d <- end_time - start_time
 
   # TO DO: create test (see if formula above is equal to following, change text if not!)
   # var_d <- bsv + wsv
 
   # -------------------------------------
-  start_time <- Sys.time()
+
   # standard deviation of all differences (sd_d)
 
   sd_d <- sqrt (var_d)
 
-  end_time <- Sys.time()
-  time_sd_d <- end_time - start_time
   # -------------------------------------
-  start_time <- Sys.time()
+
   # variance of variance of differences
 
   var_var_d <- ((2*(((1-(1/lambda))*wsv)^2))/(n_obs-n)) + ((2*(((wsv/lambda)+bsv)^2))/(n-1))
 
-  end_time <- Sys.time()
-  time_var_var_d <- end_time - start_time
   # -------------------------------------
   # modified tvv
   # -------------------------------------
@@ -188,7 +175,6 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
   # -------------------------------------
   # modified between subject-variance (bsv_mod) based on mssi_mod
-  start_time <- Sys.time()
   # mssi_mod
 
   ### TEST
@@ -216,8 +202,6 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # modified between subject-variance (bsv)
 
   bsv_mod <- (mssi_mod - (lambda_mod*mssr_mod))
-  end_time <- Sys.time()
-  time_bsv_mod <- end_time - start_time
   # -------------------------------------
 
   # modified variance of all differences (var_d_mod)
@@ -248,14 +232,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
       var_var_d = var_var_d,
       var_d_mod = var_d_mod,
       sd_d_mod = sd_d_mod,
-      var_var_d_mod = var_var_d_mod,
-      time_wsv = time_wsv,
-      time_bsv = time_bsv,
-      time_bsv_mod = time_bsv_mod,
-      time_lambda = time_lambda,
-      time_var_d = time_var_d,
-      time_sd_d = time_sd_d,
-      time_var_var_d = time_var_var_d
+      var_var_d_mod = var_var_d_mod
     )
   )
 }

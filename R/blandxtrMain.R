@@ -58,7 +58,6 @@ blandxtrMain <- function(input_dt, bt, biasMod){
 
   res <- c(pre, ci)
 
-  start_time <- Sys.time()
   tab <- blandxtr_results_table(res, bt)
   fig <- blandxtr_results_plot(res)
 
@@ -69,9 +68,6 @@ blandxtrMain <- function(input_dt, bt, biasMod){
   options(tinytex.verbose = TRUE)
   knit2pdf(input = "report.blandxtr.Rnw")
   setwd('..')
-
-  end_time <- Sys.time()
-  time_report <- end_time - start_time
   # -----------------------------------------
   return(
     list(
@@ -89,8 +85,7 @@ blandxtrMain <- function(input_dt, bt, biasMod){
       # loa_bt_mod = ci$loa_bt_mod,
       res = res,
       tab = tab,
-      fig = fig,
-      time_report = time_report
+      fig = fig
     )
   )
 }
