@@ -100,10 +100,10 @@ calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa) {
     time_matrix <- end_time - start_time
 
   start_time <- Sys.time()
-  ci_l_loa_l_bt <- loa_l-(sqrt(var_loa)*quantile(s[,4],0.975))
-  ci_u_loa_l_bt <- loa_l-(sqrt(var_loa)*quantile(s[,4],0.025))
-  ci_l_loa_u_bt <- loa_u-(sqrt(var_loa)*quantile(s[,5],0.975))
-  ci_u_loa_u_bt <- loa_u-(sqrt(var_loa)*quantile(s[,5],0.025))
+  ci_l_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],0.975)))
+  ci_u_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],0.025)))
+  ci_l_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],0.975)))
+  ci_u_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],0.025)))
   rm(s)
   end_time <- Sys.time()
   time_quantiles <- end_time - start_time
