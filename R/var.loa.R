@@ -30,7 +30,6 @@
 calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
   biasMod, beta){
 
-  ### TEST
   ans1 <- 0
   ans2 <- 0
   helper <- 0
@@ -41,16 +40,6 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
   helper <- 0
   helper <- 1/(outputSubjects[, m_i])
   ans2 <- sum(helper)
-  ###
-
-  # ans1 <- 0
-  # ans2 <- 0
-  # for(i in 1:n) {
-  #   m_i <- outputSubjects[subject == i,
-  #     m_i]
-  #   ans1 <- ans1 + (m_i^2)
-  #   ans2 <- ans2 + (1/m_i)
-  # }
 
   ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
 
@@ -66,42 +55,3 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
   var_loa <- var_bias+((z^2)*var_sd_d)
 
 }
-
-# ---------------------------
-# # variance of mean of all differences (bias)
-# ans <- 0
-# calc_var_d <- function (n, n_obs, bsv, wsv, outputSubjects){
-#   for(i in 1:n) {
-#     m_i <- outputSubjects[subject == i,
-#       m_i]
-#     ans <- ans + (m_i^2)
-#   }
-#   var_d <- (wsv/n_obs)+((ans/(n_obs^2))*bsv)
-# }
-#
-# # ---------------------------
-# # alternative variance of mean of all differences (bias)
-# ans <- 0
-# calc_var_d_mod <- function (n, bsv, wsv, outputSubjects){
-#   for(i in 1:n) {
-#     m_i <- outputSubjects[subject == i,
-#       m_i]
-#     ans <- ans + (1/m_i)
-#   }
-#   var_d_mod <- ((1/(n^2))*ans*wsv)+(bsv/n)
-# }
-#
-# # ---------------------------
-# # variance of the standard deviation of the differences
-#
-# calc_var_sd_d <- function (var_var_d, ev_var_d){
-#   var_sd_d <- var_var_d/(4*ev_var_d)
-# }
-#
-# # ---------------------------
-# # variance of limits of agreement (var_loa)
-#
-# calc_var_loa <- function(var_d, var_sd_d){
-#   var_loa <- var_d+((1.96^2)*var_sd_d)
-# }
-

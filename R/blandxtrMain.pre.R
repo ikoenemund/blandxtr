@@ -21,8 +21,8 @@
 #'
 
 blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
-  # -----------------------------------------
 
+  # -----------------------------------------
   # calculate basic variables
   source("R/basicVariables.R")
   bv <- basicVariables(input_dt)
@@ -41,14 +41,12 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
   }
 
   # -----------------------------------------
-
   # analysis of variances
   source("R/var.tvv.R")
   var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$outputSubjects,
     bv$outputMeasurements)
 
   # -----------------------------------------
-
   # calculate limits of agreement (loa) (standard and modified)
   source("R/loa.R")
 
@@ -59,7 +57,6 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
   loa_mod <- calc_loa(bv$d_a, var_tvv$sd_d_mod, beta)
 
   # -----------------------------------------
-
   # calculate variance of limits of agreement (loa)
   source("R/var.loa.R")
 
@@ -70,7 +67,9 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
   # variance of loa (based on modified tvv)
   var_loa_mod <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
     bv$outputSubjects, var_tvv$var_var_d_mod, biasMod, beta)
+
   # -----------------------------------------
+
   return(
     list(
       bv = bv,

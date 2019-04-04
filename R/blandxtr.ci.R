@@ -1,6 +1,6 @@
-#' @title 95\%-confidence intervals for LoA (3 methods)
+#' @title Confidence intervals for LoA (3 methods)
 #'
-#' @description \code{blandxtr_ci} returns 95\%-confidence intervals (95\%-CI)
+#' @description \code{blandxtr_ci} returns confidence intervals (CI)
 #' for limits of agreement (LoA) based on three different methods
 #' (Bland and Altman (1999), MOVER and parametric bootstrap-t)
 #'

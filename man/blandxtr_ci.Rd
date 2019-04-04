@@ -2,7 +2,7 @@
 % Please edit documentation in R/blandxtr.ci.R
 \name{blandxtr_ci}
 \alias{blandxtr_ci}
-\title{95\%-confidence intervals for LoA (3 methods)}
+\title{Confidence intervals for LoA (3 methods)}
 \usage{
 blandxtr_ci(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod, var_loa,
   var_loa_mod, alpha, beta)
@@ -31,7 +31,7 @@ set FALSE for standard calculation of bias (small bsv)}
 A list with confidence intervals of the three methods
 }
 \description{
-\code{blandxtr_ci} returns 95\%-confidence intervals (95\%-CI)
+\code{blandxtr_ci} returns confidence intervals (CI)
 for limits of agreement (LoA) based on three different methods
 (Bland and Altman (1999), MOVER and parametric bootstrap-t)
 }

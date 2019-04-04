@@ -112,7 +112,6 @@ blandxtr_results_table <- function (res, bt) {
     ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   }
   # -----------------------------------
-
   # repCoeff_table
   # using data.table and xtable
 
@@ -131,13 +130,10 @@ blandxtr_results_table <- function (res, bt) {
     file = "report/rep_coeff_tab.tex")
 
   # -----------------------------------
-
   # individualMeans_table
   # using data.table and xtable
 
   ind_means <- copy(res$bv$outputSubjects)
-  # remove column "var_d_i"
-  ind_means[, var_d_i:=NULL]
   setnames(ind_means,"d_i", "Mean")
   setnames(ind_means,"m_i", "M")
   ind_means <- xtable(ind_means, digits = 3, NA.string = "-")
@@ -145,18 +141,9 @@ blandxtr_results_table <- function (res, bt) {
     file = "report/ind_means_tab.tex")
 
   # -----------------------------------
-
   # table with residuals
   # using data.table and xtable
 
-  # resid <- res$bv$outputMeasurements[, list(subject, measurement_id, r_ij)]
-  # setnames(resid,"r_ij", "Residual")
-  # setnames(resid,"measurement_id", "ID (Messung)")
-  # resid <- xtable(resid, digits = 7, NA.string = "-", longtable = TRUE)
-  # resid_tab <- print(resid, type="latex", tabular.environment="longtable",
-  #   include.rownames=FALSE, file = "report/resid_tab.tex")
-
-  ### TEST
   addtorow          <- list()
   addtorow$pos      <- list()
   addtorow$pos[[1]] <- c(0)
@@ -176,10 +163,8 @@ blandxtr_results_table <- function (res, bt) {
     add.to.row = addtorow,     # this is where you actually make the substitution
     hline.after=c(-1), # because addtorow will substitute the default hline for the first row
     file = "report/resid_tab.tex")
-  ###
 
   # -----------------------------------
-
   # table with input data
 
   addtorow          <- list()
