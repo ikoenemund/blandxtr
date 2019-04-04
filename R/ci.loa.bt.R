@@ -1,7 +1,7 @@
-#' @title 95\%-confidence intervals for LoA (parametric bootsrap-t)
+#' @title Confidence intervals for LoA (parametric bootsrap-t)
 #'
-#' @description \code{calc_ci_loa_bt} returns 95\%-confidence intervals
-#' (95\%-CI) for limits of agreement (LoA). Calculation is based on
+#' @description \code{calc_ci_loa_bt} returns confidence intervals
+#' (CI) for limits of agreement (LoA). Calculation is based on
 #' parametric bootstrap-t.
 #'
 #' @author Inga Koenemund \email{inga.koenemund@web.de}
@@ -13,6 +13,8 @@
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
 #' @param var_loa variance of limits of agreement
+#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
+#' @param beta for 100*(1-beta)%-confidence interval around bias
 #'
 #' @note \code{biasMod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
@@ -26,7 +28,8 @@
 #'  \item{\code{ci_u_loa_u_bt}} {upper limit of 95\%-CI for upper LoA}
 #' }
 
-calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa) {
+calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa,
+  alpha, beta) {
   source("R/blandxtrMain.pre.R")
 
   # # prepare matrix for storing results of bootstrapping
@@ -76,7 +79,8 @@ calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa) {
   # ba per sample
   start_time <- Sys.time()
 
-  boot <- lapply(boot_samp, blandxtrMain_pre, bt=bt, biasMod=biasMod)
+  boot <- lapply(boot_samp, blandxtrMain_pre, bt=bt, biasMod=biasMod,
+    beta)
 
   end_time <- Sys.time()
   time_ba <- end_time - start_time
@@ -100,10 +104,10 @@ calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa) {
     time_matrix <- end_time - start_time
 
   start_time <- Sys.time()
-  ci_l_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],0.975)))
-  ci_u_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],0.025)))
-  ci_l_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],0.975)))
-  ci_u_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],0.025)))
+  ci_l_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],1-alpha/2)))
+  ci_u_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],alpha/2)))
+  ci_l_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],1-alpha/2)))
+  ci_u_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],alpha/2)))
   rm(s)
   end_time <- Sys.time()
   time_quantiles <- end_time - start_time

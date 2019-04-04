@@ -2,9 +2,9 @@
 % Please edit documentation in R/ci.loa.ba.R
 \name{calc_ci_loa_ba}
 \alias{calc_ci_loa_ba}
-\title{95\%-confidence intervals for LoA (Bland Altman)}
+\title{Confidence intervals for LoA (Bland Altman)}
 \usage{
-calc_ci_loa_ba(loa_l, loa_u, var_loa)
+calc_ci_loa_ba(loa_l, loa_u, var_loa, alpha)
 }
 \arguments{
 \item{loa_l}{lower limit of agreement}
@@ -12,6 +12,8 @@ calc_ci_loa_ba(loa_l, loa_u, var_loa)
 \item{loa_u}{upper limit of agreement}
 
 \item{var_loa}{variance of limits of agreement}
+
+\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
 }
 \value{
 A list with the following elements is returned
@@ -23,7 +25,7 @@ A list with the following elements is returned
 }
 }
 \description{
-\code{calc_ci_loa_ba} returns 95\%-confidence intervals (95\%-CI)
+\code{calc_ci_loa_ba} returns confidence intervals (CI)
 for limits of agreement (LoA) based on a method proposed
 by Bland and Altman (1999).
 }

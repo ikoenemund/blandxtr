@@ -2,9 +2,9 @@
 % Please edit documentation in R/ci.loa.bt.R
 \name{calc_ci_loa_bt}
 \alias{calc_ci_loa_bt}
-\title{95\%-confidence intervals for LoA (parametric bootsrap-t)}
+\title{Confidence intervals for LoA (parametric bootsrap-t)}
 \usage{
-calc_ci_loa_bt(bt, input_dt, biasMod, loa_l, loa_u, var_loa)
+calc_ci_loa_bt(bt, input_dt, biasMod, loa_l, loa_u, var_loa, alpha, beta)
 }
 \arguments{
 \item{bt}{number of bootstrap samples}
@@ -19,6 +19,10 @@ set FALSE for standard calculation of bias (small bsv)}
 \item{loa_u}{upper limit of agreement}
 
 \item{var_loa}{variance of limits of agreement}
+
+\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+
+\item{beta}{for 100*(1-beta)%-confidence interval around bias}
 }
 \value{
 A list with the following elements is returned
@@ -30,8 +34,8 @@ A list with the following elements is returned
 }
 }
 \description{
-\code{calc_ci_loa_bt} returns 95\%-confidence intervals
-(95\%-CI) for limits of agreement (LoA). Calculation is based on
+\code{calc_ci_loa_bt} returns confidence intervals
+(CI) for limits of agreement (LoA). Calculation is based on
 parametric bootstrap-t.
 }
 \note{

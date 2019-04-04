@@ -28,7 +28,7 @@
 #'
 
 calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
-  biasMod){
+  biasMod, beta){
 
   ### TEST
   ans1 <- 0
@@ -62,9 +62,9 @@ calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
 
   var_sd_d <- var_var_d/(4*ev_var_d)
 
-  var_loa <- var_bias+((1.96^2)*var_sd_d)
+  z <- qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  var_loa <- var_bias+((z^2)*var_sd_d)
 
-  # rm(helper, ans1, ans2)
 }
 
 # ---------------------------

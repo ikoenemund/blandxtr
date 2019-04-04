@@ -4,7 +4,7 @@
 \alias{blandxtrMain_pre}
 \title{Helper function for main method for blandxtr}
 \usage{
-blandxtrMain_pre(input_dt, bt, biasMod)
+blandxtrMain_pre(input_dt, bt, biasMod, beta)
 }
 \arguments{
 \item{input_dt}{data.table with input dataset}
@@ -13,6 +13,8 @@ blandxtrMain_pre(input_dt, bt, biasMod)
 
 \item{biasMod}{set TRUE for modified calculation of bias (small wsv),
 set FALSE for standard calculation of bias (small bsv)}
+
+\item{beta}{for 100*(1-beta)%-confidence interval around bias}
 }
 \value{
 A list containing the return values of all used functions.

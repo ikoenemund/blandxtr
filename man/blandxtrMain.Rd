@@ -4,15 +4,20 @@
 \alias{blandxtrMain}
 \title{Main method for blandxtr}
 \usage{
-blandxtrMain(input_dt, bt, biasMod)
+blandxtrMain(input_dt, bt, biasMod, alpha, beta)
 }
 \arguments{
 \item{input_dt}{data.table with input dataset}
 
 \item{bt}{number of bootstrap samples (no bootstrapping if bt <= 0)}
 
-\item{biasMod}{set TRUE for modified calculation of bias (small wsv),
-set FALSE for standard calculation of bias (small bsv)}
+\item{biasMod}{set TRUE for modified calculation of bias (small wsv) and
+its variance, set FALSE for standard calculation of bias (small bsv) and
+its variance}
+
+\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+
+\item{beta}{for 100*(1-beta)%-confidence interval around bias}
 }
 \value{
 A list containing the return values of all used functions and a

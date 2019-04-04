@@ -4,7 +4,7 @@
 \alias{calc_var_loa}
 \title{Variance of limits of agreement}
 \usage{
-calc_var_loa(n, n_obs, bsv, wsv, outputSubjects, var_var_d, biasMod)
+calc_var_loa(n, n_obs, bsv, wsv, outputSubjects, var_var_d, biasMod, beta)
 }
 \arguments{
 \item{n}{number of subjects}

@@ -7,6 +7,7 @@
 #'
 #' @param d mean of all differences
 #' @param sd_d standard deviation of d
+#' @param beta for 100*(1-beta)%-confidence interval around bias
 #'
 #' @return A list with the following elements is returned
 #' \itemize{
@@ -17,13 +18,15 @@
 
 # ---------------------------
 # limits of agreement (loa)
- calc_loa <- function(d, sd_d){
+ calc_loa <- function(d, sd_d, beta){
 
    # lower
-  loa_l <- d-(1.96*sd_d)
+   z <- qnorm(1-beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+   loa_l <- d-(z*sd_d)
 
    # upper
-  loa_u <- d+(1.96*sd_d)
+  loa_u <- d+(z*sd_d)
+  rm(z)
 
    return(
      list(

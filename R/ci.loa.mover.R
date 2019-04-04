@@ -1,7 +1,7 @@
-#' @title 95\%-confidence intervals for LoA (MOVER)
+#' @title Confidence intervals for LoA (MOVER)
 #'
-#' @description \code{calc_ci_loa_mover} returns 95\%-confidence intervals
-#' (95\%-CI) for limits of agreement (LoA) based on MOVER-method
+#' @description \code{calc_ci_loa_mover} returns confidence intervals
+#' (CI) for limits of agreement (LoA) based on MOVER-method
 #' (Methods of Variance Estimates Recovery) proposed
 #' by Zou (2013).
 #'
@@ -15,6 +15,8 @@
 #' @param wsv within-subject variance
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
+#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
+#' @param beta for 100*(1-beta)%-confidence interval around bias
 #'
 #' @return A list with the following elements is returned
 #' \itemize{
@@ -26,7 +28,7 @@
 #'
 
 calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
-  loa_u) {
+  loa_u, alpha, beta) {
   # harmonic mean (m_h)
 
   # ans <- 0
@@ -52,24 +54,24 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
   s <- bsv_mod+((1-(1/m_h))*wsv)
 
   # l
-  chi1 <- qchisq(0.975, df=19, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  chi2 <- qchisq(0.975, df=280, ncp = 0, lower.tail = TRUE, log.p = FALSE)
+  chi1 <- qchisq((1-(alpha/2)), df=n-1, ncp = 0, lower.tail = TRUE, log.p = FALSE)
+  chi2 <- qchisq((1-(alpha/2)), df=n_obs-n, ncp = 0, lower.tail = TRUE, log.p = FALSE)
   l <- s - ((((bsv_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*
       (1-((n_obs-n)/(chi2))))^2))^(1/2))
 
   rm (chi1, chi2)
 
   # u
-  chi3 <- qchisq(0.025, df=19, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  chi4 <- qchisq(0.025, df=280, ncp = 0, lower.tail = TRUE, log.p = FALSE)
+  chi3 <- qchisq(alpha/2, df=n-1, ncp = 0, lower.tail = TRUE, log.p = FALSE)
+  chi4 <- qchisq(alpha/2, df=n_obs-n, ncp = 0, lower.tail = TRUE, log.p = FALSE)
   u <- s+((((bsv_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*
       ((((n_obs-n)/chi4))-1))^2))^(1/2))
 
   rm (chi3, chi4)
 
   #rme
-  z1 <- qnorm(0.025, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-  z2 <- qnorm(0.475, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  z1 <- qnorm(alpha/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+  z2 <- qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
 
   rme <- (((z1^2)*(bsv_mod/n))+((z2^2)*(((sqrt(s)-(sqrt(l))))^2)))^(1/2)
 

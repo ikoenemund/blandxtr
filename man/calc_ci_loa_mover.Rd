@@ -2,9 +2,10 @@
 % Please edit documentation in R/ci.loa.mover.R
 \name{calc_ci_loa_mover}
 \alias{calc_ci_loa_mover}
-\title{95\%-confidence intervals for LoA (MOVER)}
+\title{Confidence intervals for LoA (MOVER)}
 \usage{
-calc_ci_loa_mover(n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, loa_u)
+calc_ci_loa_mover(n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, loa_u,
+  alpha, beta)
 }
 \arguments{
 \item{n}{number of subjects}
@@ -21,6 +22,10 @@ number of measurements of each subject (m_i)}
 \item{loa_l}{lower limit of agreement}
 
 \item{loa_u}{upper limit of agreement}
+
+\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+
+\item{beta}{for 100*(1-beta)%-confidence interval around bias}
 }
 \value{
 A list with the following elements is returned
@@ -32,8 +37,8 @@ A list with the following elements is returned
 }
 }
 \description{
-\code{calc_ci_loa_mover} returns 95\%-confidence intervals
-(95\%-CI) for limits of agreement (LoA) based on MOVER-method
+\code{calc_ci_loa_mover} returns confidence intervals
+(CI) for limits of agreement (LoA) based on MOVER-method
 (Methods of Variance Estimates Recovery) proposed
 by Zou (2013).
 }

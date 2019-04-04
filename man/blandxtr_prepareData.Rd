@@ -14,8 +14,11 @@ Prepared input data as data.table
 }
 \description{
 \code{blandxtr.prepareData} checks input data.table for
-common errors and reduces it to the columns necessary for analysis with
-\code{blandxtrMain}.
+common errors (missing columns that are required, wrong type of input data)
+and reduces it to the columns necessary for analysis with \code{blandxtrMain}.
+}
+\note{
+Rows with missing values will be removed from analysis.
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

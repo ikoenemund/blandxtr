@@ -25,16 +25,17 @@
 
 
 blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
-  var_loa, var_loa_mod){
+  var_loa, var_loa_mod, alpha, beta){
   # -----------------------------------------
   # CI Bland Altman
   source("R/ci.loa.ba.R")
   # CI Bland Altman (based on standard tvv)
-  loa_ba <- calc_ci_loa_ba (loa$loa_l, loa$loa_u, var_loa)
+  loa_ba <- calc_ci_loa_ba (loa$loa_l, loa$loa_u, var_loa, alpha)
 
   # CI Bland Altman (based on modified tvv)
   # mod: uses modified versions of loa (modified tvv)
-  loa_ba_mod <- calc_ci_loa_ba (loa_mod$loa_l, loa_mod$loa_u, var_loa_mod)
+  loa_ba_mod <- calc_ci_loa_ba (loa_mod$loa_l, loa_mod$loa_u, var_loa_mod,
+    alpha)
 
   # -----------------------------------------
   # CI mover
@@ -43,11 +44,11 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
 
   # CI mover (based on standard tvv)
   loa_mover <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
-    var_tvv$bsv_mod, var_tvv$wsv, loa$loa_l, loa$loa_u)
+    var_tvv$bsv_mod, var_tvv$wsv, loa$loa_l, loa$loa_u, alpha, beta)
 
   # CI mover (based on modified tvv)
   loa_mover_mod <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
-    var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u)
+    var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u, alpha, beta)
 
   # -----------------------------------------
   # CI bootstrap: only executed if bt > 0
@@ -56,11 +57,12 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
     source("R/ci.loa.bt.R")
 
     # CI bootstrap (based on standard tvv)
-    loa_bt <- calc_ci_loa_bt (bt, input_dt, biasMod, loa$loa_l, loa$loa_u, var_loa)
+    loa_bt <- calc_ci_loa_bt (bt, input_dt, biasMod, loa$loa_l, loa$loa_u,
+      var_loa, alpha, beta)
 
     # CI bootstrap (based on modified tvv)
     loa_bt_mod <- calc_ci_loa_bt (bt, input_dt, biasMod, loa_mod$loa_l,
-      loa_mod$loa_u, var_loa_mod)
+      loa_mod$loa_u, var_loa_mod, alpha, beta)
 
   }
   # -----------------------------------------

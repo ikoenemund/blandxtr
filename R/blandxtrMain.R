@@ -12,6 +12,8 @@
 #' @param biasMod set TRUE for modified calculation of bias (small wsv) and
 #' its variance, set FALSE for standard calculation of bias (small bsv) and
 #' its variance
+#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
+#' @param beta for 100*(1-beta)%-confidence interval around bias
 #'
 #' @note \code{biasMod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
@@ -22,7 +24,7 @@
 #' @return A list containing the return values of all used functions and a
 #' report showing the main results (as pdf/ LaTex).
 
-blandxtrMain <- function(input_dt, bt, biasMod){
+blandxtrMain <- function(input_dt, bt, biasMod, alpha, beta){
 
   # -----------------------------------------
   # check input
@@ -52,9 +54,9 @@ blandxtrMain <- function(input_dt, bt, biasMod){
   source("R/blandxtr.results.plot.R")
   source("R/blandxtr.results.table.R")
 
-  pre <- blandxtrMain_pre (input_dt, bt, biasMod)
+  pre <- blandxtrMain_pre (input_dt, bt, biasMod, beta)
   ci <- blandxtr_ci(bt, input_dt, biasMod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
-    pre$var_loa, pre$var_loa_mod)
+    pre$var_loa, pre$var_loa_mod, alpha, beta)
 
   res <- c(pre, ci)
 

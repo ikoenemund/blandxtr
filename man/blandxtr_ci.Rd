@@ -5,7 +5,7 @@
 \title{95\%-confidence intervals for LoA (3 methods)}
 \usage{
 blandxtr_ci(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod, var_loa,
-  var_loa_mod)
+  var_loa_mod, alpha, beta)
 }
 \arguments{
 \item{bt}{number of bootstrap samples}
