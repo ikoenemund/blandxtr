@@ -14,6 +14,11 @@
 \maketitle
 
 \newpage
+\section {Input parameters}
+Input data can be found in section \ref{inputdata}.
+% include input parameters as table
+\include{input_param_tab}[H]
+
 \section{Analysis results}
 
 % include analysis results as table
@@ -84,7 +89,7 @@ dotted line = 95\%-CI of LoA}
 \include{resid_tab}
 
 \newpage
-\section {Input data}
+\section {Input data} \label{inputdata}
 % include input data as table
 \include{input_data_tab}
 

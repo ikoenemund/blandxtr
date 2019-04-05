@@ -125,8 +125,8 @@ blandxtr_results_table <- function (res, bt) {
   rep_coeff_m["mean X:",1]=res$bv$mean_x
   rep_coeff_m["mean Y:",1]=res$bv$mean_y
 
-  test_m <- xtable(rep_coeff_m, digits = 7, NA.string = "-")
-  rep_coeff_tab <- print(test_m, type="latex",
+  rep_coeff <- xtable(rep_coeff_m, digits = 7, NA.string = "-")
+  rep_coeff_tab <- print(rep_coeff, type="latex",
     file = "report/rep_coeff_tab.tex")
 
   # -----------------------------------
@@ -189,6 +189,31 @@ blandxtr_results_table <- function (res, bt) {
     add.to.row = addtorow,     # this is where you actually make the substitution
     hline.after=c(-1), # because addtorow will substitute the default hline for the first row
     file = "report/input_data_tab.tex")
+
+  # -----------------------------------
+  # table with input parameters (biasMod, alpha, beta, bt, tau, tau_mod)
+  input_param_m <- matrix(NA, nrow=6, ncol=1)
+  rownames(input_param_m)=(c("biasMod:", "alpha:",
+    "beta:", "number of bootstrapping samples:", "tau:", "tau_mod:"))
+  colnames(input_param_m) = (c("value"))
+  if(biasMod){
+    input_param_m["biasMod:",1]="TRUE"
+  } else {
+    input_param_m["biasMod:",1]="FALSE"
+  }
+  input_param_m["alpha:",1]=alpha
+  input_param_m["beta:",1]=beta
+  if(bt>0){
+    input_param_m["number of bootstrapping samples:",1]=bt
+  } else {
+    input_param_m["number of bootstrapping samples:",1]="no bootstrapping"
+  }
+  input_param_m["tau:",1]=res$var_tvv$tau
+  input_param_m["tau_mod:",1]=res$var_tvv$tau_mod
+
+  input_param <- xtable(input_param_m, digits = 2, NA.string = "-")
+  input_param_tab <- print(input_param, type="latex",
+    file = "report/input_param_tab.tex")
 
   return(
     list(
