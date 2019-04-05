@@ -17,7 +17,7 @@
 \section {Input parameters}
 Input data can be found in section \ref{inputdata}.
 % include input parameters as table
-\include{input_param_tab}[H]
+\include{input_param_tab}
 
 \section{Analysis results}
 
