@@ -27,7 +27,7 @@
 #' }
 #'
 
-calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
+calc_ci_loa_mover <- function (n, n_obs, outputSubjects, mssi_mod, wsv, loa_l,
   loa_u, alpha, beta) {
 
   # harmonic mean (m_h)
@@ -39,12 +39,12 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
 
 
   # s ((s_tot)^2)
-  s <- bsv_mod+((1-(1/m_h))*wsv)
+  s <- mssi_mod+((1-(1/m_h))*wsv)
 
   # l
   chi1 <- qchisq((1-(alpha/2)), df=n-1, ncp = 0, lower.tail = TRUE, log.p = FALSE)
   chi2 <- qchisq((1-(alpha/2)), df=n_obs-n, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  l <- s - ((((bsv_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*
+  l <- s - ((((mssi_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*
       (1-((n_obs-n)/(chi2))))^2))^(1/2))
 
   rm (chi1, chi2)
@@ -52,7 +52,7 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
   # u
   chi3 <- qchisq(alpha/2, df=n-1, ncp = 0, lower.tail = TRUE, log.p = FALSE)
   chi4 <- qchisq(alpha/2, df=n_obs-n, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  u <- s+((((bsv_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*
+  u <- s+((((mssi_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*
       ((((n_obs-n)/chi4))-1))^2))^(1/2))
 
   rm (chi3, chi4)
@@ -61,10 +61,10 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
   z1 <- qnorm(alpha/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   z2 <- qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
 
-  rme <- (((z1^2)*(bsv_mod/n))+((z2^2)*(((sqrt(s)-(sqrt(l))))^2)))^(1/2)
+  rme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(s)-(sqrt(l))))^2)))^(1/2)
 
   #lme
-  lme <- (((z1^2)*(bsv_mod/n))+((z2^2)*(((sqrt(u)-(sqrt(s))))^2)))^(1/2)
+  lme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(u)-(sqrt(s))))^2)))^(1/2)
 
   rm (z1, z2)
 
@@ -77,13 +77,14 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, bsv_mod, wsv, loa_l,
   ci_u_loa_u_mover <- loa_u+lme
 
   return(
-        list(
-          ci_l_loa_l_mover = ci_l_loa_l_mover,
-          ci_u_loa_l_mover = ci_u_loa_l_mover,
+    list(
+      ci_l_loa_l_mover = ci_l_loa_l_mover,
+      ci_u_loa_l_mover = ci_u_loa_l_mover,
 
-          ci_l_loa_u_mover = ci_l_loa_u_mover,
-          ci_u_loa_u_mover = ci_u_loa_u_mover
+      ci_l_loa_u_mover = ci_l_loa_u_mover,
+      ci_u_loa_u_mover = ci_u_loa_u_mover
 
-        )
-      )
+    )
+  )
 }
+

@@ -95,12 +95,18 @@ basicVariables <- function(dt){
   # -------------------------------------
 
   # mean of measurementX
-  mean_x <- mean(outputMeasurements[, measurementX])
+  helper <- outputMeasurements[, mean(measurementX), by = .(subject)]
+  setnames(helper,"V1", "mean_x_helper")
+  mean_x <- mean(helper$mean_x_helper)
+  rm(helper)
 
   # -------------------------------------
 
   # mean of measurementY
-  mean_y <- mean(outputMeasurements[, measurementY])
+  helper <- outputMeasurements[, mean(measurementY), by = .(subject)]
+  setnames(helper,"V1", "mean_y_helper")
+  mean_y <- mean(helper$mean_y_helper)
+  rm(helper)
 
   # -------------------------------------
 
