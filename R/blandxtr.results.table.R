@@ -8,6 +8,11 @@
 #'
 #' @param res list with results from \code{blandxtrMain}
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
+#' @param biasMod set TRUE for modified calculation of bias (small wsv) and
+#' its variance, set FALSE for standard calculation of bias (small bsv) and
+#' its variance
+#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
+#' @param beta for 100*(1-beta)%-confidence interval around bias
 #'
 #' @return Table with analysis results
 #' @return Table with modified analysis results
@@ -15,7 +20,7 @@
 #' @return Table with individual residuals
 #' @return Table with residuals
 
-blandxtr_results_table <- function (res, bt) {
+blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   if (bt < 1){
     # analysis results: using matrix and xtable
     library(xtable)

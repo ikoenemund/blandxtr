@@ -4,12 +4,20 @@
 \alias{blandxtr_results_table}
 \title{Tables with results of modified Bland Altman-analysis}
 \usage{
-blandxtr_results_table(res, bt)
+blandxtr_results_table(res, bt, biasMod, alpha, beta)
 }
 \arguments{
 \item{res}{list with results from \code{blandxtrMain}}
 
 \item{bt}{number of bootstrap samples (no bootstrapping if bt <= 0)}
+
+\item{biasMod}{set TRUE for modified calculation of bias (small wsv) and
+its variance, set FALSE for standard calculation of bias (small bsv) and
+its variance}
+
+\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+
+\item{beta}{for 100*(1-beta)%-confidence interval around bias}
 }
 \value{
 Table with analysis results
