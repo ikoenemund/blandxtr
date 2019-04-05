@@ -28,8 +28,8 @@ blandxtrMain <- function(input_dt, bt, biasMod, alpha, beta){
 
   # -----------------------------------------
   # check input
-  if (!(is.data.table(input_dt)))
-    stop("'input_dt' is not a data.table.")
+  # if (!(is.data.table(input_dt)))
+  #   stop("'input_dt' is not a data.table.")
   if (!(all.equal(bt, as.integer(bt))))
     stop("'bt' is not an integer.")
   if(bt<0) {
@@ -59,7 +59,7 @@ blandxtrMain <- function(input_dt, bt, biasMod, alpha, beta){
 
   res <- c(pre, ci)
 
-  tab <- blandxtr_results_table(res, bt)
+  tab <- blandxtr_results_table(res, bt, biasMod, alpha, beta)
   fig <- blandxtr_results_plot(res)
 
   # -----------------------------------------

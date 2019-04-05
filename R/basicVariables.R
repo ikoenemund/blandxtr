@@ -33,9 +33,9 @@
 
 basicVariables <- function(dt){
 
-  # check input
-  if (!(is.data.table(dt)))
-    stop("'input_dt' is not a data.table.")
+  # # check input
+  # if (!(is.data.table(dt)))
+  #   stop("'input_dt' is not a data.table.")
 
   # ----------------------------
   library(data.table)
