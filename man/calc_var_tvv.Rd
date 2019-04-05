@@ -35,6 +35,11 @@ A list with the following elements is returned
  \item{\code{sd_d_mod}} {modified standard deviation of all differences}
  \item{\code{var_var_d_mod}} {modified variance of the variance of
  mean of all differences}
+ \item{\code{tau}} {if \code{tau} < 1/3 use unmodified analysis of variance,
+ if \code{tau} > 1/3 look at \code{tau_mod}}
+ \item{\code{tau_mod}} {look at \code{tau} first, if \code{tau_mod} < 1/3 use
+ unmodified analysis of variance, if \code{tau_mod} > 1/3 use
+ modified analysis of variance}
 }
 }
 \description{
