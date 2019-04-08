@@ -81,19 +81,19 @@ test_that("upper limit of 95%-CI of upper loa is 2.604 (Bland Altman)", {
 # test variance of limits of agreement (loa): MOVER-method (mod)
 
 test_that("lower limit of 95%-CI of lower loa is -1.771 (MOVER)", {
-  expect_equal(olofsen_result$res$loa_mover_mod$ci_l_loa_l_mover, -1.771, tolerance=1e-2)
+  expect_equal(olofsen_result$res$loa_mover_mod$ci_l_loa_l_mover, -1.771, tolerance=1e-3)
 })
 
 test_that("upper limit of 95%-CI of lower loa is -0.698 (MOVER)", {
-  expect_equal(olofsen_result$res$loa_mover_mod$ci_u_loa_l_mover, -0.698, tolerance=1e-2)
+  expect_equal(olofsen_result$res$loa_mover_mod$ci_u_loa_l_mover, -0.698, tolerance=1e-3)
 })
 
 test_that("lower limit of 95%-CI of upper loa is 1.693 (MOVER)", {
-  expect_equal(olofsen_result$res$loa_mover_mod$ci_l_loa_u_mover, 1.693, tolerance=1e-2)
+  expect_equal(olofsen_result$res$loa_mover_mod$ci_l_loa_u_mover, 1.693, tolerance=1e-3)
 })
 
 test_that("upper limit of 95%-CI of upper loa is 2.766 (MOVER)", {
-  expect_equal(olofsen_result$res$loa_mover_mod$ci_u_loa_u_mover, 2.766, tolerance=1e-2)
+  expect_equal(olofsen_result$res$loa_mover_mod$ci_u_loa_u_mover, 2.766, tolerance=1e-3)
 })
 
 # -----------------------------------------
