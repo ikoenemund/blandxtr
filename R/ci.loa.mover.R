@@ -87,4 +87,3 @@ calc_ci_loa_mover <- function (n, n_obs, outputSubjects, mssi_mod, wsv, loa_l,
     )
   )
 }
-

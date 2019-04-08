@@ -169,7 +169,8 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
       sd_d_mod = sd_d_mod,
       var_var_d_mod = var_var_d_mod,
       tau = tau,
-      tau_mod = tau_mod
+      tau_mod = tau_mod,
+      mssi_mod = mssi_mod
     )
   )
 }

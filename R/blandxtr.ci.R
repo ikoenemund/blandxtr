@@ -41,14 +41,13 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
   # CI mover
   # mod: uses modified versions of loa (modified tvv)
   source("R/ci.loa.mover.R")
-
   # CI mover (based on standard tvv)
   loa_mover <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
-    var_tvv$bsv_mod, var_tvv$wsv, loa$loa_l, loa$loa_u, alpha, beta)
+    var_tvv$mssi_mod, var_tvv$wsv, loa$loa_l, loa$loa_u, alpha, beta)
 
   # CI mover (based on modified tvv)
   loa_mover_mod <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
-    var_tvv$bsv_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u, alpha, beta)
+    var_tvv$mssi_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u, alpha, beta)
 
   # -----------------------------------------
   # CI bootstrap: only executed if bt > 0
