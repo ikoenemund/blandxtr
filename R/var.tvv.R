@@ -33,6 +33,8 @@
 #'  \item{\code{tau_mod}} {look at \code{tau} first, if \code{tau_mod} < 1/3 use
 #'  unmodified analysis of variance, if \code{tau_mod} > 1/3 use
 #'  modified analysis of variance}
+#'  \item{\code{se_sd_d}} {standard error of sd of all differences}
+#'  \item{\code{se_sd_d_mod}} {standard error of modified sd of all differences}
 #' }
 #'
 
@@ -156,6 +158,24 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # tau_mod
   tau_mod <- (bsv_mod)/(bsv_mod + wsv_mod)
 
+  # -------------------------------------
+  # standard error of standard deviation of differences
+
+  v1 <- ((mssr/lambda+bsv)^2)/(n-1)
+  v2 <- (((1-(1/lambda))*mssr)^2)/(n_obs-n)
+  vrv <- v1 + v2
+  vsd <- vrv/2/var_d
+  se_sd_d <- sqrt(vsd)
+
+  # modified
+  v1_mod <- ((lambda_mod*mssr+bsv_mod)^2)/(n-1)
+  v2_mod <- (((1-lambda_mod)*mssr_mod)^2)/(n_obs-n)
+  vrv <- v1_mod + v2_mod
+  vsd <- vrv/2/var_d_mod
+  se_sd_d_mod <- sqrt(vsd)
+
+  rm(v1, v2, v1_mod, v2_mod)
+
   return(
     list(
       wsv = wsv,
@@ -170,7 +190,10 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
       var_var_d_mod = var_var_d_mod,
       tau = tau,
       tau_mod = tau_mod,
-      mssi_mod = mssi_mod
+      mssi_mod = mssi_mod,
+
+      se_sd_d = se_sd_d,
+      se_sd_d_mod = se_sd_d_mod
     )
   )
 }

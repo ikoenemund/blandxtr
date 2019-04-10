@@ -46,6 +46,10 @@ test_that("between-subject variance (bsv) is 0.4910164", {
   expect_equal(olofsen_result$res$var_tvv$bsv_mod, 0.4910164, tolerance=1e-4)
 })
 
+test_that("SE of sd of differences is 0.0996412", {
+  expect_equal(olofsen_result$res$var_tvv$se_sd_d_mod, 0.0996412, tolerance=1e-4)
+})
+
 
 # -----------------------------------------
 # test limits of agreement (loa) (mod)

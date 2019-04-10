@@ -40,6 +40,8 @@ A list with the following elements is returned
  \item{\code{tau_mod}} {look at \code{tau} first, if \code{tau_mod} < 1/3 use
  unmodified analysis of variance, if \code{tau_mod} > 1/3 use
  modified analysis of variance}
+ \item{\code{se_sd_d}} {standard error of sd of all differences}
+ \item{\code{se_sd_d_mod}} {standard error of modified sd of all differences}
 }
 }
 \description{

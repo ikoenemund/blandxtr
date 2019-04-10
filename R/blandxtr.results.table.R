@@ -41,6 +41,8 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_mover$ci_u_loa_u_mover, res$loa_bt$ci_u_loa_l_bt,
       res$loa_bt$ci_u_loa_u_bt, res$loa_ba$ci_u_loa_l_ba,
       res$loa_ba$ci_u_loa_u_ba, NA, NA)
+
+    analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
     ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
@@ -64,6 +66,8 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_mover_mod$ci_u_loa_u_mover, res$loa_bt_mod$ci_u_loa_l_bt,
       res$loa_bt_mod$ci_u_loa_u_bt, res$loa_ba_mod$ci_u_loa_l_ba,
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
+
+    analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
     ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   } else {
@@ -88,6 +92,8 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_mover$ci_u_loa_u_mover, res$loa_bt$ci_u_loa_l_bt,
       res$loa_bt$ci_u_loa_u_bt, res$loa_ba$ci_u_loa_l_ba,
       res$loa_ba$ci_u_loa_u_ba, NA, NA)
+
+    analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
     ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
@@ -113,6 +119,8 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_mover_mod$ci_u_loa_u_mover, res$loa_bt_mod$ci_u_loa_l_bt,
       res$loa_bt_mod$ci_u_loa_u_bt, res$loa_ba_mod$ci_u_loa_l_ba,
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
+
+    analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
     ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   }
