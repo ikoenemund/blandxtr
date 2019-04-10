@@ -42,6 +42,9 @@ A list with the following elements is returned
  modified analysis of variance}
  \item{\code{se_sd_d}} {standard error of sd of all differences}
  \item{\code{se_sd_d_mod}} {standard error of modified sd of all differences}
+ \item{\code{se_bsv}} {standard error of between-subjects variance}
+ \item{\code{se_bsv_mod}} {standard error of modified between-subjects
+ variance}
 }
 }
 \description{

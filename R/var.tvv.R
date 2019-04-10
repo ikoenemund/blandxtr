@@ -35,6 +35,9 @@
 #'  modified analysis of variance}
 #'  \item{\code{se_sd_d}} {standard error of sd of all differences}
 #'  \item{\code{se_sd_d_mod}} {standard error of modified sd of all differences}
+#'  \item{\code{se_bsv}} {standard error of between-subjects variance}
+#'  \item{\code{se_bsv_mod}} {standard error of modified between-subjects
+#'  variance}
 #' }
 #'
 
@@ -167,6 +170,8 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   vsd <- vrv/2/var_d
   se_sd_d <- sqrt(vsd)
 
+  rm(vrv, vsd)
+
   # modified
   v1_mod <- ((lambda_mod*mssr+bsv_mod)^2)/(n-1)
   v2_mod <- (((1-lambda_mod)*mssr_mod)^2)/(n_obs-n)
@@ -174,7 +179,21 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   vsd <- vrv/2/var_d_mod
   se_sd_d_mod <- sqrt(vsd)
 
-  rm(v1, v2, v1_mod, v2_mod)
+  rm(v1, v2, v1_mod, v2_mod, vrv, vsd)
+
+  # -------------------------------------
+  # standard error of between subject variance (bsv)
+  vmssr <- 2*(mssr^2)/(n_obs-n)
+  vvrr <- (2*((mssr+(lambda*bsv))^2)/(n-1) + vmssr)/(lambda^2)
+  se_bsv <- sqrt(vvrr)
+  rm(vvrr)
+
+  # modified
+  vmssr_mod <- 2*(mssr_mod^2)/(n_obs-n)
+  v1 <- ((lambda_mod*mssr+bsv_mod)^2)/(n-1)
+  vvrr_mod <- (2*v1) + (lambda_mod^2)*vmssr_mod
+  se_bsv_mod <- sqrt(vvrr_mod)
+  rm(v1, vvrr_mod)
 
   return(
     list(
@@ -193,7 +212,10 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
       mssi_mod = mssi_mod,
 
       se_sd_d = se_sd_d,
-      se_sd_d_mod = se_sd_d_mod
+      se_sd_d_mod = se_sd_d_mod,
+
+      se_bsv = se_bsv,
+      se_bsv_mod = se_bsv_mod
     )
   )
 }

@@ -43,6 +43,7 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_ba$ci_u_loa_u_ba, NA, NA)
 
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
+    analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
     test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
     ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
@@ -68,6 +69,7 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
+    analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
     test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
     ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   } else {
@@ -94,6 +96,7 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_ba$ci_u_loa_u_ba, NA, NA)
 
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
+    analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
     test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
     ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
@@ -121,6 +124,7 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
+    analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
     test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
     ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   }
