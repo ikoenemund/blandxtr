@@ -45,6 +45,9 @@ A list with the following elements is returned
  \item{\code{se_bsv}} {standard error of between-subjects variance}
  \item{\code{se_bsv_mod}} {standard error of modified between-subjects
  variance}
+ \item{\code{se_wsv}} {standard error of within-subjects variance}
+ \item{\code{se_wsv_mod}} {standard error of modified within-subjects
+ variance}
 }
 }
 \description{

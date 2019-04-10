@@ -38,6 +38,9 @@
 #'  \item{\code{se_bsv}} {standard error of between-subjects variance}
 #'  \item{\code{se_bsv_mod}} {standard error of modified between-subjects
 #'  variance}
+#'  \item{\code{se_wsv}} {standard error of within-subjects variance}
+#'  \item{\code{se_wsv_mod}} {standard error of modified within-subjects
+#'  variance}
 #' }
 #'
 
@@ -195,6 +198,13 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   se_bsv_mod <- sqrt(vvrr_mod)
   rm(v1, vvrr_mod)
 
+  # -------------------------------------
+  # standard error of within subject variance (wsv)
+  se_wsv <- sqrt(vmssr)
+  se_wsv_mod <- sqrt(vmssr_mod)
+
+  rm(vmssr, vmssr_mod)
+
   return(
     list(
       wsv = wsv,
@@ -215,7 +225,10 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
       se_sd_d_mod = se_sd_d_mod,
 
       se_bsv = se_bsv,
-      se_bsv_mod = se_bsv_mod
+      se_bsv_mod = se_bsv_mod,
+
+      se_wsv = se_wsv,
+      se_wsv_mod = se_wsv_mod
     )
   )
 }
