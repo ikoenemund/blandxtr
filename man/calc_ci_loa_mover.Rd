@@ -4,7 +4,7 @@
 \alias{calc_ci_loa_mover}
 \title{Confidence intervals for LoA (MOVER)}
 \usage{
-calc_ci_loa_mover(n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, loa_u,
+calc_ci_loa_mover(n, n_obs, outputSubjects, mssi_mod, wsv, loa_l, loa_u,
   alpha, beta)
 }
 \arguments{
@@ -15,7 +15,7 @@ calc_ci_loa_mover(n, n_obs, outputSubjects, bsv_mod, wsv, loa_l, loa_u,
 \item{outputSubjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}
 
-\item{bsv_mod}{between-subject variance (modified calculation)}
+\item{mssi_mod}{mssi (modified calculation)}
 
 \item{wsv}{within-subject variance}
 

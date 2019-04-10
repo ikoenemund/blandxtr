@@ -11,7 +11,7 @@
 #' @param n_obs number of observations
 #' @param outputSubjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
-#' @param bsv_mod between-subject variance (modified calculation)
+#' @param mssi_mod mssi (modified calculation)
 #' @param wsv within-subject variance
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
