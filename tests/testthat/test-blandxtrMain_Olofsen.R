@@ -1,8 +1,27 @@
+# Modified Bland Altman-analysis on data from Olofsen et al. (2015).
+# source (web): https://sec.lumc.nl/method_agreement_analysis/sim.txt
+
+# library(profvis)
+# profvis({
+
+# get data.table from RData
+input_dt <- loadRData("olofsen.RData")
+
+# set variables necessary for analysis
+alpha <- 0.05
+beta <- 0.05
+biasMod <- TRUE
+bt <- 1
+
+olofsen_result <- blandxtr (input_dt, bt, biasMod, alpha, beta)
+biasMod <- olofsen_result$res$biasMod
+
+# })
 
 # -----------------------------------------
 # test blandxtrMain with data from Olofsen et al. 2015
 
-context("blandxtrMain.Olofsen")
+context("blandxtr-olofsen")
 
 # -----------------------------------------
 # test results of basicVariables
@@ -109,20 +128,29 @@ test_that("upper limit of 95%-CI of upper loa is 2.766 (MOVER)", {
 
 # -----------------------------------------
 # test variance of limits of agreement (loa): parametric bootstrap-t (mod)
+check_bt <- function(){
+  if(bt<1000) {
+    skip("bootstrapping sample too small (<1000)")
+  }
+}
 
 test_that("lower limit of 95%-CI of lower loa is -1.815 (bootstrapping)", {
+  check_bt()
   expect_equal(olofsen_result$res$loa_bt_mod$ci_l_loa_l_bt, -1.815, tolerance=1e-1)
 })
 
 test_that("upper limit of 95%-CI of lower loa is -0.727 (bootstrapping)", {
+  check_bt()
   expect_equal(olofsen_result$res$loa_bt_mod$ci_u_loa_l_bt, -0.727, tolerance=1e-1)
 })
 
 test_that("lower limit of 95%-CI of upper loa is 1.714 (bootstrapping)", {
+  check_bt()
   expect_equal(olofsen_result$res$loa_bt_mod$ci_l_loa_u_bt, 1.714, tolerance=1e-1)
 })
 
 test_that("upper limit of 95%-CI of upper loa is 2.788 (bootstrapping)", {
+  check_bt()
   expect_equal(olofsen_result$res$loa_bt_mod$ci_u_loa_u_bt, 2.788, tolerance=1e-1)
 })
 
