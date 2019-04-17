@@ -4,6 +4,7 @@
 \usepackage{longtable, needspace}
 \usepackage{float}
 \usepackage{caption}
+\graphicspath{{plots-png/}}
 
 \title{Results of modified Bland Altman analysis}
 \author{Inga Könemund}
@@ -21,13 +22,12 @@ Input data can be found in section \ref{inputdata}.
 
 \section{Analysis results}
 
-% include analysis results as table
 \include{ana_res_tab}
 
 % include analysis results as plot
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{plot_res}
+\includegraphics[width=1\textwidth]{plot-res}
 \caption{Analysis results\\\hspace{\textwidth}
 solid line = zeroline\\\hspace{\textwidth}
 dashed line = bias\\\hspace{\textwidth}
@@ -43,7 +43,7 @@ dotted line = 95\%-CI of LoA}
 % include modified analysis results as plot
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{plot_res_mod}
+\includegraphics[width=1\textwidth]{plot-res-mod}
 \caption{Analysis results (modified analysis)\\\hspace{\textwidth}
 solid line = zeroline\\\hspace{\textwidth}
 dashed line = bias\\\hspace{\textwidth}
@@ -58,25 +58,25 @@ dotted line = 95\%-CI of LoA}
 \section {Q-Q plot of the residuals}
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{qq_resid}
+\includegraphics[width=1\textwidth]{qq-resid}
 \end{figure}
 
 \section {Q-Q plot of the individual means}
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{qq_ind_means}
+\includegraphics[width=1\textwidth]{qq-ind-means}
 \end{figure}
 
 \section {Plot of the residuals vs mean}
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{plot_res_means}
+\includegraphics[width=1\textwidth]{plot-res-means}
 \end{figure}
 
 \section {Plot of the residuals vs ID}
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{plot_res_id}
+\includegraphics[width=1\textwidth]{plot-res-id}
 \end{figure}
 
 \section {Individual means of differences}

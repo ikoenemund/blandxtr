@@ -16,97 +16,70 @@
 
 blandxtr_results_plot <- function (res) {
 
-  # Bland Altman-plot
   library(ggplot2)
   library(ggrepel)
 
-  # plot_res <- ggplot(data = res$bv$outputMeasurements) +
-  #   geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-  #   # Add labels at points (without overlap) (increases runtime!)
-  #   # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
-  #   # Add a horizontal line at y = 0
-  #   geom_hline(aes(yintercept=0), colour='black', size=1) +
-  #   # Add a horizontal line at y = mean of all differences (d)
-  #   geom_hline(aes(yintercept=res$bv$d), colour='green', size=1) +
-  #   # Add horizontal lines at limits of agreement
-  #   geom_hline(aes(yintercept=res$loa$loa_l), colour='darkred', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa$loa_u), colour='darkred', size=0.5) +
-  #   # Add horizontal lines at 95%-CI of limits of agreement
-  #   geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_l_mover), colour='red', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_l_mover), colour='red', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_u_mover), colour='red', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_u_mover), colour='red', size=0.5) +
-  # labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)")
-  # ggsave("report/plot_res.pdf", plot = plot_res, device="pdf")
+  # Bland Altman-plot
+  # black/white
 
-  #### black/white
+  # ---- plot_res
 
   plot_res <- ggplot(data = res$bv$outputMeasurements) +
     geom_point(mapping = aes(x = m_ij, y = d_ij)) +
     # Add labels at points (without overlap) (increases runtime!)
     # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
     # Add a horizontal line at y = 0
-    geom_hline(aes(yintercept=0), size=0.5, linetype = "solid") +
+    geom_hline(aes(yintercept=0, linetype = "zeroline"), size=1) +
     # Add a horizontal line at y = mean of all differences (d)
-    geom_hline(aes(yintercept=res$bv$d), size=0.5, linetype = "dashed") +
+    geom_hline(aes(yintercept=res$bv$d, linetype = "bias"), size=1) +
     # Add horizontal lines at limits of agreement
-    geom_hline(aes(yintercept=res$loa$loa_l), size=0.5, linetype = "dotdash") +
-    geom_hline(aes(yintercept=res$loa$loa_u), size=0.5, linetype = "dotdash") +
+    geom_hline(aes(yintercept=res$loa$loa_l, linetype = "limit of agreement"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa$loa_u, linetype = "limit of agreement"), size=0.5) +
     # Add horizontal lines at 95%-CI of limits of agreement
-    geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_l_mover), size=0.5, linetype = "dotted") +
-    geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_l_mover), size=0.5, linetype = "dotted") +
-    geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_u_mover), size=0.5, linetype = "dotted") +
-    geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_u_mover), size=0.5, linetype = "dotted") +
-    labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)")
+    geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
+    labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)") +
+    scale_linetype_manual(name="Legend", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"), values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
+    theme(legend.direction = "horizontal", legend.position = "bottom",
+      legend.key.size = unit(3, "lines"))
+  # ----
 
-  ggsave("report/plot_res.pdf", plot = plot_res, device="pdf")
-  ####
+  ggsave("report/plots-png/plot-res.png", width = 12, height = 12, plot = plot_res,
+    device="png")
+  ggsave("report/plots-svg/plot-res.svg", width = 12, height = 12, plot = plot_res,
+    device="svg")
 
   # ----------------------------------
   # Bland Altman-plot (modified analysis)
+  # black/white
 
-  # plot_res_mod <- ggplot(data = res$bv$outputMeasurements) +
-  #   geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-  #   # Add labels at points (without overlap) (increases runtime!)
-  #   # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
-  #   # Add a horizontal line at y = 0
-  #   geom_hline(aes(yintercept=0), colour='black', size=1) +
-  #   # Add a horizontal line at y = mean of all differences (d)
-  #   geom_hline(aes(yintercept=res$bv$d), colour='green', size=1) +
-  #   # Add horizontal lines at limits of agreement
-  #   geom_hline(aes(yintercept=res$loa_mod$loa_l), colour='darkred', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mod$loa_u), colour='darkred', size=0.5) +
-  #   # Add horizontal lines at 95%-CI of limits of agreement
-  #   geom_hline(aes(yintercept=res$loa_mover_mod$ci_l_loa_l_mover), colour='red', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mover_mod$ci_u_loa_l_mover), colour='red', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mover_mod$ci_l_loa_u_mover), colour='red', size=0.5) +
-  #   geom_hline(aes(yintercept=res$loa_mover_mod$ci_u_loa_u_mover), colour='red', size=0.5) +
-  # labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)")
-  #
-  # ggsave("report/plot_res_mod.pdf", plot = plot_res_mod, device="pdf")
-
-
-  #### black/white
   plot_res_mod <- ggplot(data = res$bv$outputMeasurements) +
     geom_point(mapping = aes(x = m_ij, y = d_ij)) +
     # Add labels at points (without overlap) (increases runtime!)
     # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
     # Add a horizontal line at y = 0
-    geom_hline(aes(yintercept=0), size=0.5, linetype = "solid") +
+    geom_hline(aes(yintercept=0, linetype = "zeroline"), size=1) +
     # Add a horizontal line at y = mean of all differences (d)
-    geom_hline(aes(yintercept=res$bv$d), size=0.5, linetype = "dashed") +
+    geom_hline(aes(yintercept=res$bv$d, linetype = "bias"), size=1) +
     # Add horizontal lines at limits of agreement
-    geom_hline(aes(yintercept=res$loa_mod$loa_l), size=0.5, linetype = "dotdash") +
-    geom_hline(aes(yintercept=res$loa_mod$loa_u), size=0.5, linetype = "dotdash") +
+    geom_hline(aes(yintercept=res$loa_mod$loa_l, linetype = "limit of agreement"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mod$loa_u, linetype = "limit of agreement"), size=0.5) +
     # Add horizontal lines at 95%-CI of limits of agreement
-    geom_hline(aes(yintercept=res$loa_mover_mod$ci_l_loa_l_mover), size=0.5, linetype = "dotted") +
-    geom_hline(aes(yintercept=res$loa_mover_mod$ci_u_loa_l_mover), size=0.5, linetype = "dotted") +
-    geom_hline(aes(yintercept=res$loa_mover_mod$ci_l_loa_u_mover), size=0.5, linetype = "dotted") +
-    geom_hline(aes(yintercept=res$loa_mover_mod$ci_u_loa_u_mover), size=0.5, linetype = "dotted") +
-    labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)")
+    geom_hline(aes(yintercept=res$loa_mover_mod$ci_l_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mover_mod$ci_u_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mover_mod$ci_l_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
+    geom_hline(aes(yintercept=res$loa_mover_mod$ci_u_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
+    labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)") +
+    scale_linetype_manual(name="Legend", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"), values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
+    theme(legend.direction = "horizontal", legend.position = "bottom",
+      legend.key.size = unit(3, "lines"))
 
-  ggsave("report/plot_res_mod.pdf", plot = plot_res_mod, device="pdf")
-  ####
+  ggsave("report/plots-png/plot-res-mod.png", width = 12, height = 12,
+    plot = plot_res_mod, device="png")
+  ggsave("report/plots-svg/plot-res-mod.svg", width = 12, height = 12,
+    plot = plot_res_mod, device="svg")
 
   # ----------------------------------
   # QQ plot of individual means
@@ -114,7 +87,8 @@ blandxtr_results_plot <- function (res) {
   p <- ggplot (data = res$bv$outputSubjects, aes(sample=d_i))
   qq_ind_means <- p + stat_qq(col="black") + stat_qq_line(col="black")
 
-  ggsave("report/qq_ind_means.pdf", plot = qq_ind_means, device="pdf")
+  ggsave("report/plots-png/qq-ind-means.png", plot = qq_ind_means, device="png")
+  ggsave("report/plots-svg/qq-ind-means.svg", plot = qq_ind_means, device="svg")
 
   # ----------------------------------
   # QQ plot of residuals
@@ -123,7 +97,8 @@ blandxtr_results_plot <- function (res) {
   p <- ggplot (data = res$bv$outputMeasurements, aes(sample=r_ij))
   qq_resid <- p + stat_qq(col="black") + stat_qq_line(col="black")
 
-  ggsave("report/qq_resid.pdf", plot = qq_resid, device="pdf")
+  ggsave("report/plots-png/qq-resid.png", plot = qq_resid, device="png")
+  ggsave("report/plots-svg/qq-resid.svg", plot = qq_resid, device="svg")
 
   # ----------------------------------
   # plot of residuals vs mean
@@ -136,7 +111,8 @@ blandxtr_results_plot <- function (res) {
     geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
     labs(x="mean value of X_ij and Y_ij", y="residual of X_ij and Y_ij")
 
-  ggsave("report/plot_res_means.pdf", plot = plot_res_means, device="pdf")
+  ggsave("report/plots-png/plot-res-means.png", plot = plot_res_means, device="png")
+  ggsave("report/plots-svg/plot-res-means.svg", plot = plot_res_means, device="svg")
   # ----------------------------------
   # plot of residuals vs ID
 
@@ -148,7 +124,8 @@ blandxtr_results_plot <- function (res) {
     geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
     labs(x="ID", y="residual of X_ij and Y_ij")
 
-  ggsave("report/plot_res_id.pdf", plot = plot_res_id, device="pdf")
+  ggsave("report/plots-png/plot-res-id.png", plot = plot_res_id, device="png")
+  ggsave("report/plots-svg/plot-res-id.svg", plot = plot_res_id, device="svg")
 
   # ----------------------------------
 
@@ -164,62 +141,3 @@ blandxtr_results_plot <- function (res) {
   )
 
 }
-
-#### TEST
-
-# plot_res <- ggplot(data = res$bv$outputMeasurements) +
-#   geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-#   # Add labels at points (without overlap) (increases runtime!)
-#   # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
-#   # Add a horizontal line at y = 0
-#   geom_hline(aes(yintercept=0, linetype = "zeroline"), color='black', size=1) +
-#   # Add a horizontal line at y = mean of all differences (d)
-#   geom_hline(aes(yintercept=res$bv$d, linetype = "bias"), color='green', size=1) +
-#   # Add horizontal lines at limits of agreement
-#   geom_hline(aes(yintercept=res$loa$loa_l, linetype = "limit of agreement"), color='darkred', size=0.5) +
-#   geom_hline(aes(yintercept=res$loa$loa_u, linetype = "limit of agreement"), color='darkred', size=0.5) +
-#   # Add horizontal lines at 95%-CI of limits of agreement
-#   geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_l_mover, linetype = "CI of LoA"), color='red', size=0.5) +
-#   geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_l_mover, linetype = "CI of LoA"), color='red', size=0.5) +
-#   geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_u_mover, linetype = "CI of LoA"), color='red', size=0.5) +
-#   geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_u_mover, linetype = "CI of LoA"), color='red', size=0.5) +
-#   labs(x="mean", y="difference") +
-#   # scale_linetype_manual(name = "legend", values = c("zeroline"= 1 ,"bias" = 1,
-#   #   "limit of agreement" = 1, "CI of LoA" = 1))
-#   # guides (linetype = guide_legend(override.aes = list(color = c("green", "darkred", "red", "black"))))
-# scale_linetype_manual(name="legend", values = c(1,1,1,1), guide = guide_legend(override.aes = list(color = c("green", "red", "darkred", "black"))))
-#
-# ggsave("report/plot_res.pdf", plot = plot_res, device="pdf")
-
-
-
-#  plot_res <- ggplot(data = res$bv$outputMeasurements) +
-#   geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-#   # Add labels at points (without overlap) (increases runtime!)
-#   # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
-#   # Add a horizontal line at y = 0
-#   geom_hline(aes(yintercept=0, colour="black"), size=1) +
-#   # Add a horizontal line at y = mean of all differences (d)
-#   geom_hline(aes(yintercept=res$bv$d, colour="green"), size=1) +
-#   # Add horizontal lines at limits of agreement
-#   geom_hline(aes(yintercept=res$loa$loa_l, colour="darkred"), size=0.5) +
-#   geom_hline(aes(yintercept=res$loa$loa_u, colour="darkred"), size=0.5) +
-#   # Add horizontal lines at 95%-CI of limits of agreement
-#   geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_l_mover, colour="red"), size=0.5) +
-#   geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_l_mover, colour="red"), size=0.5) +
-#   geom_hline(aes(yintercept=res$loa_mover$ci_l_loa_u_mover, colour="red"), size=0.5) +
-#   geom_hline(aes(yintercept=res$loa_mover$ci_u_loa_u_mover, colour="red")
-#     , size=0.5) +
-#   scale_color_manual(values = c("green", "darkred", "red", "black"))
-#
-# ggsave("report/plot_res.pdf", plot = plot_res, device="pdf")
-####
-
-#### TEST2: shorter code
-# res <- olofsen_result$res
-#
-# test_data <- data.frame(linetype = c(1,1,1,1,1,1,1,1), color = c('black', 'green', 'darkred', 'darkred', 'red', 'red', 'red', 'red'), y = c(0, res$bv$d, res$loa$loa_l, res$loa$loa_u, res$loa_mover$ci_l_loa_l_mover, res$loa_mover$ci_u_loa_l_mover, res$loa_mover$ci_l_loa_u_mover, res$loa_mover$ci_u_loa_u_mover), legend = c('zeroline', 'bias', 'LoA', 'LoA', 'CI of LoA', 'CI of LoA', 'CI of LoA', 'CI of LoA'))
-# plot_res <- ggplot(data = res$bv$outputMeasurements) +
-#   geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-#   geom_hline(data = test_data, aes(yintercept = y), color = test_data$color)
-####
