@@ -13,4 +13,4 @@
 #'
 #' @format A data frame with 300 rows and 3 variables
 #' @source \url{https://sec.lumc.nl/method_agreement_analysis/sim.tx}
-"dataOlofsen"
+"olofsen"
