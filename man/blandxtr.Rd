@@ -2,10 +2,42 @@
 % Please edit documentation in R/blandxtr.R
 \name{blandxtr}
 \alias{blandxtr}
-\title{Package for advanced Bland Altman analysis}
+\title{Main method for blandxtr}
+\usage{
+blandxtr(input_dt, bt, biasMod, alpha, beta)
+}
+\arguments{
+\item{input_dt}{data.table with input dataset}
+
+\item{bt}{number of bootstrap samples (no bootstrapping if bt <= 0)}
+
+\item{biasMod}{set TRUE for modified calculation of bias (small wsv) and
+its variance, set FALSE for standard calculation of bias (small bsv) and
+its variance}
+
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
+
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
+}
+\value{
+A list (blandxtr S3 object) containing the return values of all used
+functions and a report showing the main results (as pdf/ LaTex).
+}
 \description{
-Package for advanced Bland Altman analysis
+\code{blandxtr} performs modified Bland Altman-analysis as
+proposed by Olofsen et al. (2015). Uses the following functions from
+blandxtr-package: \code{basicVariables}, \code{var.tvv}, \code{loa},
+\code{var.loa}, \code{ci.loa.ba} and \code{ci.loa.mover}.
+}
+\note{
+\code{biasMod} is automatically set TRUE for
+different number of measurements in each subject (unbalanced case)
+
+"_mod" labels results based on modified true value varies-method
+
+Bootstrapping affects runtime severely. Set bt<=0
+if you want to skip bootstrapping.
 }
 \author{
-Inga Koenemund \email{inga.koenemund@web.de}
+Inga Koenemund \email{inga.koenemund(at)web.de}
 }
