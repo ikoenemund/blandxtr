@@ -5,13 +5,13 @@
 #' confidence intervals. Helper function for \code{blandxtr.Main} which performs
 #' the whole analysis.
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
 #' @param biasMod set TRUE for modified calculation of bias (small wsv),
 #' set FALSE for standard calculation of bias (small bsv)
-#' @param beta for 100*(1-beta)%-confidence interval around bias
+#' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @note \code{biasMod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
@@ -19,12 +19,13 @@
 #'
 #' @return A list containing the return values of all used functions.
 #'
+#' @export
+#'
 
 blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
 
   # -----------------------------------------
   # calculate basic variables
-  source("R/basicVariables.R")
   bv <- basicVariables(input_dt)
 
   # unbalanced case: biasMod = TRUE
@@ -42,13 +43,11 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
 
   # -----------------------------------------
   # analysis of variances
-  source("R/var.tvv.R")
   var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$outputSubjects,
     bv$outputMeasurements)
 
   # -----------------------------------------
   # calculate limits of agreement (loa) (standard and modified)
-  source("R/loa.R")
 
   # limits of agreement (based on standard tvv)
   loa <- calc_loa(bv$d, var_tvv$sd_d, beta)
@@ -58,7 +57,6 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
 
   # -----------------------------------------
   # calculate variance of limits of agreement (loa)
-  source("R/var.loa.R")
 
   # variance of loa (based on standard tvv)
   var_loa <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,

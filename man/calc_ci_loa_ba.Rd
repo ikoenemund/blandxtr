@@ -13,7 +13,7 @@ calc_ci_loa_ba(loa_l, loa_u, var_loa, alpha)
 
 \item{var_loa}{variance of limits of agreement}
 
-\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
 }
 \value{
 A list with the following elements is returned

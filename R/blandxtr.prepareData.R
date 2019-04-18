@@ -4,13 +4,15 @@
 #' common errors (missing columns that are required, wrong type of input data)
 #' and reduces it to the columns necessary for analysis with \code{blandxtrMain}.
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param input_dt data.table with input dataset
 #'
 #' @note Rows with missing values will be removed from analysis.
 #'
 #' @return Prepared input data as data.table
+#'
+#' @export
 #'
 
 # Check and prepare input data

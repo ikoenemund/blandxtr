@@ -22,6 +22,8 @@ number of measurements of each subject (m_i)}
 
 \item{biasMod}{set FALSE for standard calculation of the variance (small bsv),
 set TRUE for modified calculation of the variance (small wsv)}
+
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 \code{var_loa} variance of limits of agreement

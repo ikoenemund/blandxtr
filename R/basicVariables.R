@@ -3,7 +3,7 @@
 #' @description \code{basicVariables} returns basic variables of an input
 #' data.table containing three columns (subject, measurementX and measurementY).
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param dt input data.table
 #' @return A list with the following elements is returned
@@ -30,15 +30,14 @@
 #'   \item{mean_y}{mean of all measurements with Y}
 #'   \item{rep_coeff}{repeatability coefficients}
 #'
+#' @export
 
 basicVariables <- function(dt){
 
-  # # check input
-  # if (!(is.data.table(dt)))
-  #   stop("'input_dt' is not a data.table.")
-
-  # ----------------------------
-  library(data.table)
+  # check input
+  if (!(is.data.table(dt))){
+    stop("'input_dt' is not a data.table.")
+  }
 
   # ----------------------------
   # some preparation
@@ -55,12 +54,12 @@ basicVariables <- function(dt){
   # ----------------------------
 
   # number of subjects (n)
-  n <- uniqueN(dt, by="subject")
+  n <- data.table::uniqueN(dt, by="subject")
 
   # ----------------------------
 
   # total number of observations (pairs of values, n_obs)
-  n_obs <-nrow(dt)
+  n_obs <- nrow(dt)
 
   # ----------------------------
 
@@ -112,7 +111,7 @@ basicVariables <- function(dt){
 
   # residuals (r_ij = d_ij - d_i) using left-join
   helper <- 0
-  helper <- setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
+  helper <- data.table::setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
   setkey(outputMeasurements, NULL)
   outputMeasurements[, r_ij := helper$d_ij - helper$d_i]
   rm(helper)

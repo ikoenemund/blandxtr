@@ -11,7 +11,7 @@ calc_loa(d, sd_d, beta)
 
 \item{sd_d}{standard deviation of d}
 
-\item{beta}{for 100*(1-beta)%-confidence interval around bias}
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 A list with the following elements is returned

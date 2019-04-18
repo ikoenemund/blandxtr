@@ -4,7 +4,7 @@
 #' quantities measured with true value varying
 #' (includes standard and modified version)
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param n number of subjects
 #' @param n_obs number of observations
@@ -43,6 +43,7 @@
 #'  variance}
 #' }
 #'
+#' @export
 
 calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 

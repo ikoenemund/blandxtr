@@ -15,9 +15,9 @@ blandxtr_results_table(res, bt, biasMod, alpha, beta)
 its variance, set FALSE for standard calculation of bias (small bsv) and
 its variance}
 
-\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
 
-\item{beta}{for 100*(1-beta)%-confidence interval around bias}
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 Table with analysis results

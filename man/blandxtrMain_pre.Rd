@@ -14,7 +14,7 @@ blandxtrMain_pre(input_dt, bt, biasMod, beta)
 \item{biasMod}{set TRUE for modified calculation of bias (small wsv),
 set FALSE for standard calculation of bias (small bsv)}
 
-\item{beta}{for 100*(1-beta)%-confidence interval around bias}
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 A list containing the return values of all used functions.

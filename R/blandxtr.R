@@ -1,9 +1,13 @@
-#' blandxtr: A package for advanced Bland Altman analysis
+#' \code{blandxtr}: A package for advanced Bland Altman analysis
 #'
 #' @docType package
-#' @author Inga Koenemund \email{inga.koenemund(at)web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @import data.table
+#' @import ggplot2
+#'
+#' @aliases blandxtr-package
+#'
 "_PACKAGE"
 
 #' @title Main method for blandxtr
@@ -31,6 +35,7 @@
 #'
 #' @return A list (blandxtr S3 object) containing the return values of all used
 #' functions and a report showing the main results (as pdf/ LaTex).
+#' @export
 
 blandxtr <- function(input_dt, bt, biasMod, alpha, beta){
 
@@ -51,15 +56,9 @@ blandxtr <- function(input_dt, bt, biasMod, alpha, beta){
 
   # -----------------------------------------
   # prepare input data for analysis
-  source("R/blandxtr.prepareData.R")
   input_dt <- blandxtr_prepareData(input_dt)
 
   # -----------------------------------------
-  source("R/blandxtrMain.pre.R")
-  source("R/blandxtr.ci.R")
-
-  source("R/blandxtr.results.plot.R")
-  source("R/blandxtr.results.table.R")
 
   pre <- blandxtrMain_pre (input_dt, bt, biasMod, beta)
   ci <- blandxtr_ci(bt, input_dt, biasMod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
@@ -71,12 +70,24 @@ blandxtr <- function(input_dt, bt, biasMod, alpha, beta){
   fig <- blandxtr_results_plot(res)
 
   # -----------------------------------------
-  # create report (in latex) as pdf file
-  library(knitr)
-  setwd('./report/')
-  options(tinytex.verbose = TRUE)
-  knit2pdf(input = "report.blandxtr.Rnw")
-  setwd('..')
+  # # create report (in latex) as pdf file
+  # library(knitr)
+  # setwd('./report/')
+  # options(tinytex.verbose = TRUE)
+  # knit2pdf(input = "report.blandxtr.Rnw")
+  # setwd('..')
+
+  # # create report (in markdown) as html file
+  # output_format <- "html"
+  #
+  # renderMyReport <- function(res, tab, fig) {
+  #   setwd('./report/')
+  #   rmarkdown::render("blandxtr-report.Rmd",
+  #     output_format = output_format,
+  #     params = list(res = res, tab = tab, fig = fig))
+  #   setwd('..')
+  # }
+  # renderMyReport(res, tab, fig)
 
   # -----------------------------------------
 

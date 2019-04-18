@@ -2,9 +2,9 @@
 % Please edit documentation in R/blandxtr.R
 \docType{package}
 \name{blandxtr-package}
-\alias{blandxtr}
 \alias{blandxtr-package}
-\title{blandxtr: A package for advanced Bland Altman analysis}
+\alias{_PACKAGE}
+\title{\code{blandxtr}: A package for advanced Bland Altman analysis}
 \description{
 blandxtr realises comparison of two methods for 
     repeated measurements with changing true value of the measured
@@ -20,5 +20,5 @@ Useful links:
 
 }
 \author{
-Inga Koenemund \email{inga.koenemund(at)web.de}
+Inga Koenemund \email{inga.koenemund@web.de}
 }

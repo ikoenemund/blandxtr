@@ -20,9 +20,9 @@ set FALSE for standard calculation of bias (small bsv)}
 
 \item{var_loa}{variance of limits of agreement}
 
-\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
 
-\item{beta}{for 100*(1-beta)%-confidence interval around bias}
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 A list with the following elements is returned

@@ -23,9 +23,9 @@ number of measurements of each subject (m_i)}
 
 \item{loa_u}{upper limit of agreement}
 
-\item{alpha}{for 100*(1-alpha)%-confidence interval around LoA}
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
 
-\item{beta}{for 100*(1-beta)%-confidence interval around bias}
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 A list with the following elements is returned

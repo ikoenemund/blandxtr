@@ -26,6 +26,10 @@ set FALSE for standard calculation of bias (small bsv)}
 \item{var_loa}{result of \code{var.loa.R}}
 
 \item{var_loa_mod}{result of \code{var.loa.R} based on modified tvv}
+
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
+
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
 \value{
 A list with confidence intervals of the three methods

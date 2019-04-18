@@ -5,7 +5,7 @@
 #' (Methods of Variance Estimates Recovery) proposed
 #' by Zou (2013).
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param n number of subjects
 #' @param n_obs number of observations
@@ -15,8 +15,8 @@
 #' @param wsv within-subject variance
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
-#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
-#' @param beta for 100*(1-beta)%-confidence interval around bias
+#' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
+#' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @return A list with the following elements is returned
 #' \itemize{
@@ -25,6 +25,8 @@
 #'  \item{\code{ci_l_loa_u_mover}} {lower limit of 95\%-CI for upper LoA}
 #'  \item{\code{ci_u_loa_u_mover}} {upper limit of 95\%-CI for upper LoA}
 #' }
+#'
+#' @export
 #'
 
 calc_ci_loa_mover <- function (n, n_obs, outputSubjects, mssi_mod, wsv, loa_l,

@@ -14,7 +14,8 @@ LazyData: true
 URL: https://github.com/ikoenemund/blandxtr.git
 BugReports: https://github.com/ikoenemund/blandxtr/issues
 Imports: 
-    data.table
+    data.table,
+    ggplot2
 Suggests: 
     testthat
 RoxygenNote: 6.1.1

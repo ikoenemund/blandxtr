@@ -4,26 +4,27 @@
 #' modified Bland Altman-analysis performed with \code{blandxtrMain} as
 #' LaTeX-tables.
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param res list with results from \code{blandxtrMain}
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
 #' @param biasMod set TRUE for modified calculation of bias (small wsv) and
 #' its variance, set FALSE for standard calculation of bias (small bsv) and
 #' its variance
-#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
-#' @param beta for 100*(1-beta)%-confidence interval around bias
+#' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
+#' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @return Table with analysis results
 #' @return Table with modified analysis results
 #' @return Table with repeatability coefficients
 #' @return Table with individual residuals
 #' @return Table with residuals
+#'
+#' @export
 
 blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   if (bt < 1){
-    # analysis results: using matrix and xtable
-    library(xtable)
+    # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=10, ncol=3)
     rownames(analysis_results_m)=(c("Bias", "SD of the differences",
       "lower limit of agreement", "upper limit of agreement",
@@ -45,12 +46,11 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
-    test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
-    ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
+    # test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
+    # ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
     # -----------------------------------
-    # modified analysis results: using matrix and xtable
-    library(xtable)
+    # modified analysis results: using matrix
     analysis_results_mod_m <- matrix(NA, nrow=10, ncol=3)
     rownames(analysis_results_mod_m)=(c("Bias", "SD of the differences",
       "lower limit of agreement", "upper limit of agreement",
@@ -72,11 +72,10 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
-    test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
-    ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
+    # test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
+    # ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   } else {
-    # analysis results: using matrix and xtable
-    library(xtable)
+    # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=12, ncol=3)
     rownames(analysis_results_m)=(c("Bias", "SD of the differences",
       "lower limit of agreement", "upper limit of agreement",
@@ -100,12 +99,11 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
-    test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
-    ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
+    # test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
+    # ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
     # -----------------------------------
-    # modified analysis results: using matrix and xtable
-    library(xtable)
+    # modified analysis results: using matrix
     analysis_results_mod_m <- matrix(NA, nrow=12, ncol=3)
     rownames(analysis_results_mod_m)=(c("Bias", "SD of the differences",
       "lower limit of agreement", "upper limit of agreement",
@@ -129,12 +127,12 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
-    test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
-    ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
+    # test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
+    # ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   }
   # -----------------------------------
   # repCoeff_table
-  # using data.table and xtable
+  # using data.table
 
   rep_coeff_m <- matrix(NA, nrow=5, ncol=1)
   rownames(rep_coeff_m)=(c("SX:", "SY:",
@@ -146,24 +144,24 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   rep_coeff_m["mean X:",1]=res$bv$mean_x
   rep_coeff_m["mean Y:",1]=res$bv$mean_y
 
-  rep_coeff <- xtable(rep_coeff_m, digits = 7, NA.string = "-")
-  rep_coeff_tab <- print(rep_coeff, type="latex",
-    file = "report/rep_coeff_tab.tex")
+  # rep_coeff <- xtable(rep_coeff_m, digits = 7, NA.string = "-")
+  # rep_coeff_tab <- print(rep_coeff, type="latex",
+  #   file = "report/rep_coeff_tab.tex")
 
   # -----------------------------------
   # individualMeans_table
-  # using data.table and xtable
+  # using data.table
 
   ind_means <- copy(res$bv$outputSubjects)
   setnames(ind_means,"d_i", "Mean")
   setnames(ind_means,"m_i", "M")
-  ind_means <- xtable(ind_means, digits = 3, NA.string = "-")
-  ind_means_tab <- print(ind_means, type="latex", include.rownames=FALSE,
-    file = "report/ind_means_tab.tex")
+  # ind_means <- xtable(ind_means, digits = 3, NA.string = "-")
+  # ind_means_tab <- print(ind_means, type="latex", include.rownames=FALSE,
+  #   file = "report/ind_means_tab.tex")
 
   # -----------------------------------
   # table with residuals
-  # using data.table and xtable
+  # using data.table
 
   addtorow          <- list()
   addtorow$pos      <- list()
@@ -178,12 +176,12 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   resid <- res$bv$outputMeasurements[, list(subject, measurement_id, r_ij)]
   setnames(resid,"r_ij", "Residual")
   setnames(resid,"measurement_id", "ID (Messung)")
-  resid <- xtable(resid, digits = 3, NA.string = "-", longtable = TRUE)
-  resid_tab <- print(resid, tabular.environment = "longtable", floating = FALSE,
-    include.rownames = FALSE,  # because addtorow will substitute the default row names
-    add.to.row = addtorow,     # this is where you actually make the substitution
-    hline.after=c(-1), # because addtorow will substitute the default hline for the first row
-    file = "report/resid_tab.tex")
+  # resid <- xtable(resid, digits = 3, NA.string = "-", longtable = TRUE)
+  # resid_tab <- print(resid, tabular.environment = "longtable", floating = FALSE,
+  #   include.rownames = FALSE,  # because addtorow will substitute the default row names
+  #   add.to.row = addtorow,     # this is where you actually make the substitution
+  #   hline.after=c(-1), # because addtorow will substitute the default hline for the first row
+  #   file = "report/resid_tab.tex")
 
   # -----------------------------------
   # table with input data
@@ -204,12 +202,12 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   setnames(input_data,"measurementX", "Measurement X")
   setnames(input_data,"measurementY", "Measurement Y")
   setnames(input_data,"measurement_id", "ID (Messung)")
-  input_data <- xtable(input_data, digits = 3, NA.string = "-", longtable = TRUE)
-  input_data_tab <- print(input_data, tabular.environment = "longtable", floating = FALSE,
-    include.rownames = FALSE,  # because addtorow will substitute the default row names
-    add.to.row = addtorow,     # this is where you actually make the substitution
-    hline.after=c(-1), # because addtorow will substitute the default hline for the first row
-    file = "report/input_data_tab.tex")
+  # input_data <- xtable(input_data, digits = 3, NA.string = "-", longtable = TRUE)
+  # input_data_tab <- print(input_data, tabular.environment = "longtable", floating = FALSE,
+  #   include.rownames = FALSE,  # because addtorow will substitute the default row names
+  #   add.to.row = addtorow,     # this is where you actually make the substitution
+  #   hline.after=c(-1), # because addtorow will substitute the default hline for the first row
+  #   file = "report/input_data_tab.tex")
 
   # -----------------------------------
   # table with input parameters (biasMod, alpha, beta, bt, tau, tau_mod)
@@ -232,18 +230,26 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   input_param_m["tau:",1]=res$var_tvv$tau
   input_param_m["tau_mod:",1]=res$var_tvv$tau_mod
 
-  input_param <- xtable(input_param_m, digits = 2, NA.string = "-")
-  input_param_tab <- print(input_param, type="latex",
-    file = "report/input_param_tab.tex")
+  # input_param <- xtable(input_param_m, digits = 2, NA.string = "-")
+  # input_param_tab <- print(input_param, type="latex",
+  #   file = "report/input_param_tab.tex")
 
   return(
     list(
-      ana_res_tab = ana_res_tab,
-      ana_res_mod_tab = ana_res_mod_tab,
-      rep_coeff_tab = rep_coeff_tab,
-      ind_means_tab = ind_means_tab,
-      resid_tab = resid_tab,
-      input_data_tab = input_data_tab
+      # ana_res_tab = ana_res_tab,
+      # ana_res_mod_tab = ana_res_mod_tab,
+      # rep_coeff_tab = rep_coeff_tab,
+      # ind_means_tab = ind_means_tab,
+      # resid_tab = resid_tab,
+      # input_data_tab = input_data_tab,
+
+      analysis_results_m = analysis_results_m,
+      analysis_results_mod_m = analysis_results_mod_m,
+      rep_coeff_m = rep_coeff_m,
+      ind_means = ind_means,
+      resid = resid,
+      input_data = input_data,
+      input_param_m = input_param_m
     )
   )
 

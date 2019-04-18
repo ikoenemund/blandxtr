@@ -4,7 +4,7 @@
 #' (CI) for limits of agreement (LoA). Calculation is based on
 #' parametric bootstrap-t.
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
@@ -13,8 +13,8 @@
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
 #' @param var_loa variance of limits of agreement
-#' @param alpha for 100*(1-alpha)%-confidence interval around LoA
-#' @param beta for 100*(1-beta)%-confidence interval around bias
+#' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
+#' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @note \code{biasMod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
@@ -27,10 +27,11 @@
 #'  \item{\code{ci_l_loa_u_bt}} {lower limit of 95\%-CI for upper LoA}
 #'  \item{\code{ci_u_loa_u_bt}} {upper limit of 95\%-CI for upper LoA}
 #' }
+#' @export
 
 calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa,
   alpha, beta) {
-  source("R/blandxtrMain.pre.R")
+  # source("R/blandxtrMain.pre.R")
 
   #  sampling
   boot_samp <- vector("list", bt)

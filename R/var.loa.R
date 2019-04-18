@@ -12,7 +12,7 @@
 #'  \item{\code{var_sd_d}} {variance of the standard deviation of the differences}
 #' }
 #'
-#' @author Inga Koenemund \email{inga.koenemund@web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param n number of subjects
 #' @param n_obs number of observations
@@ -23,9 +23,11 @@
 #' @param var_var_d variance of the variance of mean of all differences
 #' @param biasMod set FALSE for standard calculation of the variance (small bsv),
 #' set TRUE for modified calculation of the variance (small wsv)
+#' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @return \code{var_loa} variance of limits of agreement
 #'
+#' @export
 
 calc_var_loa <- function (n, n_obs, bsv, wsv, outputSubjects, var_var_d,
   biasMod, beta){
