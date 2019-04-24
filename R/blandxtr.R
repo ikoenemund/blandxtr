@@ -71,7 +71,7 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
   res <- c(pre, ci)
 
   tab <- blandxtr_results_table(res, bt, bias_mod, alpha, beta)
-  fig <- blandxtr_results_plot(res)
+  fig <- plot.blandxtr(res)
 
   # -----------------------------------------
   # # create report (in latex) as pdf file
