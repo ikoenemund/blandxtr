@@ -1,21 +1,21 @@
 #' @title Basic variables
 #'
 #' @description \code{basicVariables} returns basic variables of an input
-#' data.table containing three columns (subject, measurementX and measurementY).
+#' data.table containing three columns (subject, measurement_x and measurement_y).
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param dt input data.table
 #' @return A list with the following elements is returned
-#'  \item{outputMeasurements}{data.table with}
+#'  \item{output_measurements}{data.table with}
 #'  \itemize{
 #'      \item{\code{subject}} {subject ID}
-#'      \item{\code{measurementX}} {results of measurement with X}
-#'      \item{\code{measurementY}} {results of measurement with Y}
+#'      \item{\code{measurement_x}} {results of measurement with X}
+#'      \item{\code{measurement_y}} {results of measurement with Y}
 #'      \item{\code{d_ij}} {difference of each pair of measurement}
 #'      \item{\code{m_ij}} {mean of each pair of measurement}
 #'  }
-#'  \item{outputSubjects}{data.table with}
+#'  \item{output_subjects}{data.table with}
 #'  \itemize{
 #'      \item{\code{subject}} {subject ID}
 #'      \item{\code{m_i}} {number of measurements of each subject}
@@ -43,13 +43,13 @@ basicVariables <- function(dt){
   # some preparation
 
   # copy input data for modification as output
-  outputMeasurements <- data.table(dt)
-  # add measurement IDs in outputMeasurements
-  outputMeasurements[, measurement_id:= rowid(outputMeasurements$subject)]
+  output_measurements <- data.table(dt)
+  # add measurement IDs in output_measurements
+  output_measurements[, measurement_id:= rowid(output_measurements$subject)]
 
-  outputSubjects <- dt[, .(.N), by = .(subject)]
+  output_subjects <- dt[, .(.N), by = .(subject)]
   # rename column
-  setnames(outputSubjects,"N", "m_i")
+  setnames(output_subjects,"N", "m_i")
 
   # ----------------------------
 
@@ -64,45 +64,45 @@ basicVariables <- function(dt){
   # ----------------------------
 
   # difference_ij for all measurements
-  outputMeasurements[, d_ij := (measurementX-measurementY)]
+  output_measurements[, d_ij := (measurement_x-measurement_y)]
 
   # ----------------------------
 
   # mean_ij for all measurements
-  outputMeasurements[, m_ij := (measurementX+measurementY)/2]
+  output_measurements[, m_ij := (measurement_x+measurement_y)/2]
 
   # ------------------------------
 
   # all subjects (each subject):
   # mean of differences between measurements (each subject)
-  ans <- outputMeasurements[, mean(d_ij), by = .(subject)]
+  ans <- output_measurements[, mean(d_ij), by = .(subject)]
   setnames(ans,"V1", "d_i")
 
-  outputSubjects <- merge(ans, outputSubjects, by="subject")
+  output_subjects <- merge(ans, output_subjects, by="subject")
   rm(ans)
 
   # -------------------------------
 
   # mean of all differences/ bias (D/ B)
-  d <- mean(outputMeasurements[, d_ij])
+  d <- mean(output_measurements[, d_ij])
 
   # -------------------------------------
 
   # alternative mean of all differences/ bias (D_a/ B_a)
-  d_a <- mean(outputSubjects[, d_i])
+  d_a <- mean(output_subjects[, d_i])
 
   # -------------------------------------
 
-  # mean of measurementX
-  helper <- outputMeasurements[, mean(measurementX), by = .(subject)]
+  # mean of measurement_x
+  helper <- output_measurements[, mean(measurement_x), by = .(subject)]
   setnames(helper,"V1", "mean_x_helper")
   mean_x <- mean(helper$mean_x_helper)
   rm(helper)
 
   # -------------------------------------
 
-  # mean of measurementY
-  helper <- outputMeasurements[, mean(measurementY), by = .(subject)]
+  # mean of measurement_y
+  helper <- output_measurements[, mean(measurement_y), by = .(subject)]
   setnames(helper,"V1", "mean_y_helper")
   mean_y <- mean(helper$mean_y_helper)
   rm(helper)
@@ -111,35 +111,35 @@ basicVariables <- function(dt){
 
   # residuals (r_ij = d_ij - d_i) using left-join
   helper <- 0
-  helper <- data.table::setDT(outputMeasurements, key = "subject")[outputSubjects, d_i := i.d_i]
-  setkey(outputMeasurements, NULL)
-  outputMeasurements[, r_ij := helper$d_ij - helper$d_i]
+  helper <- data.table::setDT(output_measurements, key = "subject")[output_subjects, d_i := i.d_i]
+  setkey(output_measurements, NULL)
+  output_measurements[, r_ij := helper$d_ij - helper$d_i]
   rm(helper)
 
   # -------------------------------------
   # repeatability coefficients
 
   ans <- 0
-  ans <- dt[, mean(measurementX), by = .(subject)]
+  ans <- dt[, mean(measurement_x), by = .(subject)]
   setnames(ans,"V1", "x_i")
 
   helper <- 0
   helper <- merge(dt, ans, by="subject")
   rm(ans)
 
-  ans <- dt[, mean(measurementY), by = .(subject)]
+  ans <- dt[, mean(measurement_y), by = .(subject)]
   setnames(ans,"V1", "y_i")
   helper <- merge(helper, ans, by="subject")
   rm(ans)
 
-  ans1 <- sum((helper$measurementX - helper$x_i)^2)
-  ans2 <- sum((helper$measurementY - helper$y_i)^2)
+  ans1 <- sum((helper$measurement_x - helper$x_i)^2)
+  ans2 <- sum((helper$measurement_y - helper$y_i)^2)
   rm(helper)
 
-  mssr_x <- (1/(length(dt$measurementX)-n))*ans1
+  mssr_x <- (1/(length(dt$measurement_x)-n))*ans1
   rm(ans1)
 
-  mssr_y <- (1/(length(dt$measurementY)-n))*ans2
+  mssr_y <- (1/(length(dt$measurement_y)-n))*ans2
   rm(ans2)
 
   s_x <- sqrt(mssr_x)
@@ -156,8 +156,8 @@ basicVariables <- function(dt){
   # -------------------------------------
   return(
     list(
-      outputMeasurements = outputMeasurements,
-      outputSubjects = outputSubjects,
+      output_measurements = output_measurements,
+      output_subjects = output_subjects,
       n = n,
       n_obs = n_obs,
       d = d,

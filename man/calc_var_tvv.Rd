@@ -4,7 +4,7 @@
 \alias{calc_var_tvv}
 \title{Analysis of variance}
 \usage{
-calc_var_tvv(n, n_obs, d, d_a, outputSubjects, outputMeasurements)
+calc_var_tvv(n, n_obs, d, d_a, output_subjects, output_measurements)
 }
 \arguments{
 \item{n}{number of subjects}
@@ -15,10 +15,10 @@ calc_var_tvv(n, n_obs, d, d_a, outputSubjects, outputMeasurements)
 
 \item{d_a}{modified mean of all differences}
 
-\item{outputSubjects}{data.table containing subject ID and
+\item{output_subjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}
 
-\item{outputMeasurements}{data.table containing}
+\item{output_measurements}{data.table containing}
 }
 \value{
 A list with the following elements is returned

@@ -7,8 +7,8 @@
 #'
 #' \describe{
 #'   \item{patient}{patient ID}
-#'   \item{measurementX}{results of measuring instrument X}
-#'   \item{measurementY}{results of measuring instrument Y}
+#'   \item{measurement_x}{results of measuring instrument X}
+#'   \item{measurement_y}{results of measuring instrument Y}
 #' }
 #'
 #' @format A data frame with 300 rows and 3 variables

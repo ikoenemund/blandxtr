@@ -11,15 +11,15 @@ basicVariables(dt)
 }
 \value{
 A list with the following elements is returned
- \item{outputMeasurements}{data.table with}
+ \item{output_measurements}{data.table with}
  \itemize{
      \item{\code{subject}} {subject ID}
-     \item{\code{measurementX}} {results of measurement with X}
-     \item{\code{measurementY}} {results of measurement with Y}
+     \item{\code{measurement_x}} {results of measurement with X}
+     \item{\code{measurement_y}} {results of measurement with Y}
      \item{\code{d_ij}} {difference of each pair of measurement}
      \item{\code{m_ij}} {mean of each pair of measurement}
  }
- \item{outputSubjects}{data.table with}
+ \item{output_subjects}{data.table with}
  \itemize{
      \item{\code{subject}} {subject ID}
      \item{\code{m_i}} {number of measurements of each subject}
@@ -36,7 +36,7 @@ A list with the following elements is returned
 }
 \description{
 \code{basicVariables} returns basic variables of an input
-data.table containing three columns (subject, measurementX and measurementY).
+data.table containing three columns (subject, measurement_x and measurement_y).
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

@@ -10,11 +10,11 @@ input_dt <- loadRData("olofsen.RData")
 # set variables necessary for analysis
 alpha <- 0.05
 beta <- 0.05
-biasMod <- TRUE
+bias_mod <- TRUE
 bt <- 1
 
-olofsen_result <- blandxtr (input_dt, bt, biasMod, alpha, beta)
-biasMod <- olofsen_result$res$biasMod
+olofsen_result <- blandxtr (input_dt, bt, bias_mod, alpha, beta)
+bias_mod <- olofsen_result$res$bias_mod
 
 # })
 
@@ -40,15 +40,15 @@ test_that("mean of all differences (bias) is 0.497674", {
 })
 
 test_that("difference of measurements (d_15) is correct", {
-  expect_equal(olofsen_result$res$bv$outputMeasurements$d_ij[5],
-    (olofsen_result$res$bv$outputMeasurements$measurementX[5]-
-        olofsen_result$res$bv$outputMeasurements$measurementY[5]))
+  expect_equal(olofsen_result$res$bv$output_measurements$d_ij[5],
+    (olofsen_result$res$bv$output_measurements$measurement_x[5]-
+        olofsen_result$res$bv$output_measurements$measurement_y[5]))
 })
 
 test_that("mean of measurements (m_13) is correct", {
-  expect_equal(olofsen_result$res$bv$outputMeasurements$m_ij[3],
-    mean(c(olofsen_result$res$bv$outputMeasurements$measurementX[3],
-      olofsen_result$res$bv$outputMeasurements$measurementY[3])))
+  expect_equal(olofsen_result$res$bv$output_measurements$m_ij[3],
+    mean(c(olofsen_result$res$bv$output_measurements$measurement_x[3],
+      olofsen_result$res$bv$output_measurements$measurement_y[3])))
 })
 
 # -----------------------------------------
@@ -171,7 +171,7 @@ test_that("repeatability coefficients are correct", {
 # -----------------------------------------
 # residuals
 test_that("residual (d_21) is correct (-0.511)", {
-  expect_equal(olofsen_result$res$bv$outputMeasurements$r_ij[16], -0.511,
+  expect_equal(olofsen_result$res$bv$output_measurements$r_ij[16], -0.511,
     tolerance=1e-3)
 
 })

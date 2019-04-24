@@ -8,7 +8,7 @@
 #'
 #' @param res list with results from \code{blandxtrMain}
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
-#' @param biasMod set TRUE for modified calculation of bias (small wsv) and
+#' @param bias_mod set TRUE for modified calculation of bias (small wsv) and
 #' its variance, set FALSE for standard calculation of bias (small bsv) and
 #' its variance
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
@@ -22,7 +22,7 @@
 #'
 #' @export
 
-blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
+blandxtr_results_table <- function (res, bt, bias_mod, alpha, beta) {
   if (bt < 1){
     # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=10, ncol=3)
@@ -152,7 +152,7 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   # individualMeans_table
   # using data.table
 
-  ind_means <- copy(res$bv$outputSubjects)
+  ind_means <- copy(res$bv$output_subjects)
   setnames(ind_means,"d_i", "Mean")
   setnames(ind_means,"m_i", "M")
   # ind_means <- xtable(ind_means, digits = 3, NA.string = "-")
@@ -173,7 +173,7 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
     "\\endfoot \n",
     "\\endlastfoot \n",sep=""))
 
-  resid <- res$bv$outputMeasurements[, list(subject, measurement_id, r_ij)]
+  resid <- res$bv$output_measurements[, list(subject, measurement_id, r_ij)]
   setnames(resid,"r_ij", "Residual")
   setnames(resid,"measurement_id", "ID (Messung)")
   # resid <- xtable(resid, digits = 3, NA.string = "-", longtable = TRUE)
@@ -196,11 +196,11 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
     "\\endfoot \n",
     "\\endlastfoot \n",sep=""))
 
-  input_data <- res$bv$outputMeasurements[, list(subject, measurement_id,
-    measurementX, measurementY)]
+  input_data <- res$bv$output_measurements[, list(subject, measurement_id,
+    measurement_x, measurement_y)]
   setnames(input_data,"subject", "Subject")
-  setnames(input_data,"measurementX", "Measurement X")
-  setnames(input_data,"measurementY", "Measurement Y")
+  setnames(input_data,"measurement_x", "Measurement X")
+  setnames(input_data,"measurement_y", "Measurement Y")
   setnames(input_data,"measurement_id", "ID (Messung)")
   # input_data <- xtable(input_data, digits = 3, NA.string = "-", longtable = TRUE)
   # input_data_tab <- print(input_data, tabular.environment = "longtable", floating = FALSE,
@@ -210,15 +210,15 @@ blandxtr_results_table <- function (res, bt, biasMod, alpha, beta) {
   #   file = "report/input_data_tab.tex")
 
   # -----------------------------------
-  # table with input parameters (biasMod, alpha, beta, bt, tau, tau_mod)
+  # table with input parameters (bias_mod, alpha, beta, bt, tau, tau_mod)
   input_param_m <- matrix(NA, nrow=6, ncol=1)
-  rownames(input_param_m)=(c("biasMod:", "alpha:",
+  rownames(input_param_m)=(c("bias_mod:", "alpha:",
     "beta:", "number of bootstrapping samples:", "tau:", "tau_mod:"))
   colnames(input_param_m) = (c("value"))
-  if(biasMod){
-    input_param_m["biasMod:",1]="TRUE"
+  if(bias_mod){
+    input_param_m["bias_mod:",1]="TRUE"
   } else {
-    input_param_m["biasMod:",1]="FALSE"
+    input_param_m["bias_mod:",1]="FALSE"
   }
   input_param_m["alpha:",1]=alpha
   input_param_m["beta:",1]=beta

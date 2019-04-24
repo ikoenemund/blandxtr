@@ -21,13 +21,13 @@
 #'
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
 #' @param input_dt data.table with input dataset
-#' @param biasMod set TRUE for modified calculation of bias (small wsv) and
+#' @param bias_mod set TRUE for modified calculation of bias (small wsv) and
 #' its variance, set FALSE for standard calculation of bias (small bsv) and
 #' its variance
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{biasMod} is automatically set TRUE for
+#' @note \code{bias_mod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
 #' @note "_mod" labels results based on modified true value varies-method
 #' @note Bootstrapping affects runtime severely. Set bt<=0
@@ -37,7 +37,7 @@
 #' functions and a report showing the main results (as pdf/ LaTex).
 #' @export
 
-blandxtr <- function(input_dt, bt, biasMod, alpha, beta){
+blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
 
   # -----------------------------------------
   # check input
@@ -51,8 +51,8 @@ blandxtr <- function(input_dt, bt, biasMod, alpha, beta){
     bootstrapping has been skipped.")
     bt <- 0
   }
-  if (!(is.logical(biasMod)))
-    stop("'biasMod' is not logical.")
+  if (!(is.logical(bias_mod)))
+    stop("'bias_mod' is not logical.")
 
   # -----------------------------------------
   # prepare input data for analysis
@@ -60,13 +60,13 @@ blandxtr <- function(input_dt, bt, biasMod, alpha, beta){
 
   # -----------------------------------------
 
-  pre <- blandxtrMain_pre (input_dt, bt, biasMod, beta)
-  ci <- blandxtr_ci(bt, input_dt, biasMod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
+  pre <- blandxtrMain_pre (input_dt, bt, bias_mod, beta)
+  ci <- blandxtr_ci(bt, input_dt, bias_mod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
     pre$var_loa, pre$var_loa_mod, alpha, beta)
 
   res <- c(pre, ci)
 
-  tab <- blandxtr_results_table(res, bt, biasMod, alpha, beta)
+  tab <- blandxtr_results_table(res, bt, bias_mod, alpha, beta)
   fig <- blandxtr_results_plot(res)
 
   # -----------------------------------------

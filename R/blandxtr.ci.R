@@ -8,7 +8,7 @@
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
-#' @param biasMod set TRUE for modified calculation of bias (small wsv),
+#' @param bias_mod set TRUE for modified calculation of bias (small wsv),
 #' set FALSE for standard calculation of bias (small bsv)
 #' @param bv result of \code{basicVariables.R}
 #' @param var_tvv result of \code{var_tvv.R}
@@ -27,7 +27,7 @@
 #' @export
 
 
-blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
+blandxtr_ci <- function(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod,
   var_loa, var_loa_mod, alpha, beta){
   # -----------------------------------------
   # CI Bland Altman
@@ -43,11 +43,11 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
   # CI mover
   # mod: uses modified versions of loa (modified tvv)
   # CI mover (based on standard tvv)
-  loa_mover <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
+  loa_mover <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$output_subjects,
     var_tvv$mssi_mod, var_tvv$wsv, loa$loa_l, loa$loa_u, alpha, beta)
 
   # CI mover (based on modified tvv)
-  loa_mover_mod <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$outputSubjects,
+  loa_mover_mod <- calc_ci_loa_mover (bv$n, bv$n_obs, bv$output_subjects,
     var_tvv$mssi_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u, alpha, beta)
 
   # -----------------------------------------
@@ -56,11 +56,11 @@ blandxtr_ci <- function(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod,
   if (bt > 0){
 
     # CI bootstrap (based on standard tvv)
-    loa_bt <- calc_ci_loa_bt (bt, input_dt, biasMod, loa$loa_l, loa$loa_u,
+    loa_bt <- calc_ci_loa_bt (bt, input_dt, bias_mod, loa$loa_l, loa$loa_u,
       var_loa, alpha, beta)
 
     # CI bootstrap (based on modified tvv)
-    loa_bt_mod <- calc_ci_loa_bt (bt, input_dt, biasMod, loa_mod$loa_l,
+    loa_bt_mod <- calc_ci_loa_bt (bt, input_dt, bias_mod, loa_mod$loa_l,
       loa_mod$loa_u, var_loa_mod, alpha, beta)
 
   }

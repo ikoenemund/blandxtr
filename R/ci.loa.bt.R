@@ -8,7 +8,7 @@
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
-#' @param biasMod set TRUE for modified calculation of bias (small wsv),
+#' @param bias_mod set TRUE for modified calculation of bias (small wsv),
 #' set FALSE for standard calculation of bias (small bsv)
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
@@ -16,7 +16,7 @@
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{biasMod} is automatically set TRUE for
+#' @note \code{bias_mod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
 #' @note "_mod" labels results based on modified true value varies-method
 #'
@@ -29,7 +29,7 @@
 #' }
 #' @export
 
-calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa,
+calc_ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
   alpha, beta) {
   # source("R/blandxtrMain.pre.R")
 
@@ -44,7 +44,7 @@ calc_ci_loa_bt <- function(bt, input_dt, biasMod, loa_l, loa_u, var_loa,
   rm(i)
 
   # bland altman analysis per sample
-  boot <- lapply(boot_samp, blandxtrMain_pre, bt=bt, biasMod=biasMod,
+  boot <- lapply(boot_samp, blandxtrMain_pre, bt=bt, bias_mod=bias_mod,
     beta)
 
   # initialize and fill matrix

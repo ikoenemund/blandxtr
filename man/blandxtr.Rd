@@ -4,14 +4,14 @@
 \alias{blandxtr}
 \title{Main method for blandxtr}
 \usage{
-blandxtr(input_dt, bt, biasMod, alpha, beta)
+blandxtr(input_dt, bt, bias_mod, alpha, beta)
 }
 \arguments{
 \item{input_dt}{data.table with input dataset}
 
 \item{bt}{number of bootstrap samples (no bootstrapping if bt <= 0)}
 
-\item{biasMod}{set TRUE for modified calculation of bias (small wsv) and
+\item{bias_mod}{set TRUE for modified calculation of bias (small wsv) and
 its variance, set FALSE for standard calculation of bias (small bsv) and
 its variance}
 
@@ -30,7 +30,7 @@ blandxtr-package: \code{basicVariables}, \code{var.tvv}, \code{loa},
 \code{var.loa}, \code{ci.loa.ba} and \code{ci.loa.mover}.
 }
 \note{
-\code{biasMod} is automatically set TRUE for
+\code{bias_mod} is automatically set TRUE for
 different number of measurements in each subject (unbalanced case)
 
 "_mod" labels results based on modified true value varies-method

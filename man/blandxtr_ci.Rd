@@ -4,7 +4,7 @@
 \alias{blandxtr_ci}
 \title{Confidence intervals for LoA (3 methods)}
 \usage{
-blandxtr_ci(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod, var_loa,
+blandxtr_ci(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod, var_loa,
   var_loa_mod, alpha, beta)
 }
 \arguments{
@@ -12,7 +12,7 @@ blandxtr_ci(bt, input_dt, biasMod, bv, var_tvv, loa, loa_mod, var_loa,
 
 \item{input_dt}{data.table with input dataset}
 
-\item{biasMod}{set TRUE for modified calculation of bias (small wsv),
+\item{bias_mod}{set TRUE for modified calculation of bias (small wsv),
 set FALSE for standard calculation of bias (small bsv)}
 
 \item{bv}{result of \code{basicVariables.R}}

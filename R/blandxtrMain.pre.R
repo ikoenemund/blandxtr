@@ -9,11 +9,11 @@
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
-#' @param biasMod set TRUE for modified calculation of bias (small wsv),
+#' @param bias_mod set TRUE for modified calculation of bias (small wsv),
 #' set FALSE for standard calculation of bias (small bsv)
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{biasMod} is automatically set TRUE for
+#' @note \code{bias_mod} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
 #' @note "_mod" labels results based on modified true value varies-method
 #'
@@ -22,29 +22,29 @@
 #' @export
 #'
 
-blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
+blandxtrMain_pre <- function (input_dt, bt, bias_mod, beta) {
 
   # -----------------------------------------
   # calculate basic variables
   bv <- basicVariables(input_dt)
 
-  # unbalanced case: biasMod = TRUE
+  # unbalanced case: bias_mod = TRUE
   for (i in 1:bv$n){
-    if (bv$outputSubjects$m_i[i]!=(bv$n_obs/bv$n)){
-      biasMod <- TRUE
+    if (bv$output_subjects$m_i[i]!=(bv$n_obs/bv$n)){
+      bias_mod <- TRUE
       break
     }
   }
   rm(i)
 
-  if (biasMod){
+  if (bias_mod){
     bv$d <- bv$d_a
   }
 
   # -----------------------------------------
   # analysis of variances
-  var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$outputSubjects,
-    bv$outputMeasurements)
+  var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$output_subjects,
+    bv$output_measurements)
 
   # -----------------------------------------
   # calculate limits of agreement (loa) (standard and modified)
@@ -60,11 +60,11 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
 
   # variance of loa (based on standard tvv)
   var_loa <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
-    bv$outputSubjects, var_tvv$var_var_d, biasMod, beta)
+    bv$output_subjects, var_tvv$var_var_d, bias_mod, beta)
 
   # variance of loa (based on modified tvv)
   var_loa_mod <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
-    bv$outputSubjects, var_tvv$var_var_d_mod, biasMod, beta)
+    bv$output_subjects, var_tvv$var_var_d_mod, bias_mod, beta)
 
   # -----------------------------------------
 
@@ -76,7 +76,7 @@ blandxtrMain_pre <- function (input_dt, bt, biasMod, beta) {
       loa_mod = loa_mod,
       var_loa = var_loa,
       var_loa_mod = var_loa_mod,
-      biasMod = biasMod
+      bias_mod = bias_mod
     )
   )
 }

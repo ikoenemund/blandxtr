@@ -10,9 +10,9 @@
 #' @param n_obs number of observations
 #' @param d mean of all differences
 #' @param d_a modified mean of all differences
-#' @param outputSubjects data.table containing subject ID and
+#' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
-#' @param outputMeasurements data.table containing
+#' @param output_measurements data.table containing
 #'
 #' @return A list with the following elements is returned
 #' \itemize{
@@ -45,7 +45,7 @@
 #'
 #' @export
 
-calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
+calc_var_tvv <- function (n, n_obs, d, d_a, output_subjects, output_measurements){
 
   # -------------------------------------
   # standard tvv
@@ -53,7 +53,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # lambda
   helper <- 0
   ans <- 0
-  helper <- (outputSubjects[, m_i])^2
+  helper <- (output_subjects[, m_i])^2
   ans <- sum(helper)
 
   lambda <- ((n_obs^2)-ans)/((n-1)*n_obs)
@@ -63,8 +63,8 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
   # within subject-variance (wsv) based on mssr
   # mssr
 
-  ans <- sum((outputMeasurements$d_ij - outputMeasurements$d_i)^2)
-  outputMeasurements[, d_i:=NULL]
+  ans <- sum((output_measurements$d_ij - output_measurements$d_i)^2)
+  output_measurements[, d_i:=NULL]
 
   mssr <- (1/(n_obs-n))*ans
   rm(ans)
@@ -78,7 +78,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
   helper <- 0
   ans <- 0
-  helper <- (outputSubjects[, m_i])*(((outputSubjects[, d_i])-d)^2)
+  helper <- (output_subjects[, m_i])*(((output_subjects[, d_i])-d)^2)
   ans <- sum(helper)
   rm(helper)
 
@@ -111,7 +111,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
   helper <- 0
   ans <- 0
-  helper <- 1/(outputSubjects[, m_i])
+  helper <- 1/(output_subjects[, m_i])
   ans <- sum(helper)
 
   lambda_mod <- (1/n)*ans
@@ -130,7 +130,7 @@ calc_var_tvv <- function (n, n_obs, d, d_a, outputSubjects, outputMeasurements){
 
   helper <- 0
   ans <- 0
-  helper <- ((outputSubjects[, d_i])-d_a)^2
+  helper <- ((output_subjects[, d_i])-d_a)^2
   ans <- sum(helper)
   rm(helper)
 

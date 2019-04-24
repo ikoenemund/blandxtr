@@ -23,10 +23,10 @@ blandxtr_results_plot <- function (res) {
 
   # ---- plot_res
 
-  plot_res <- ggplot2::ggplot(data = res$bv$outputMeasurements) +
+  plot_res <- ggplot2::ggplot(data = res$bv$output_measurements) +
     ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij)) +
     # Add labels at points (without overlap) (increases runtime!)
-    # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
+    # geom_text_repel(label=res$bv$output_measurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
     # Add a horizontal line at y = 0
     ggplot2::geom_hline(aes(yintercept=0, linetype = "zeroline"), size=1) +
     # Add a horizontal line at y = mean of all differences (d)
@@ -54,10 +54,10 @@ blandxtr_results_plot <- function (res) {
   # Bland Altman-plot (modified analysis)
   # black/white
 
-  plot_res_mod <- ggplot2::ggplot(data = res$bv$outputMeasurements) +
+  plot_res_mod <- ggplot2::ggplot(data = res$bv$output_measurements) +
     ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij)) +
     # Add labels at points (without overlap) (increases runtime!)
-    # geom_text_repel(label=res$bv$outputMeasurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
+    # geom_text_repel(label=res$bv$output_measurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
     # Add a horizontal line at y = 0
     ggplot2::geom_hline(aes(yintercept=0, linetype = "zeroline"), size=1) +
     # Add a horizontal line at y = mean of all differences (d)
@@ -83,7 +83,7 @@ blandxtr_results_plot <- function (res) {
   # ----------------------------------
   # QQ plot of individual means
 
-  p <- ggplot2::ggplot (data = res$bv$outputSubjects, aes(sample=d_i))
+  p <- ggplot2::ggplot (data = res$bv$output_subjects, aes(sample=d_i))
   qq_ind_means <- p + ggplot2::stat_qq(col="black") + ggplot2::stat_qq_line(col="black")
 
   # ggsave("report/plots-png/qq-ind-means.png", plot = qq_ind_means, device="png")
@@ -93,7 +93,7 @@ blandxtr_results_plot <- function (res) {
   # QQ plot of residuals
 
 
-  p <- ggplot2::ggplot (data = res$bv$outputMeasurements, aes(sample=r_ij))
+  p <- ggplot2::ggplot (data = res$bv$output_measurements, aes(sample=r_ij))
   qq_resid <- p + ggplot2::stat_qq(col="black") + ggplot2::stat_qq_line(col="black")
 
   # ggsave("report/plots-png/qq-resid.png", plot = qq_resid, device="png")
@@ -102,7 +102,7 @@ blandxtr_results_plot <- function (res) {
   # ----------------------------------
   # plot of residuals vs mean
 
-  plot_res_means <- ggplot2::ggplot(data = res$bv$outputMeasurements) +
+  plot_res_means <- ggplot2::ggplot(data = res$bv$output_measurements) +
     ggplot2::geom_point(mapping = aes(x = m_ij, y = r_ij)) +
     # Add a horizontal line at y = 1.96
     ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
@@ -115,7 +115,7 @@ blandxtr_results_plot <- function (res) {
   # ----------------------------------
   # plot of residuals vs ID
 
-  plot_res_id <- ggplot2::ggplot(data = res$bv$outputMeasurements) +
+  plot_res_id <- ggplot2::ggplot(data = res$bv$output_measurements) +
     ggplot2::geom_point(mapping = aes(x = subject, y = r_ij)) +
     # Add a horizontal line at y = 1.96
     ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +

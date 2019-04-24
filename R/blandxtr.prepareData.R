@@ -22,14 +22,14 @@ blandxtr_prepareData <- function (input_dt){
   # check columns
   if (!(any(colnames(input_dt)=="subject"))){
     stop("Error in input dataset: No column named 'subject' found.")
-  } else if (!(any(colnames(input_dt)=="measurementX"))) {
-    stop("Error in input dataset: No column named 'measurementX' found.")
-  } else if (!(any(colnames(input_dt)=="measurementY"))){
-    stop("Error in input dataset: No column named 'measurementX' found.")
+  } else if (!(any(colnames(input_dt)=="measurement_x"))) {
+    stop("Error in input dataset: No column named 'measurement_x' found.")
+  } else if (!(any(colnames(input_dt)=="measurement_y"))){
+    stop("Error in input dataset: No column named 'measurement_x' found.")
   }
 
   # select only columns necessary for analysis
-  input_dt <- input_dt[, list(subject, measurementX, measurementY)]
+  input_dt <- input_dt[, list(subject, measurement_x, measurement_y)]
 
   # delete rows with empty values
   if (any(is.na(input_dt)))
@@ -38,10 +38,10 @@ blandxtr_prepareData <- function (input_dt){
   input_dt <- na.omit(input_dt)
 
   # check input data
-  if(!(is.numeric(input_dt$measurementX)))
-    stop("Error in input dataset: Column 'measurementX' is not numeric.")
-  if(!(is.numeric(input_dt$measurementY)))
-    stop("Error in input dataset: Column 'measurementY' is not numeric.")
+  if(!(is.numeric(input_dt$measurement_x)))
+    stop("Error in input dataset: Column 'measurement_x' is not numeric.")
+  if(!(is.numeric(input_dt$measurement_y)))
+    stop("Error in input dataset: Column 'measurement_y' is not numeric.")
 
   return(
     input_dt = input_dt
