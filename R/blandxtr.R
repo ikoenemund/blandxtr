@@ -105,3 +105,10 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
   class(result) <- c("blandxtr", class(result))
   return(result)
 }
+
+#' Reports whether x is a blandxtr object
+#' @param x An object to test
+#' @keywords internal
+#' @export
+
+is.blandxtr <- function(x) inherits(x, "blandxtr")
