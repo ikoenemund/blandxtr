@@ -5,6 +5,7 @@
 #'
 #' @import data.table
 #' @import ggplot2
+#' @import checkmate
 #'
 #' @aliases blandxtr-package
 #'
@@ -41,18 +42,21 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
 
   # -----------------------------------------
   # check input
-  # if (!(is.data.table(input_dt)))
-  #   stop("'input_dt' is not a data.table.")
-  if (!(all.equal(bt, as.integer(bt))))
-    stop("'bt' is not an integer.")
+
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_data_table(input_dt, add = coll)
+  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+
   if(bt<0) {
     warning("'bt' has been given a negative value.
     It has been automatically set 0 and
     bootstrapping has been skipped.")
     bt <- 0
   }
-  if (!(is.logical(bias_mod)))
-    stop("'bias_mod' is not logical.")
 
   # -----------------------------------------
   # prepare input data for analysis
