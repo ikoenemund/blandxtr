@@ -1,0 +1,101 @@
+---
+title: "Report of modified Bland Altman-analysis"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  # html_notebook: default
+  html_document:
+    df_print: paged
+    number_sections : true
+    toc : true
+  word_document:
+    toc : true
+  md_document: 
+    toc : true
+  pdf_document:
+    number_sections : true
+    toc : true
+params:
+  tab: tab
+  fig: fig
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(knitr.kable.NA = '-')
+```
+
+# Input parameters
+```{r, results="asis"}
+knitr::kable(params$tab$input_param_m, format = 'markdown', digits = 7)
+```
+Table: Input parameters
+
+# Analysis results
+```{r, results="asis"}
+knitr::kable(params$tab$analysis_results_m, format = 'markdown', digits = 7)
+```
+Table: Analysis results
+
+```{r, echo=FALSE}
+  params$fig$plot_res
+```
+Figure: Plot of analysis results
+
+# Analysis results (modified)
+```{r, results="asis"}
+knitr::kable(params$tab$analysis_results_mod_m, format = 'markdown', digits = 7)
+```
+Table: Analysis results (modified)
+
+```{r, echo=FALSE}
+  params$fig$plot_res_mod
+```
+Figure: Plot of analysis results (modified)
+
+# Repeatability coefficients
+```{r, results="asis"}
+knitr::kable(params$tab$rep_coeff_m, format = 'markdown', digits = 7)
+```
+Table: Repeatability coefficients
+
+# QQ-plot of residuals
+```{r, echo=FALSE}
+  params$fig$qq_resid
+```
+Figure: QQ-plot of residuals
+
+# QQ-plot of individual means
+```{r, echo=FALSE}
+  params$fig$qq_ind_means
+```
+Figure: QQ-plot of individual means
+
+# Plot of the residuals vs mean
+```{r, echo=FALSE}
+  params$fig$plot_res_means
+```
+Figure: Plot of the residuals vs mean
+
+# Plot of the residuals vs ID
+```{r, echo=FALSE}
+  params$fig$plot_res_id
+```
+Figure: Plot of the residuals vs ID
+
+# Individual means of differences
+```{r, results="asis"}
+knitr::kable(params$tab$ind_means, format = 'markdown', digits = 7)
+```
+Table: Individual means
+
+# Residuals
+```{r, results="asis"}
+knitr::kable(params$tab$resid, format = 'markdown', digits = 7)
+```
+Table: Residuals
+
+# Input data
+```{r, results="asis"}
+knitr::kable(params$tab$input_data, format = 'markdown', digits = 7)
+```
+Table: Input data
