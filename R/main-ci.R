@@ -29,6 +29,24 @@
 
 main_ci <- function(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod,
   var_loa, var_loa_mod, alpha, beta){
+
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_data_table(input_dt, add = coll)
+  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_list(bv, add = coll)
+  checkmate::assert_list(var_tvv, add = coll)
+  checkmate::assert_list(loa, add = coll)
+  checkmate::assert_list(loa_mod, add = coll)
+  checkmate::assert_numeric(var_loa, add = coll)
+  checkmate::assert_numeric(var_loa_mod, add = coll)
+  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
+
   # -----------------------------------------
   # CI Bland Altman
   # CI Bland Altman (based on standard tvv)

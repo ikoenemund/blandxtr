@@ -47,6 +47,18 @@
 
 var_tvv <- function (n, n_obs, d, d_a, output_subjects, output_measurements){
 
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_integer(n, add = coll)
+  checkmate::assert_integer(n_obs, add = coll)
+  checkmate::assert_numeric(d, add = coll)
+  checkmate::assert_numeric(d_a, add = coll)
+  checkmate::assert_data_table(output_subjects, add = coll)
+  checkmate::assert_data_table(output_measurements, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
+
   # -------------------------------------
   # standard tvv
   # -------------------------------------

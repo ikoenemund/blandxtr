@@ -22,6 +22,15 @@
 # limits of agreement (loa)
  loa <- function(d, sd_d, beta){
 
+   # -----------------------------------------
+   # check input
+   coll <- checkmate::makeAssertCollection()
+   checkmate::assert_numeric(d, add = coll)
+   checkmate::assert_numeric(sd_d, add = coll)
+   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+   checkmate::reportAssertions(coll)
+   # -----------------------------------------
+
    # lower
    z <- qnorm(1-beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
    loa_l <- d-(z*sd_d)

@@ -19,6 +19,11 @@
 
 prepare_data <- function (input_dt){
 
+  # -----------------------------------------
+  # check input
+  checkmate::assert_data_table(input_dt, add = coll)
+  # -----------------------------------------
+
   # check columns
   if (!(any(colnames(input_dt)=="subject"))){
     stop("Error in input dataset: No column named 'subject' found.")

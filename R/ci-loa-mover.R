@@ -9,7 +9,7 @@
 #'
 #' @param n number of subjects
 #' @param n_obs number of observations
-#' @param outputSubjects data.table containing subject ID and
+#' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
 #' @param mssi_mod mssi (modified calculation)
 #' @param wsv within-subject variance
@@ -29,12 +29,27 @@
 #' @export
 #'
 
-ci_loa_mover <- function (n, n_obs, outputSubjects, mssi_mod, wsv, loa_l,
+ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
   loa_u, alpha, beta) {
+
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_integer(n, add = coll)
+  checkmate::assert_integer(n_obs, add = coll)
+  checkmate::assert_data_table(output_subjects, add = coll)
+  checkmate::assert_numeric(mssi_mod, add = coll)
+  checkmate::assert_numeric(wsv, add = coll)
+  checkmate::assert_numeric(loa_l, add = coll)
+  checkmate::assert_numeric(loa_u, add = coll)
+  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
 
   # harmonic mean (m_h)
   helper <- 0
-  helper <- 1/(outputSubjects[, m_i])
+  helper <- 1/(output_subjects[, m_i])
   ans <- sum(helper)
   m_h <- n/ans
   rm(ans, helper)

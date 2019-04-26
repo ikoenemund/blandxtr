@@ -21,6 +21,17 @@
 #' @export
 
 ci_loa_ba <- function(loa_l, loa_u, var_loa, alpha) {
+
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_numeric(loa_l, add = coll)
+  checkmate::assert_numeric(loa_u, add = coll)
+  checkmate::assert_numeric(var_loa, add = coll)
+  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
+
   z <- qnorm(1-alpha/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   ci_l_loa_l_ba <- loa_l-(z*(sqrt(var_loa)))
   ci_u_loa_l_ba <- loa_l+(z*(sqrt(var_loa)))

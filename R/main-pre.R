@@ -25,6 +25,16 @@
 main_pre <- function (input_dt, bt, bias_mod, beta) {
 
   # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_data_table(input_dt, add = coll)
+  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
+
+  # -----------------------------------------
   # calculate basic variables
   bv <- basic_variables(input_dt)
 

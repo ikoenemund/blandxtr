@@ -32,6 +32,20 @@
 var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
   bias_mod, beta){
 
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_integer(n, add = coll)
+  checkmate::assert_integer(n_obs, add = coll)
+  checkmate::assert_numeric(bsv, add = coll)
+  checkmate::assert_numeric(wsv, add = coll)
+  checkmate::assert_data_table(output_subjects, add = coll)
+  checkmate::assert_numeric(var_var_d, add = coll)
+  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
+
   ans1 <- 0
   ans2 <- 0
   helper <- 0

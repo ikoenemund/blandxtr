@@ -6,7 +6,7 @@
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
-#' @param res list with results from \code{blandxtrMain}
+#' @param res list with results from \code{blandxtr}
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
 #' @param bias_mod set TRUE for modified calculation of bias (small wsv) and
 #' its variance, set FALSE for standard calculation of bias (small bsv) and
@@ -23,6 +23,18 @@
 #' @export
 
 generate_tables <- function (res, bt, bias_mod, alpha, beta) {
+
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_list(res, add = coll)
+  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
+
   if (bt < 1){
     # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=10, ncol=3)

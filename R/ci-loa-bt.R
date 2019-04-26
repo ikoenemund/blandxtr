@@ -31,7 +31,20 @@
 
 ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
   alpha, beta) {
-  # source("R/blandxtrMain.pre.R")
+
+  # -----------------------------------------
+  # check input
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_data_table(input_dt, add = coll)
+  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_numeric(loa_l, add = coll)
+  checkmate::assert_numeric(loa_u, add = coll)
+  checkmate::assert_numeric(var_loa, add = coll)
+  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
+  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
+  checkmate::reportAssertions(coll)
+  # -----------------------------------------
 
   #  sampling
   boot_samp <- vector("list", bt)
