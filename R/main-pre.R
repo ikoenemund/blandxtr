@@ -1,8 +1,8 @@
 #' @title Helper function for main method for blandxtr
 #'
-#' @description \code{blandxtrMain_pre} performs modified Bland Altman-analysis
+#' @description \code{main_pre} performs modified Bland Altman-analysis
 #' as proposed by Olofsen et al. (2015) without calculation of
-#' confidence intervals. Helper function for \code{blandxtr.Main} which performs
+#' confidence intervals. Helper function for \code{blandxtr} which performs
 #' the whole analysis.
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
@@ -22,11 +22,11 @@
 #' @export
 #'
 
-blandxtrMain_pre <- function (input_dt, bt, bias_mod, beta) {
+main_pre <- function (input_dt, bt, bias_mod, beta) {
 
   # -----------------------------------------
   # calculate basic variables
-  bv <- basicVariables(input_dt)
+  bv <- basic_variables(input_dt)
 
   # unbalanced case: bias_mod = TRUE
   for (i in 1:bv$n){
@@ -43,27 +43,27 @@ blandxtrMain_pre <- function (input_dt, bt, bias_mod, beta) {
 
   # -----------------------------------------
   # analysis of variances
-  var_tvv <- calc_var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$output_subjects,
+  var_tvv <- var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$output_subjects,
     bv$output_measurements)
 
   # -----------------------------------------
   # calculate limits of agreement (loa) (standard and modified)
 
   # limits of agreement (based on standard tvv)
-  loa <- calc_loa(bv$d, var_tvv$sd_d, beta)
+  loa <- loa(bv$d, var_tvv$sd_d, beta)
 
   # limits of agreement (based on modified tvv)
-  loa_mod <- calc_loa(bv$d_a, var_tvv$sd_d_mod, beta)
+  loa_mod <- loa(bv$d_a, var_tvv$sd_d_mod, beta)
 
   # -----------------------------------------
   # calculate variance of limits of agreement (loa)
 
   # variance of loa (based on standard tvv)
-  var_loa <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
+  var_loa <- var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
     bv$output_subjects, var_tvv$var_var_d, bias_mod, beta)
 
   # variance of loa (based on modified tvv)
-  var_loa_mod <- calc_var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
+  var_loa_mod <- var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
     bv$output_subjects, var_tvv$var_var_d_mod, bias_mod, beta)
 
   # -----------------------------------------

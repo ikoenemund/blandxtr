@@ -21,13 +21,13 @@ its variance}
 }
 \value{
 A list (blandxtr S3 object) containing the return values of all used
-functions and a report showing the main results (as pdf/ LaTex).
+functions (includes tables and ggplot2 objects).
 }
 \description{
 \code{blandxtr} performs modified Bland Altman-analysis as
 proposed by Olofsen et al. (2015). Uses the following functions from
-blandxtr-package: \code{basicVariables}, \code{var.tvv}, \code{loa},
-\code{var.loa}, \code{ci.loa.ba} and \code{ci.loa.mover}.
+blandxtr-package: \code{basic_variables}, \code{var_tvv}, \code{loa},
+\code{var_loa}, \code{ci_loa_ba},  \code{ci_loa_bt} and \code{ci_loa_mover}.
 }
 \note{
 \code{bias_mod} is automatically set TRUE for

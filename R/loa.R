@@ -20,7 +20,7 @@
 
 # ---------------------------
 # limits of agreement (loa)
- calc_loa <- function(d, sd_d, beta){
+ loa <- function(d, sd_d, beta){
 
    # lower
    z <- qnorm(1-beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)

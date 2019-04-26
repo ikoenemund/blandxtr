@@ -22,7 +22,7 @@
 #'
 #' @export
 
-blandxtr_results_table <- function (res, bt, bias_mod, alpha, beta) {
+generate_tables <- function (res, bt, bias_mod, alpha, beta) {
   if (bt < 1){
     # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=10, ncol=3)

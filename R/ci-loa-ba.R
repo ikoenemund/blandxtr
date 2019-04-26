@@ -1,6 +1,6 @@
 #' @title Confidence intervals for LoA (Bland Altman)
 #'
-#' @description \code{calc_ci_loa_ba} returns confidence intervals (CI)
+#' @description \code{ci_loa_ba} returns confidence intervals (CI)
 #' for limits of agreement (LoA) based on a method proposed
 #' by Bland and Altman (1999).
 #'
@@ -20,7 +20,7 @@
 #' }
 #' @export
 
-calc_ci_loa_ba <- function(loa_l, loa_u, var_loa, alpha) {
+ci_loa_ba <- function(loa_l, loa_u, var_loa, alpha) {
   z <- qnorm(1-alpha/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   ci_l_loa_l_ba <- loa_l-(z*(sqrt(var_loa)))
   ci_u_loa_l_ba <- loa_l+(z*(sqrt(var_loa)))

@@ -6,6 +6,7 @@
 #' @import data.table
 #' @import ggplot2
 #' @import checkmate
+#' @import knitr
 #'
 #' @aliases blandxtr-package
 #'
@@ -15,8 +16,8 @@
 #'
 #' @description \code{blandxtr} performs modified Bland Altman-analysis as
 #' proposed by Olofsen et al. (2015). Uses the following functions from
-#' blandxtr-package: \code{basicVariables}, \code{var.tvv}, \code{loa},
-#' \code{var.loa}, \code{ci.loa.ba} and \code{ci.loa.mover}.
+#' blandxtr-package: \code{basic_variables}, \code{var_tvv}, \code{loa},
+#' \code{var_loa}, \code{ci_loa_ba},  \code{ci_loa_bt} and \code{ci_loa_mover}.
 #'
 #' @author Inga Koenemund \email{inga.koenemund(at)web.de}
 #'
@@ -35,7 +36,7 @@
 #' if you want to skip bootstrapping.
 #'
 #' @return A list (blandxtr S3 object) containing the return values of all used
-#' functions and a report showing the main results (as pdf/ LaTex).
+#' functions (includes tables and ggplot2 objects).
 #' @export
 
 blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
@@ -60,38 +61,18 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
 
   # -----------------------------------------
   # prepare input data for analysis
-  input_dt <- blandxtr_prepareData(input_dt)
+  input_dt <- prepare_data(input_dt)
 
   # -----------------------------------------
 
-  pre <- blandxtrMain_pre (input_dt, bt, bias_mod, beta)
-  ci <- blandxtr_ci(bt, input_dt, bias_mod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
+  pre <- main_pre (input_dt, bt, bias_mod, beta)
+  ci <- main_ci(bt, input_dt, bias_mod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
     pre$var_loa, pre$var_loa_mod, alpha, beta)
 
   res <- c(pre, ci)
 
-  tab <- blandxtr_results_table(res, bt, bias_mod, alpha, beta)
+  tab <- generate_tables(res, bt, bias_mod, alpha, beta)
   fig <- plot.blandxtr(res)
-
-  # -----------------------------------------
-  # # create report (in latex) as pdf file
-  # library(knitr)
-  # setwd('./report/')
-  # options(tinytex.verbose = TRUE)
-  # knit2pdf(input = "report.blandxtr.Rnw")
-  # setwd('..')
-
-  # # create report (in markdown) as html file
-  # output_format <- "html"
-  #
-  # renderMyReport <- function(res, tab, fig) {
-  #   setwd('./report/')
-  #   rmarkdown::render("blandxtr-report.Rmd",
-  #     output_format = output_format,
-  #     params = list(res = res, tab = tab, fig = fig))
-  #   setwd('..')
-  # }
-  # renderMyReport(res, tab, fig)
 
   # -----------------------------------------
 

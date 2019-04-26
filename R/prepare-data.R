@@ -17,7 +17,7 @@
 
 # Check and prepare input data
 
-blandxtr_prepareData <- function (input_dt){
+prepare_data <- function (input_dt){
 
   # check columns
   if (!(any(colnames(input_dt)=="subject"))){

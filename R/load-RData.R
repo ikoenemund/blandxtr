@@ -8,7 +8,7 @@
 #' @return A data.frame containing data from fileName.
 #' @export
 
-loadRData <- function(fileName){
+load_RData <- function(fileName){
   #loads an RData file, and returns it
   load(fileName)
   get(ls()[ls() != "fileName"])

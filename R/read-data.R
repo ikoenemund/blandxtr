@@ -11,7 +11,7 @@
 #'
 #' @export
 
-blandxtr_readData <- function(path){
+read_data <- function(path){
 
   # check input
   if (!(is.character(path)))

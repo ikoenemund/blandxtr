@@ -5,15 +5,15 @@
 # profvis({
 
 # get data.table from RData
-input_dt <- loadRData("olofsen.RData")
+input_dt <- load_RData("olofsen.RData")
 
 # set variables necessary for analysis
 alpha <- 0.05
 beta <- 0.05
 bias_mod <- TRUE
-bt <- 1
+bt <- 1L
 
-olofsen_result <- blandxtr (input_dt, bt, bias_mod, alpha, beta)
+olofsen_result <- blandxtr(input_dt, bt, bias_mod, alpha, beta)
 bias_mod <- olofsen_result$res$bias_mod
 
 # })

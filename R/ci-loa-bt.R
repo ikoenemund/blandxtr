@@ -1,6 +1,6 @@
 #' @title Confidence intervals for LoA (parametric bootsrap-t)
 #'
-#' @description \code{calc_ci_loa_bt} returns confidence intervals
+#' @description \code{ci_loa_bt} returns confidence intervals
 #' (CI) for limits of agreement (LoA). Calculation is based on
 #' parametric bootstrap-t.
 #'
@@ -29,7 +29,7 @@
 #' }
 #' @export
 
-calc_ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
+ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
   alpha, beta) {
   # source("R/blandxtrMain.pre.R")
 
@@ -44,7 +44,7 @@ calc_ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
   rm(i)
 
   # bland altman analysis per sample
-  boot <- lapply(boot_samp, blandxtrMain_pre, bt=bt, bias_mod=bias_mod,
+  boot <- lapply(boot_samp, main_pre, bt=bt, bias_mod=bias_mod,
     beta)
 
   # initialize and fill matrix

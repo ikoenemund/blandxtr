@@ -29,7 +29,7 @@
 #'
 #' @export
 
-calc_var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
+var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
   bias_mod, beta){
 
   ans1 <- 0

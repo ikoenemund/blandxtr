@@ -1,6 +1,6 @@
 #' @title Confidence intervals for LoA (MOVER)
 #'
-#' @description \code{calc_ci_loa_mover} returns confidence intervals
+#' @description \code{ci_loa_mover} returns confidence intervals
 #' (CI) for limits of agreement (LoA) based on MOVER-method
 #' (Methods of Variance Estimates Recovery) proposed
 #' by Zou (2013).
@@ -29,7 +29,7 @@
 #' @export
 #'
 
-calc_ci_loa_mover <- function (n, n_obs, outputSubjects, mssi_mod, wsv, loa_l,
+ci_loa_mover <- function (n, n_obs, outputSubjects, mssi_mod, wsv, loa_l,
   loa_u, alpha, beta) {
 
   # harmonic mean (m_h)

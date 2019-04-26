@@ -32,7 +32,7 @@
 #'
 #' @export
 
-basicVariables <- function(dt){
+basic_variables <- function(dt){
 
   # check input
   if (!(is.data.table(dt))){

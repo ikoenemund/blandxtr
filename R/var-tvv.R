@@ -1,6 +1,6 @@
 #' @title Analysis of variance
 #'
-#' @description \code{calc_var_tvv} executes analysis of variance for
+#' @description \code{var_tvv} executes analysis of variance for
 #' quantities measured with true value varying
 #' (includes standard and modified version)
 #'
@@ -45,7 +45,7 @@
 #'
 #' @export
 
-calc_var_tvv <- function (n, n_obs, d, d_a, output_subjects, output_measurements){
+var_tvv <- function (n, n_obs, d, d_a, output_subjects, output_measurements){
 
   # -------------------------------------
   # standard tvv
