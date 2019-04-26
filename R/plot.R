@@ -24,7 +24,7 @@ plot.blandxtr <- function (x, ...) {
   # Bland Altman-plot
   # black/white
 
-  # ---- plot_res
+  ## @knitr plotRes
 
   plot_res <- ggplot2::ggplot(data = x$bv$output_measurements) +
     ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij)) +
@@ -46,12 +46,7 @@ plot.blandxtr <- function (x, ...) {
     scale_linetype_manual(name="Legend", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"), values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
     ggplot2::theme(legend.direction = "horizontal", legend.position = "bottom",
       legend.key.size = unit(3, "lines"))
-  # ----
-
-  # ggsave("report/plots-png/plot-res.png", width = 12, height = 12, plot = plot_res,
-  #   device="png")
-  # ggsave("report/plots-svg/plot-res.svg", width = 12, height = 12, plot = plot_res,
-  #   device="svg")
+  ## @knit
 
   # ----------------------------------
   # Bland Altman-plot (modified analysis)
@@ -78,29 +73,17 @@ plot.blandxtr <- function (x, ...) {
     ggplot2::theme(legend.direction = "horizontal", legend.position = "bottom",
       legend.key.size = unit(3, "lines"))
 
-  # ggsave("report/plots-png/plot-res-mod.png", width = 12, height = 12,
-  #   plot = plot_res_mod, device="png")
-  # ggsave("report/plots-svg/plot-res-mod.svg", width = 12, height = 12,
-  #   plot = plot_res_mod, device="svg")
-
   # ----------------------------------
   # QQ plot of individual means
 
   p <- ggplot2::ggplot (data = x$bv$output_subjects, aes(sample=d_i))
   qq_ind_means <- p + ggplot2::stat_qq(col="black") + ggplot2::stat_qq_line(col="black")
 
-  # ggsave("report/plots-png/qq-ind-means.png", plot = qq_ind_means, device="png")
-  # ggsave("report/plots-svg/qq-ind-means.svg", plot = qq_ind_means, device="svg")
-
   # ----------------------------------
   # QQ plot of residuals
 
-
   p <- ggplot2::ggplot (data = x$bv$output_measurements, aes(sample=r_ij))
   qq_resid <- p + ggplot2::stat_qq(col="black") + ggplot2::stat_qq_line(col="black")
-
-  # ggsave("report/plots-png/qq-resid.png", plot = qq_resid, device="png")
-  # ggsave("report/plots-svg/qq-resid.svg", plot = qq_resid, device="svg")
 
   # ----------------------------------
   # plot of residuals vs mean
@@ -113,8 +96,6 @@ plot.blandxtr <- function (x, ...) {
     ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
     ggplot2::labs(x="mean value of X_ij and Y_ij", y="residual of X_ij and Y_ij")
 
-  # ggsave("report/plots-png/plot-res-means.png", plot = plot_res_means, device="png")
-  # ggsave("report/plots-svg/plot-res-means.svg", plot = plot_res_means, device="svg")
   # ----------------------------------
   # plot of residuals vs ID
 
@@ -126,11 +107,7 @@ plot.blandxtr <- function (x, ...) {
     ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
     ggplot2::labs(x="ID", y="residual of X_ij and Y_ij")
 
-  # ggsave("report/plots-png/plot-res-id.png", plot = plot_res_id, device="png")
-  # ggsave("report/plots-svg/plot-res-id.svg", plot = plot_res_id, device="svg")
-
   # ----------------------------------
-
   return(
     list(
       plot_res = plot_res,

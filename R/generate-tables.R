@@ -46,8 +46,6 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
-    # test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
-    # ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
     # -----------------------------------
     # modified analysis results: using matrix
@@ -72,8 +70,7 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
-    # test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
-    # ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
+
   } else {
     # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=12, ncol=3)
@@ -99,8 +96,6 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
-    # test_m <- xtable(analysis_results_m, digits = 7, NA.string = "-")
-    # ana_res_tab <- print(test_m, type="latex", file = "report/ana_res_tab.tex")
 
     # -----------------------------------
     # modified analysis results: using matrix
@@ -127,8 +122,6 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
-    # test_m <- xtable(analysis_results_mod_m, digits = 7, NA.string = "-")
-    # ana_res_mod_tab <- print(test_m, type="latex", file = "report/ana_res_mod_tab.tex")
   }
   # -----------------------------------
   # repCoeff_table
@@ -144,10 +137,6 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
   rep_coeff_m["mean X:",1]=res$bv$mean_x
   rep_coeff_m["mean Y:",1]=res$bv$mean_y
 
-  # rep_coeff <- xtable(rep_coeff_m, digits = 7, NA.string = "-")
-  # rep_coeff_tab <- print(rep_coeff, type="latex",
-  #   file = "report/rep_coeff_tab.tex")
-
   # -----------------------------------
   # individualMeans_table
   # using data.table
@@ -155,46 +144,17 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
   ind_means <- copy(res$bv$output_subjects)
   setnames(ind_means,"d_i", "Mean")
   setnames(ind_means,"m_i", "M")
-  # ind_means <- xtable(ind_means, digits = 3, NA.string = "-")
-  # ind_means_tab <- print(ind_means, type="latex", include.rownames=FALSE,
-  #   file = "report/ind_means_tab.tex")
 
   # -----------------------------------
   # table with residuals
   # using data.table
 
-  addtorow          <- list()
-  addtorow$pos      <- list()
-  addtorow$pos[[1]] <- c(0)
-  addtorow$command  <- c(paste("\\hline \n",
-    "\\endhead \n",
-    "\\hline \n",
-    "{\\footnotesize Continued on next page} \n",
-    "\\endfoot \n",
-    "\\endlastfoot \n",sep=""))
-
   resid <- res$bv$output_measurements[, list(subject, measurement_id, r_ij)]
   setnames(resid,"r_ij", "Residual")
   setnames(resid,"measurement_id", "ID (Messung)")
-  # resid <- xtable(resid, digits = 3, NA.string = "-", longtable = TRUE)
-  # resid_tab <- print(resid, tabular.environment = "longtable", floating = FALSE,
-  #   include.rownames = FALSE,  # because addtorow will substitute the default row names
-  #   add.to.row = addtorow,     # this is where you actually make the substitution
-  #   hline.after=c(-1), # because addtorow will substitute the default hline for the first row
-  #   file = "report/resid_tab.tex")
 
   # -----------------------------------
   # table with input data
-
-  addtorow          <- list()
-  addtorow$pos      <- list()
-  addtorow$pos[[1]] <- c(0)
-  addtorow$command  <- c(paste("\\hline \n",
-    "\\endhead \n",
-    "\\hline \n",
-    "{\\footnotesize Continued on next page} \n",
-    "\\endfoot \n",
-    "\\endlastfoot \n",sep=""))
 
   input_data <- res$bv$output_measurements[, list(subject, measurement_id,
     measurement_x, measurement_y)]
@@ -202,12 +162,6 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
   setnames(input_data,"measurement_x", "Measurement X")
   setnames(input_data,"measurement_y", "Measurement Y")
   setnames(input_data,"measurement_id", "ID (Messung)")
-  # input_data <- xtable(input_data, digits = 3, NA.string = "-", longtable = TRUE)
-  # input_data_tab <- print(input_data, tabular.environment = "longtable", floating = FALSE,
-  #   include.rownames = FALSE,  # because addtorow will substitute the default row names
-  #   add.to.row = addtorow,     # this is where you actually make the substitution
-  #   hline.after=c(-1), # because addtorow will substitute the default hline for the first row
-  #   file = "report/input_data_tab.tex")
 
   # -----------------------------------
   # table with input parameters (bias_mod, alpha, beta, bt, tau, tau_mod)
@@ -230,19 +184,8 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
   input_param_m["tau:",1]=res$var_tvv$tau
   input_param_m["tau_mod:",1]=res$var_tvv$tau_mod
 
-  # input_param <- xtable(input_param_m, digits = 2, NA.string = "-")
-  # input_param_tab <- print(input_param, type="latex",
-  #   file = "report/input_param_tab.tex")
-
   return(
     list(
-      # ana_res_tab = ana_res_tab,
-      # ana_res_mod_tab = ana_res_mod_tab,
-      # rep_coeff_tab = rep_coeff_tab,
-      # ind_means_tab = ind_means_tab,
-      # resid_tab = resid_tab,
-      # input_data_tab = input_data_tab,
-
       analysis_results_m = analysis_results_m,
       analysis_results_mod_m = analysis_results_mod_m,
       rep_coeff_m = rep_coeff_m,
