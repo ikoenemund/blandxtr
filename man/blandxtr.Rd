@@ -21,7 +21,7 @@ its variance}
 }
 \value{
 A list (blandxtr S3 object) containing the return values of all used
-functions (includes tables and ggplot2 objects).
+functions.
 }
 \description{
 \code{blandxtr} performs modified Bland Altman-analysis as
@@ -39,5 +39,5 @@ Bootstrapping affects runtime severely. Set bt<=0
 if you want to skip bootstrapping.
 }
 \author{
-Inga Koenemund \email{inga.koenemund(at)web.de}
+Inga Koenemund \email{inga.koenemund@web.de}
 }

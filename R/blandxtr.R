@@ -7,6 +7,7 @@
 #' @import ggplot2
 #' @import checkmate
 #' @import knitr
+#' @import rmarkdown
 #'
 #' @aliases blandxtr-package
 #'
@@ -19,7 +20,7 @@
 #' blandxtr-package: \code{basic_variables}, \code{var_tvv}, \code{loa},
 #' \code{var_loa}, \code{ci_loa_ba},  \code{ci_loa_bt} and \code{ci_loa_mover}.
 #'
-#' @author Inga Koenemund \email{inga.koenemund(at)web.de}
+#' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
 #' @param input_dt data.table with input dataset
@@ -36,7 +37,7 @@
 #' if you want to skip bootstrapping.
 #'
 #' @return A list (blandxtr S3 object) containing the return values of all used
-#' functions (includes tables and ggplot2 objects).
+#' functions.
 #' @export
 
 blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
@@ -44,20 +45,28 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
   # -----------------------------------------
   # check input
 
+  if (missing(alpha)) {
+    alpha <- 0.05
+    warning("Variable `alpha` is missing. Setting to 0.05.")
+  }
+  if (missing(beta)) {
+    beta <- 0.05
+  }
+
+  if(bt<0) {
+    warning("'bt' has been given a negative value.
+      It has been automatically set 0 and
+      bootstrapping has been skipped.")
+    bt <- 0
+  }
+
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_data_table(input_dt, add = coll)
-  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_int(bt, add = coll)
   checkmate::assert_logical(bias_mod, add = coll)
   checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)
-
-  if(bt<0) {
-    warning("'bt' has been given a negative value.
-    It has been automatically set 0 and
-    bootstrapping has been skipped.")
-    bt <- 0
-  }
 
   # -----------------------------------------
   # prepare input data for analysis
@@ -69,22 +78,13 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
   ci <- main_ci(bt, input_dt, bias_mod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
     pre$var_loa, pre$var_loa_mod, alpha, beta)
 
-  res <- c(pre, ci)
-
-  tab <- generate_tables(res, bt, bias_mod, alpha, beta)
-  fig <- plot.blandxtr(res)
+  res <- c(bt = bt, bias_mod = bias_mod, alpha = alpha, beta = beta, pre, ci)
 
   # -----------------------------------------
 
-  result <-
-    list(
-      res = res,
-      tab = tab,
-      fig = fig
-    )
   # class definition
-  class(result) <- c("blandxtr", class(result))
-  return(result)
+  class(res) <- c("blandxtr", class(res))
+  return(res)
 }
 
 #' Reports whether x is a blandxtr object
