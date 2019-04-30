@@ -5,10 +5,8 @@
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
-#' @param tab A list of tables to be displayed (generated with
-#' \code{generate-tables}-function from \code{blandxtr}-package
-#' @param fig A list of plots to be displayed (generated with
-#' \code{plot}-function from \code{blandxtr}-package (\code{plot.blandxtr})
+#' @param res A list (blandxtr S3 object) from \code{blandxtr}-function
+#' containing all results from modified Bland Altman-analysis
 #' @param output_format 'html_document' (default), 'pdf_document' or
 #' 'word_document'
 #' @param output_dir String specifying the directory for storing the output file
@@ -17,7 +15,7 @@
 #'
 #' @export
 
-report <- function(tab, fig, output_format, output_dir){
+report <- function(res, output_format, output_dir){
   # -----------------------
   # setting default values for 'output_format' and 'output_dir'
 
@@ -32,6 +30,12 @@ report <- function(tab, fig, output_format, output_dir){
       directory for installed packages and see 'blandxtr/rmd' to find the
       report.")
   }
+  # -----------------------
+  # generate tables and figures to be displayed in the report
+
+  tab <- generate_tables(olofsen_result)
+  fig <- plot(olofsen_result, 3)
+
   # -----------------------
   rmarkdown::render(input = system.file("rmd", "report.rmd",
       package = "blandxtr"), output_format = output_format,

@@ -4,14 +4,11 @@
 \alias{report}
 \title{Create report for modified Bland Altman-analysis}
 \usage{
-report(tab, fig, output_format, output_dir)
+report(res, output_format, output_dir)
 }
 \arguments{
-\item{tab}{A list of tables to be displayed (generated with
-\code{generate-tables}-function from \code{blandxtr}-package}
-
-\item{fig}{A list of plots to be displayed (generated with
-\code{plot}-function from \code{blandxtr}-package (\code{plot.blandxtr})}
+\item{res}{A list (blandxtr S3 object) from \code{blandxtr}-function
+containing all results from modified Bland Altman-analysis}
 
 \item{output_format}{'html_document' (default), 'pdf_document' or
 'word_document'}
