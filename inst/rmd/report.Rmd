@@ -43,14 +43,12 @@ Figure: Plot of analysis results
 
 # Analysis results (modified)
 ```{r, results="asis"}
-knitr::kable(params$tab$analysis_results_mod_m, format = 'markdown', digits = 7)
+knitr::kable(params$tab$analysis_results_mod_m, format = 'markdown', digits = 7, caption = "Analysis results (modified)")
 ```
-Table: Analysis results (modified)
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="Plot of analysis results (modified)"}
   params$fig$plot_res_mod
 ```
-Figure: Plot of analysis results (modified)
 
 # Repeatability coefficients
 ```{r, results="asis"}

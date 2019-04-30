@@ -17,7 +17,8 @@ Imports:
     data.table,
     ggplot2,
     checkmate,
-    knitr
+    knitr,
+    rmarkdown
 Suggests: 
     testthat
 RoxygenNote: 6.1.1
