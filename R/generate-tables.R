@@ -1,8 +1,8 @@
 #' @title Tables with results of modified Bland Altman-analysis
 #'
 #' @description \code{blandxtr.results.table} summarizes the results of
-#' modified Bland Altman-analysis performed with \code{blandxtrMain} as
-#' LaTeX-tables.
+#' modified Bland Altman-analysis performed with \code{blandxtr} as
+#' tables.
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
@@ -44,6 +44,7 @@ generate_tables <- function (res) {
       res$loa_bt$ci_u_loa_u_bt, res$loa_ba$ci_u_loa_l_ba,
       res$loa_ba$ci_u_loa_u_ba, NA, NA)
 
+    analysis_results_m[1,3]=c(res$var_loa$se_d)
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
@@ -68,6 +69,7 @@ generate_tables <- function (res) {
       res$loa_bt_mod$ci_u_loa_u_bt, res$loa_ba_mod$ci_u_loa_l_ba,
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
+    analysis_results_m[1,3]=c(res$var_loa_mod$se_d)
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
@@ -94,6 +96,7 @@ generate_tables <- function (res) {
       res$loa_bt$ci_u_loa_u_bt, res$loa_ba$ci_u_loa_l_ba,
       res$loa_ba$ci_u_loa_u_ba, NA, NA)
 
+    analysis_results_m[1,3]=c(res$var_loa$se_d)
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
@@ -120,6 +123,7 @@ generate_tables <- function (res) {
       res$loa_bt_mod$ci_u_loa_u_bt, res$loa_ba_mod$ci_u_loa_l_ba,
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
+    analysis_results_m[1,3]=c(res$var_loa_mod$se_d)
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
     analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
     analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)

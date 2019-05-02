@@ -88,7 +88,14 @@ test_that("upper limit of agreement is 2.1105868", {
 })
 
 # -----------------------------------------
-# test variance of limits of agreement (loa): Bland Altman-method (mod)
+# test SE of bias (variance of limits of agreement (loa))
+
+test_that("standard error of bias is 0.1586550", {
+  expect_equal(olofsen_result$var_loa_mod$se_d, 0.1586550, tolerance=1e-4)
+})
+
+# -----------------------------------------
+# test CI of limits of agreement (loa): Bland Altman-method (mod)
 
 test_that("lower limit of 95%-CI of lower loa is -1.608 (Bland Altman)", {
   expect_equal(olofsen_result$loa_ba_mod$ci_l_loa_l_ba, -1.608, tolerance=1e-2)
@@ -107,7 +114,7 @@ test_that("upper limit of 95%-CI of upper loa is 2.604 (Bland Altman)", {
 })
 
 # -----------------------------------------
-# test variance of limits of agreement (loa): MOVER-method (mod)
+# test CI of limits of agreement (loa): MOVER-method (mod)
 
 test_that("lower limit of 95%-CI of lower loa is -1.771 (MOVER)", {
   expect_equal(olofsen_result$loa_mover_mod$ci_l_loa_l_mover, -1.771, tolerance=1e-3)
@@ -126,7 +133,7 @@ test_that("upper limit of 95%-CI of upper loa is 2.766 (MOVER)", {
 })
 
 # -----------------------------------------
-# test variance of limits of agreement (loa): parametric bootstrap-t (mod)
+# test CI of limits of agreement (loa): parametric bootstrap-t (mod)
 check_bt <- function(){
   if(bt<1000) {
     skip("bootstrapping sample too small (<1000)")

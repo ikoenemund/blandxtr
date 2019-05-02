@@ -28,6 +28,8 @@ of bias (small between-subjects variance) and its variance}
 }
 \value{
 \code{var_loa} variance of limits of agreement
+
+\code{se_d} standard error of bias
 }
 \description{
 \code{calc_var_loa} returns variance of

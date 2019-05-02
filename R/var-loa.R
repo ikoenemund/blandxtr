@@ -27,6 +27,7 @@
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @return \code{var_loa} variance of limits of agreement
+#' @return \code{se_d} standard error of bias
 #'
 #' @export
 
@@ -70,5 +71,15 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
 
   z <- qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   var_loa <- var_bias+((z^2)*var_sd_d)
+
+  # calculate standard error of bias
+  se_d <- sqrt(var_bias)
+
+  return(
+    list(
+      var_loa = var_loa,
+      se_d = se_d
+    )
+  )
 
 }

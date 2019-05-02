@@ -73,8 +73,8 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
   # -----------------------------------------
 
   pre <- main_pre (input_dt, bt, bias_alt, beta)
-  ci <- main_ci(bt, input_dt, bias_alt, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
-    pre$var_loa, pre$var_loa_mod, alpha, beta)
+  ci <- main_ci(bt, input_dt, bias_alt, pre$bv, pre$var_tvv, pre$loa,
+    pre$loa_mod, pre$var_loa$var_loa, pre$var_loa_mod$var_loa, alpha, beta)
 
   res <- c(bt = bt, bias_alt = bias_alt, alpha = alpha, beta = beta, pre, ci)
 

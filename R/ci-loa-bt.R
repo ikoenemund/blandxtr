@@ -66,7 +66,7 @@ ci_loa_bt <- function(bt, input_dt, bias_alt, loa_l, loa_u, var_loa,
   for(r in 1:bt){
     s[r,1] <- boot[[r]]$loa$loa_l
     s[r,2] <- boot[[r]]$loa$loa_u
-    s[r,3] <- sqrt(boot[[r]]$var_loa)
+    s[r,3] <- sqrt(boot[[r]]$var_loa$var_loa)
     s[r,4] <- (boot[[r]]$loa$loa_l-loa_l)/var_loa
     s[r,5] <- (boot[[r]]$loa$loa_u-loa_u)/var_loa
   }
