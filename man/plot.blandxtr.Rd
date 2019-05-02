@@ -4,29 +4,35 @@
 \alias{plot.blandxtr}
 \title{Visualization (plot) of the results of modified Bland Altman-analysis}
 \usage{
-\method{plot}{blandxtr}(x, ...)
+\method{plot}{blandxtr}(x, type, ...)
 }
 \arguments{
-\item{x}{list with results from \code{blandxtrMain}}
+\item{x}{list with results from \code{blandxtr}}
+
+\item{type}{which plot to produce (1: analysis results,
+2: modified analysis results, 3: list with all plots available)}
 
 \item{...}{other arguments not used by this method}
 }
 \value{
-Plot showing analysis results
-
-Plot showing modified analysis results
-
-QQ-plot of individual means
-
-QQ-plot of individual residuals
-
-Plot of residuals vs mean
-
-Plot of residuals vs ID
+A list with the following elements (ggplot2-objects) is returned
+(for type=3)
+\itemize{
+ \item{\code{plot_res}} {Bland Altman-plot showing unmodified
+ analysis results}
+ \item{\code{plot_res_mod}} {Bland Altman-plot showing modified
+ analysis results}
+ \item{\code{qq_ind_means}} {QQ-plot of individual means}
+ \item{\code{qq_resid}} {QQ-plot of individual residuals}
+ \item{\code{plot_res_means}} {Plot of residuals vs mean}
+ \item{\code{plot_res_id}} {Plot of residuals vs ID}
+ }
+ type = 1 only \code{plot_res} or type = 2 only \code{plot_res_mod} will
+ be returned.
 }
 \description{
 \code{plot.blandxtr} visualizes (plot) the results of
-modified Bland Altman-analysis performed with \code{blandxtrMain}
+modified Bland Altman-analysis performed with \code{blandxtr}
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}
