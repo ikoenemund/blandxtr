@@ -165,15 +165,15 @@ generate_tables <- function (res) {
   setnames(input_data,"measurement_id", "ID (Messung)")
 
   # -----------------------------------
-  # table with input parameters (bias_mod, alpha, beta, bt, tau, tau_mod)
+  # table with input parameters (bias_alt, alpha, beta, bt, tau, tau_mod)
   input_param_m <- matrix(NA, nrow=6, ncol=1)
-  rownames(input_param_m)=(c("bias_mod:", "alpha:",
+  rownames(input_param_m)=(c("bias_alt:", "alpha:",
     "beta:", "number of bootstrapping samples:", "tau:", "tau_mod:"))
   colnames(input_param_m) = (c("value"))
-  if(res$bias_mod){
-    input_param_m["bias_mod:",1]="TRUE"
+  if(res$bias_alt){
+    input_param_m["bias_alt:",1]="TRUE"
   } else {
-    input_param_m["bias_mod:",1]="FALSE"
+    input_param_m["bias_alt:",1]="FALSE"
   }
   input_param_m["alpha:",1]=res$alpha
   input_param_m["beta:",1]=res$beta

@@ -4,7 +4,7 @@
 \alias{main_ci}
 \title{Confidence intervals for LoA (3 methods)}
 \usage{
-main_ci(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod, var_loa,
+main_ci(bt, input_dt, bias_alt, bv, var_tvv, loa, loa_mod, var_loa,
   var_loa_mod, alpha, beta)
 }
 \arguments{
@@ -12,8 +12,9 @@ main_ci(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod, var_loa,
 
 \item{input_dt}{data.table with input dataset}
 
-\item{bias_mod}{set TRUE for modified calculation of bias (small wsv),
-set FALSE for standard calculation of bias (small bsv)}
+\item{bias_alt}{set TRUE for alternative calculation of bias (small
+within-subject variance) and its variance, set FALSE for standard calculation
+of bias (small between-subjects variance) and its variance}
 
 \item{bv}{result of \code{basic_variables.R}}
 

@@ -4,7 +4,7 @@
 \alias{var_tvv}
 \title{Analysis of variance}
 \usage{
-var_tvv(n, n_obs, d, d_a, output_subjects, output_measurements)
+var_tvv(n, n_obs, d, d_a, bias_alt, output_subjects, output_measurements)
 }
 \arguments{
 \item{n}{number of subjects}
@@ -14,6 +14,10 @@ var_tvv(n, n_obs, d, d_a, output_subjects, output_measurements)
 \item{d}{mean of all differences}
 
 \item{d_a}{modified mean of all differences}
+
+\item{bias_alt}{set TRUE for alternative calculation of bias (small
+within-subject variance) and its variance, set FALSE for standard calculation
+of bias (small between-subjects variance) and its variance}
 
 \item{output_subjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}

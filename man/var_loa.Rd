@@ -4,7 +4,7 @@
 \alias{var_loa}
 \title{Variance of limits of agreement}
 \usage{
-var_loa(n, n_obs, bsv, wsv, output_subjects, var_var_d, bias_mod, beta)
+var_loa(n, n_obs, bsv, wsv, output_subjects, var_var_d, bias_alt, beta)
 }
 \arguments{
 \item{n}{number of subjects}
@@ -20,8 +20,9 @@ number of measurements of each subject (m_i)}
 
 \item{var_var_d}{variance of the variance of mean of all differences}
 
-\item{bias_mod}{set FALSE for standard calculation of the variance (small bsv),
-set TRUE for modified calculation of the variance (small wsv)}
+\item{bias_alt}{set TRUE for alternative calculation of bias (small
+within-subject variance) and its variance, set FALSE for standard calculation
+of bias (small between-subjects variance) and its variance}
 
 \item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }

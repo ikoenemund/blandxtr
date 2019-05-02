@@ -4,15 +4,16 @@
 \alias{main_pre}
 \title{Helper function for main method for blandxtr}
 \usage{
-main_pre(input_dt, bt, bias_mod, beta)
+main_pre(input_dt, bt, bias_alt, beta)
 }
 \arguments{
 \item{input_dt}{data.table with input dataset}
 
 \item{bt}{number of bootstrap samples}
 
-\item{bias_mod}{set TRUE for modified calculation of bias (small wsv),
-set FALSE for standard calculation of bias (small bsv)}
+\item{bias_alt}{set TRUE for alternative calculation of bias (small
+within-subject variance) and its variance, set FALSE for standard calculation
+of bias (small between-subjects variance) and its variance}
 
 \item{beta}{for 100*(1-beta)\%-confidence interval around bias}
 }
@@ -26,7 +27,7 @@ confidence intervals. Helper function for \code{blandxtr} which performs
 the whole analysis.
 }
 \note{
-\code{bias_mod} is automatically set TRUE for
+\code{bias_alt} is automatically set TRUE for
 different number of measurements in each subject (unbalanced case)
 
 "_mod" labels results based on modified true value varies-method

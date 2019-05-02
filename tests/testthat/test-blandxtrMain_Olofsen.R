@@ -10,10 +10,10 @@ input_dt <- load_RData("olofsen.RData")
 # set variables necessary for analysis
 alpha <- 0.05
 beta <- 0.05
-bias_mod <- TRUE
+bias_alt <- TRUE
 bt <- 1L
 
-olofsen_result <- blandxtr(input_dt, bt, bias_mod, alpha, beta)
+olofsen_result <- blandxtr(input_dt, bt, bias_alt, alpha, beta)
 
 # })
 

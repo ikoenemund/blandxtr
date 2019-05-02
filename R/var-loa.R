@@ -21,8 +21,9 @@
 #' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
 #' @param var_var_d variance of the variance of mean of all differences
-#' @param bias_mod set FALSE for standard calculation of the variance (small bsv),
-#' set TRUE for modified calculation of the variance (small wsv)
+#' @param bias_alt set TRUE for alternative calculation of bias (small
+#' within-subject variance) and its variance, set FALSE for standard calculation
+#' of bias (small between-subjects variance) and its variance
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @return \code{var_loa} variance of limits of agreement
@@ -30,7 +31,7 @@
 #' @export
 
 var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
-  bias_mod, beta){
+  bias_alt, beta){
 
   # -----------------------------------------
   # check input
@@ -41,7 +42,7 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
   checkmate::assert_numeric(wsv, add = coll)
   checkmate::assert_data_table(output_subjects, add = coll)
   checkmate::assert_numeric(var_var_d, add = coll)
-  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)
   # -----------------------------------------
@@ -59,7 +60,7 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
 
   ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
 
-  if (bias_mod) {
+  if (bias_alt) {
     var_bias <- ((1/(n^2))*ans2*wsv)+(bsv/n)
   } else {
     var_bias <- (wsv/n_obs)+((ans1/(n_obs^2))*bsv)

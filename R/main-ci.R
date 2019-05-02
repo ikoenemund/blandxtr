@@ -8,8 +8,9 @@
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
-#' @param bias_mod set TRUE for modified calculation of bias (small wsv),
-#' set FALSE for standard calculation of bias (small bsv)
+#' @param bias_alt set TRUE for alternative calculation of bias (small
+#' within-subject variance) and its variance, set FALSE for standard calculation
+#' of bias (small between-subjects variance) and its variance
 #' @param bv result of \code{basic_variables.R}
 #' @param var_tvv result of \code{var_tvv.R}
 #' @param loa result of \code{loa.R}
@@ -27,7 +28,7 @@
 #' @export
 
 
-main_ci <- function(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod,
+main_ci <- function(bt, input_dt, bias_alt, bv, var_tvv, loa, loa_mod,
   var_loa, var_loa_mod, alpha, beta){
 
   # -----------------------------------------
@@ -35,7 +36,7 @@ main_ci <- function(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod,
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_integer(bt, add = coll)
   checkmate::assert_data_table(input_dt, add = coll)
-  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_list(bv, add = coll)
   checkmate::assert_list(var_tvv, add = coll)
   checkmate::assert_list(loa, add = coll)
@@ -74,11 +75,11 @@ main_ci <- function(bt, input_dt, bias_mod, bv, var_tvv, loa, loa_mod,
   if (bt > 0){
 
     # CI bootstrap (based on standard tvv)
-    loa_bt <- ci_loa_bt (bt, input_dt, bias_mod, loa$loa_l, loa$loa_u,
+    loa_bt <- ci_loa_bt (bt, input_dt, bias_alt, loa$loa_l, loa$loa_u,
       var_loa, alpha, beta)
 
     # CI bootstrap (based on modified tvv)
-    loa_bt_mod <- ci_loa_bt (bt, input_dt, bias_mod, loa_mod$loa_l,
+    loa_bt_mod <- ci_loa_bt (bt, input_dt, bias_alt, loa_mod$loa_l,
       loa_mod$loa_u, var_loa_mod, alpha, beta)
 
   }

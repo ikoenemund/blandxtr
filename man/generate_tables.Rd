@@ -22,8 +22,8 @@ Table with residuals
 }
 \description{
 \code{blandxtr.results.table} summarizes the results of
-modified Bland Altman-analysis performed with \code{blandxtrMain} as
-LaTeX-tables.
+modified Bland Altman-analysis performed with \code{blandxtr} as
+tables.
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

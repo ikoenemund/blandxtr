@@ -9,11 +9,12 @@
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
-#' @param bias_mod set TRUE for modified calculation of bias (small wsv),
-#' set FALSE for standard calculation of bias (small bsv)
+#' @param bias_alt set TRUE for alternative calculation of bias (small
+#' within-subject variance) and its variance, set FALSE for standard calculation
+#' of bias (small between-subjects variance) and its variance
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{bias_mod} is automatically set TRUE for
+#' @note \code{bias_alt} is automatically set TRUE for
 #' different number of measurements in each subject (unbalanced case)
 #' @note "_mod" labels results based on modified true value varies-method
 #'
@@ -22,14 +23,14 @@
 #' @export
 #'
 
-main_pre <- function (input_dt, bt, bias_mod, beta) {
+main_pre <- function (input_dt, bt, bias_alt, beta) {
 
   # -----------------------------------------
   # check input
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_data_table(input_dt, add = coll)
   checkmate::assert_integer(bt, add = coll)
-  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)
   # -----------------------------------------
@@ -38,22 +39,9 @@ main_pre <- function (input_dt, bt, bias_mod, beta) {
   # calculate basic variables
   bv <- basic_variables(input_dt)
 
-  # unbalanced case: bias_mod = TRUE
-  for (i in 1:bv$n){
-    if (bv$output_subjects$m_i[i]!=(bv$n_obs/bv$n)){
-      bias_mod <- TRUE
-      break
-    }
-  }
-  rm(i)
-
-  if (bias_mod){
-    bv$d <- bv$d_a
-  }
-
   # -----------------------------------------
   # analysis of variances
-  var_tvv <- var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bv$output_subjects,
+  var_tvv <- var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bias_alt, bv$output_subjects,
     bv$output_measurements)
 
   # -----------------------------------------
@@ -70,11 +58,11 @@ main_pre <- function (input_dt, bt, bias_mod, beta) {
 
   # variance of loa (based on standard tvv)
   var_loa <- var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
-    bv$output_subjects, var_tvv$var_var_d, bias_mod, beta)
+    bv$output_subjects, var_tvv$var_var_d, bias_alt, beta)
 
   # variance of loa (based on modified tvv)
   var_loa_mod <- var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
-    bv$output_subjects, var_tvv$var_var_d_mod, bias_mod, beta)
+    bv$output_subjects, var_tvv$var_var_d_mod, bias_alt, beta)
 
   # -----------------------------------------
 
@@ -86,7 +74,7 @@ main_pre <- function (input_dt, bt, bias_mod, beta) {
       loa_mod = loa_mod,
       var_loa = var_loa,
       var_loa_mod = var_loa_mod,
-      bias_mod = bias_mod
+      bias_alt = bias_alt
     )
   )
 }

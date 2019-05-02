@@ -24,14 +24,12 @@
 #'
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
 #' @param input_dt data.table with input dataset
-#' @param bias_mod set TRUE for modified calculation of bias (small wsv) and
-#' its variance, set FALSE for standard calculation of bias (small bsv) and
-#' its variance
+#' @param bias_alt set TRUE for alternative calculation of bias (small
+#' within-subject variance) and its variance, set FALSE for standard calculation
+#' of bias (small between-subjects variance) and its variance
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{bias_mod} is automatically set TRUE for
-#' different number of measurements in each subject (unbalanced case)
 #' @note "_mod" labels results based on modified true value varies-method
 #' @note Bootstrapping affects runtime severely. Set bt<=0
 #' if you want to skip bootstrapping.
@@ -40,7 +38,7 @@
 #' functions.
 #' @export
 
-blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
+blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
 
   # -----------------------------------------
   # check input
@@ -63,7 +61,7 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_data_table(input_dt, add = coll)
   checkmate::assert_int(bt, add = coll)
-  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)
@@ -74,11 +72,11 @@ blandxtr <- function(input_dt, bt, bias_mod, alpha, beta){
 
   # -----------------------------------------
 
-  pre <- main_pre (input_dt, bt, bias_mod, beta)
-  ci <- main_ci(bt, input_dt, bias_mod, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
+  pre <- main_pre (input_dt, bt, bias_alt, beta)
+  ci <- main_ci(bt, input_dt, bias_alt, pre$bv, pre$var_tvv, pre$loa, pre$loa_mod,
     pre$var_loa, pre$var_loa_mod, alpha, beta)
 
-  res <- c(bt = bt, bias_mod = bias_mod, alpha = alpha, beta = beta, pre, ci)
+  res <- c(bt = bt, bias_alt = bias_alt, alpha = alpha, beta = beta, pre, ci)
 
   # -----------------------------------------
 

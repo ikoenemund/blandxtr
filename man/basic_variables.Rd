@@ -35,7 +35,7 @@ A list with the following elements is returned
   \item{rep_coeff}{repeatability coefficients}
 }
 \description{
-\code{basicVariables} returns basic variables of an input
+\code{basic_variables} returns basic variables of an input
 data.table containing three columns (subject, measurement_x and measurement_y).
 }
 \author{

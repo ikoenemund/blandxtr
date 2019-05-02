@@ -1,6 +1,6 @@
 #' @title Basic variables
 #'
-#' @description \code{basicVariables} returns basic variables of an input
+#' @description \code{basic_variables} returns basic variables of an input
 #' data.table containing three columns (subject, measurement_x and measurement_y).
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}

@@ -8,16 +8,15 @@
 #'
 #' @param bt number of bootstrap samples
 #' @param input_dt data.table with input dataset
-#' @param bias_mod set TRUE for modified calculation of bias (small wsv),
-#' set FALSE for standard calculation of bias (small bsv)
+#' @param bias_alt set TRUE for alternative calculation of bias (small
+#' within-subject variance) and its variance, set FALSE for standard calculation
+#' of bias (small between-subjects variance) and its variance
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
 #' @param var_loa variance of limits of agreement
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{bias_mod} is automatically set TRUE for
-#' different number of measurements in each subject (unbalanced case)
 #' @note "_mod" labels results based on modified true value varies-method
 #'
 #' @return A list with the following elements is returned
@@ -29,7 +28,7 @@
 #' }
 #' @export
 
-ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
+ci_loa_bt <- function(bt, input_dt, bias_alt, loa_l, loa_u, var_loa,
   alpha, beta) {
 
   # -----------------------------------------
@@ -37,7 +36,7 @@ ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_integer(bt, add = coll)
   checkmate::assert_data_table(input_dt, add = coll)
-  checkmate::assert_logical(bias_mod, add = coll)
+  checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(loa_l, add = coll)
   checkmate::assert_numeric(loa_u, add = coll)
   checkmate::assert_numeric(var_loa, add = coll)
@@ -57,7 +56,7 @@ ci_loa_bt <- function(bt, input_dt, bias_mod, loa_l, loa_u, var_loa,
   rm(i)
 
   # bland altman analysis per sample
-  boot <- lapply(boot_samp, main_pre, bt=bt, bias_mod=bias_mod,
+  boot <- lapply(boot_samp, main_pre, bt=bt, bias_alt=bias_alt,
     beta)
 
   # initialize and fill matrix

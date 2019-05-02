@@ -4,15 +4,16 @@
 \alias{ci_loa_bt}
 \title{Confidence intervals for LoA (parametric bootsrap-t)}
 \usage{
-ci_loa_bt(bt, input_dt, bias_mod, loa_l, loa_u, var_loa, alpha, beta)
+ci_loa_bt(bt, input_dt, bias_alt, loa_l, loa_u, var_loa, alpha, beta)
 }
 \arguments{
 \item{bt}{number of bootstrap samples}
 
 \item{input_dt}{data.table with input dataset}
 
-\item{bias_mod}{set TRUE for modified calculation of bias (small wsv),
-set FALSE for standard calculation of bias (small bsv)}
+\item{bias_alt}{set TRUE for alternative calculation of bias (small
+within-subject variance) and its variance, set FALSE for standard calculation
+of bias (small between-subjects variance) and its variance}
 
 \item{loa_l}{lower limit of agreement}
 
@@ -39,9 +40,6 @@ A list with the following elements is returned
 parametric bootstrap-t.
 }
 \note{
-\code{bias_mod} is automatically set TRUE for
-different number of measurements in each subject (unbalanced case)
-
 "_mod" labels results based on modified true value varies-method
 }
 \author{

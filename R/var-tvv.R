@@ -10,6 +10,9 @@
 #' @param n_obs number of observations
 #' @param d mean of all differences
 #' @param d_a modified mean of all differences
+#' @param bias_alt set TRUE for alternative calculation of bias (small
+#' within-subject variance) and its variance, set FALSE for standard calculation
+#' of bias (small between-subjects variance) and its variance
 #' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
 #' @param output_measurements data.table containing
@@ -45,7 +48,8 @@
 #'
 #' @export
 
-var_tvv <- function (n, n_obs, d, d_a, output_subjects, output_measurements){
+var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
+  output_measurements){
 
   # -----------------------------------------
   # check input
@@ -90,7 +94,12 @@ var_tvv <- function (n, n_obs, d, d_a, output_subjects, output_measurements){
 
   helper <- 0
   ans <- 0
-  helper <- (output_subjects[, m_i])*(((output_subjects[, d_i])-d)^2)
+  if (bias_alt) {
+    helper <- (output_subjects[, m_i])*(((output_subjects[, d_i])-d_a)^2)
+  } else {
+    helper <- (output_subjects[, m_i])*(((output_subjects[, d_i])-d)^2)
+  }
+
   ans <- sum(helper)
   rm(helper)
 
