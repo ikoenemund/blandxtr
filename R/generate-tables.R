@@ -7,12 +7,6 @@
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param res list with results from \code{blandxtr}
-#' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
-#' @param bias_mod set TRUE for modified calculation of bias (small wsv) and
-#' its variance, set FALSE for standard calculation of bias (small bsv) and
-#' its variance
-#' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
-#' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
 #' @return Table with analysis results
 #' @return Table with modified analysis results
@@ -22,17 +16,12 @@
 #'
 #' @export
 
-generate_tables <- function (res, bt, bias_mod, alpha, beta) {
+generate_tables <- function (res) {
 
   # -----------------------------------------
   # check input
-  coll <- checkmate::makeAssertCollection()
-  checkmate::assert_list(res, add = coll)
-  checkmate::assert_integer(bt, add = coll)
-  checkmate::assert_logical(bias_mod, add = coll)
-  checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
-  checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
-  checkmate::reportAssertions(coll)
+  checkmate::assert_list(res)
+
   # -----------------------------------------
 
   if (bt < 1){
@@ -181,15 +170,15 @@ generate_tables <- function (res, bt, bias_mod, alpha, beta) {
   rownames(input_param_m)=(c("bias_mod:", "alpha:",
     "beta:", "number of bootstrapping samples:", "tau:", "tau_mod:"))
   colnames(input_param_m) = (c("value"))
-  if(bias_mod){
+  if(res$bias_mod){
     input_param_m["bias_mod:",1]="TRUE"
   } else {
     input_param_m["bias_mod:",1]="FALSE"
   }
-  input_param_m["alpha:",1]=alpha
-  input_param_m["beta:",1]=beta
-  if(bt>0){
-    input_param_m["number of bootstrapping samples:",1]=bt
+  input_param_m["alpha:",1]=res$alpha
+  input_param_m["beta:",1]=res$beta
+  if(res$bt>0){
+    input_param_m["number of bootstrapping samples:",1]=res$bt
   } else {
     input_param_m["number of bootstrapping samples:",1]="no bootstrapping"
   }
