@@ -189,7 +189,19 @@ generate_tables <- function (res) {
   input_param_m["tau:",1]=res$var_tvv$tau
   input_param_m["tau_mod:",1]=res$var_tvv$tau_mod
 
-  return(
+  # return(
+  #   list(
+  #     analysis_results_m = analysis_results_m,
+  #     analysis_results_mod_m = analysis_results_mod_m,
+  #     rep_coeff_m = rep_coeff_m,
+  #     ind_means = ind_means,
+  #     resid = resid,
+  #     input_data = input_data,
+  #     input_param_m = input_param_m
+  #   )
+  # )
+
+  invisible(
     list(
       analysis_results_m = analysis_results_m,
       analysis_results_mod_m = analysis_results_mod_m,
@@ -200,5 +212,4 @@ generate_tables <- function (res) {
       input_param_m = input_param_m
     )
   )
-
 }
