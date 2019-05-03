@@ -66,11 +66,13 @@ plot.blandxtr <- function (x, type, ...) {
         ggplot2::geom_hline(aes(yintercept=x$loa_mover$ci_l_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$loa_mover$ci_u_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
         ggplot2::labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)") +
-        scale_linetype_manual(name="Legend", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"),
+        scale_linetype_manual(name="Legend: ", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"),
           values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
         ggplot2::theme(legend.direction = "horizontal", legend.position = "bottom",
-          legend.key.size = unit(3, "lines"))
+          legend.key.size = unit(3, "lines"), legend.background=element_blank(),
+          legend.key=element_blank())
     }
+
   # ----------------------------------
   # Bland Altman-plot (modified analysis)
   # black/white
@@ -92,9 +94,10 @@ plot.blandxtr <- function (x, type, ...) {
         ggplot2::geom_hline(aes(yintercept=x$loa_mover_mod$ci_l_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$loa_mover_mod$ci_u_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
         ggplot2::labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)") +
-        scale_linetype_manual(name="Legend", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"), values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
+        scale_linetype_manual(name="Legend: ", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"), values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
         ggplot2::theme(legend.direction = "horizontal", legend.position = "bottom",
-          legend.key.size = unit(3, "lines"))
+          legend.key.size = unit(3, "lines"), legend.background=element_blank(),
+          legend.key=element_blank())
     }
 
   # ----------------------------------
@@ -119,10 +122,10 @@ plot.blandxtr <- function (x, type, ...) {
     plot_res_means <- function(){
       plot_res_means <- ggplot2::ggplot(data = x$bv$output_measurements) +
         ggplot2::geom_point(mapping = aes(x = m_ij, y = r_ij)) +
-        # Add a horizontal line at y = 1.96
-        ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
-        # Add a horizontal line at y = -1.96
-        ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
+        # # Add a horizontal line at y = 1.96
+        # ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
+        # # Add a horizontal line at y = -1.96
+        # ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
         ggplot2::labs(x="mean value of X_ij and Y_ij", y="residual of X_ij and Y_ij")
     }
 
@@ -131,10 +134,10 @@ plot.blandxtr <- function (x, type, ...) {
     plot_res_id <- function(){
       plot_res_id <- ggplot2::ggplot(data = x$bv$output_measurements) +
         ggplot2::geom_point(mapping = aes(x = subject, y = r_ij)) +
-        # Add a horizontal line at y = 1.96
-        ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
-        # Add a horizontal line at y = -1.96
-        ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
+        # # Add a horizontal line at y = 1.96
+        # ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
+        # # Add a horizontal line at y = -1.96
+        # ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
         ggplot2::labs(x="ID", y="residual of X_ij and Y_ij")
     }
 
