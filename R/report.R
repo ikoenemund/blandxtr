@@ -33,8 +33,8 @@ report <- function(res, output_format, output_dir){
   # -----------------------
   # generate tables and figures to be displayed in the report
 
-  tab <- generate_tables(olofsen_result)
-  fig <- plot(olofsen_result, 3)
+  tab <- generate_tables(res)
+  fig <- plot(res, 3)
 
   # -----------------------
   rmarkdown::render(input = system.file("rmd", "report.rmd",
