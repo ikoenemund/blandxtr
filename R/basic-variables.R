@@ -25,10 +25,16 @@
 #'   \item{n}{number of subjects}
 #'   \item{n_obs}{number of observations}
 #'   \item{d}{mean of all differences}
-#'   \item{d_a}{modified mean of all differences}
+#'   \item{d_a}{alternative mean of all differences}
 #'   \item{mean_x}{mean of all measurements with X}
+#'   \item{mean_x_a}{alternative mean of all measurements with X}
 #'   \item{mean_y}{mean of all measurements with Y}
+#'   \item{mean_y_a}{alternative mean of all measurements with Y}
 #'   \item{rep_coeff}{repeatability coefficients}
+#'
+#' @note 'Alternative' means are calculated with mean for each subject
+#' and then the overall mean of all subjects (every subject has the same impact
+#' on the overall mean).
 #'
 #' @export
 
@@ -92,19 +98,23 @@ basic_variables <- function(dt){
   d_a <- mean(output_subjects[, d_i])
 
   # -------------------------------------
-
   # mean of measurement_x
+  mean_x <- mean(dt$measurement_x)
+
+  # alternative mean of measurement_x
   helper <- output_measurements[, mean(measurement_x), by = .(subject)]
   setnames(helper,"V1", "mean_x_helper")
-  mean_x <- mean(helper$mean_x_helper)
+  mean_x_a <- mean(helper$mean_x_helper)
   rm(helper)
 
   # -------------------------------------
-
   # mean of measurement_y
+  mean_y <- mean(dt$measurement_y)
+
+  # alternative mean of measurement_y
   helper <- output_measurements[, mean(measurement_y), by = .(subject)]
   setnames(helper,"V1", "mean_y_helper")
-  mean_y <- mean(helper$mean_y_helper)
+  mean_y_a <- mean(helper$mean_y_helper)
   rm(helper)
 
   # -------------------------------------
@@ -163,7 +173,9 @@ basic_variables <- function(dt){
       d = d,
       d_a = d_a,
       mean_x = mean_x,
+      mean_x_a = mean_x_a,
       mean_y = mean_y,
+      mean_y_a = mean_y_a,
       rep_coeff = rep_coeff
     )
   )

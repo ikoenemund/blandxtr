@@ -29,14 +29,21 @@ A list with the following elements is returned
   \item{n}{number of subjects}
   \item{n_obs}{number of observations}
   \item{d}{mean of all differences}
-  \item{d_a}{modified mean of all differences}
+  \item{d_a}{alternative mean of all differences}
   \item{mean_x}{mean of all measurements with X}
+  \item{mean_x_a}{alternative mean of all measurements with X}
   \item{mean_y}{mean of all measurements with Y}
+  \item{mean_y_a}{alternative mean of all measurements with Y}
   \item{rep_coeff}{repeatability coefficients}
 }
 \description{
 \code{basic_variables} returns basic variables of an input
 data.table containing three columns (subject, measurement_x and measurement_y).
+}
+\note{
+'Alternative' means are calculated with mean for each subject
+and then the overall mean of all subjects (every subject has the same impact
+on the overall mean).
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

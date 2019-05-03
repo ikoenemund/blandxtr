@@ -139,8 +139,8 @@ generate_tables <- function (res) {
   rep_coeff_m["SX:",1]=res$bv$rep_coeff$s_x
   rep_coeff_m["SY:",1]=res$bv$rep_coeff$s_y
   rep_coeff_m["SX/SY:",1]=res$bv$rep_coeff$s_x_s_y
-  rep_coeff_m["mean X:",1]=res$bv$mean_x
-  rep_coeff_m["mean Y:",1]=res$bv$mean_y
+  rep_coeff_m["mean X:",1]=res$bv$mean_x_a
+  rep_coeff_m["mean Y:",1]=res$bv$mean_y_a
 
   # -----------------------------------
   # individualMeans_table
