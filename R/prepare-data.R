@@ -40,7 +40,7 @@ prepare_data <- function (input_dt){
   if (any(is.na(input_dt)))
     message("Input dataset contains rows with empty values
       which will be automatically removed for analysis.")
-  input_dt <- na.omit(input_dt)
+  input_dt <- stats::na.omit(input_dt)
 
   # check input data
   if(!(is.numeric(input_dt$measurement_x)))

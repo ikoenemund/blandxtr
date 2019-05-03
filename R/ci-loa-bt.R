@@ -72,10 +72,10 @@ ci_loa_bt <- function(bt, input_dt, bias_alt, loa_l, loa_u, var_loa,
   }
   rm(r)
 
-  ci_l_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],1-alpha/2)))
-  ci_u_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*quantile(s[,4],alpha/2)))
-  ci_l_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],1-alpha/2)))
-  ci_u_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*quantile(s[,5],alpha/2)))
+  ci_l_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*stats::quantile(s[,4],1-alpha/2)))
+  ci_u_loa_l_bt <- unname(loa_l-(sqrt(var_loa)*stats::quantile(s[,4],alpha/2)))
+  ci_l_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*stats::quantile(s[,5],1-alpha/2)))
+  ci_u_loa_u_bt <- unname(loa_u-(sqrt(var_loa)*stats::quantile(s[,5],alpha/2)))
   rm(s)
 
   return(

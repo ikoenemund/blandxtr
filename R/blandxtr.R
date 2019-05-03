@@ -8,6 +8,7 @@
 #' @import checkmate
 #' @import knitr
 #' @import rmarkdown
+#' @importFrom stats na.omit qchisq qnorm quantile
 #'
 #' @aliases blandxtr-package
 #'
@@ -79,7 +80,6 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
   res <- c(bt = bt, bias_alt = bias_alt, alpha = alpha, beta = beta, pre, ci)
 
   # -----------------------------------------
-
   # class definition
   class(res) <- c("blandxtr", class(res))
   return(res)
@@ -91,3 +91,9 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
 #' @export
 
 is.blandxtr <- function(x) inherits(x, "blandxtr")
+
+# -----------------------------------------
+# CRAN note avoidance
+utils::globalVariables(c("measurement_id", ".", "subject", "d_ij",
+  "measurement_x", "measurement_y", "m_ij", "d_i", "r_ij", "m_i", "bt",
+  "i.d_i", "coll", "plot"))
