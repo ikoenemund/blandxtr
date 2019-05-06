@@ -41,9 +41,12 @@
 basic_variables <- function(dt){
 
   # check input
-  if (!(is.data.table(dt))){
-    stop("'input_dt' is not a data.table.")
-  }
+
+  # if (!(is.data.table(dt))){
+  #   stop("'input_dt' is not a data.table.")
+  # }
+
+  checkmate::assert_data_table(dt)
 
   # ----------------------------
   # some preparation

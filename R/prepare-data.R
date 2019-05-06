@@ -30,7 +30,7 @@ prepare_data <- function (input_dt){
   } else if (!(any(colnames(input_dt)=="measurement_x"))) {
     stop("Error in input dataset: No column named 'measurement_x' found.")
   } else if (!(any(colnames(input_dt)=="measurement_y"))){
-    stop("Error in input dataset: No column named 'measurement_x' found.")
+    stop("Error in input dataset: No column named 'measurement_y' found.")
   }
 
   # select only columns necessary for analysis
@@ -43,10 +43,16 @@ prepare_data <- function (input_dt){
   input_dt <- stats::na.omit(input_dt)
 
   # check input data
-  if(!(is.numeric(input_dt$measurement_x)))
-    stop("Error in input dataset: Column 'measurement_x' is not numeric.")
-  if(!(is.numeric(input_dt$measurement_y)))
-    stop("Error in input dataset: Column 'measurement_y' is not numeric.")
+
+  coll <- checkmate::makeAssertCollection()
+  checkmate::assert_numeric(input_dt$measurement_x, add = coll)
+  checkmate::assert_numeric(input_dt$measurement_y, add = coll)
+  checkmate::reportAssertions(coll)
+
+  # if(!(is.numeric(input_dt$measurement_x)))
+  #   stop("Error in input dataset: Column 'measurement_x' is not numeric.")
+  # if(!(is.numeric(input_dt$measurement_y)))
+  #   stop("Error in input dataset: Column 'measurement_y' is not numeric.")
 
   return(
     input_dt = input_dt

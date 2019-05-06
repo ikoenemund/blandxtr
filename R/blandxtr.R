@@ -50,18 +50,19 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
   }
   if (missing(beta)) {
     beta <- 0.05
+    warning("Variable `beta` is missing. Setting to 0.05.")
   }
 
   if(bt<0) {
     warning("'bt' has been given a negative value.
       It has been automatically set 0 and
       bootstrapping has been skipped.")
-    bt <- 0
+    bt <- 0L
   }
 
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_data_table(input_dt, add = coll)
-  checkmate::assert_int(bt, add = coll)
+  checkmate::assert_integer(bt, add = coll)
   checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
