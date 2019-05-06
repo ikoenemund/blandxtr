@@ -19,6 +19,10 @@ Table with repeatability coefficients
 Table with individual residuals
 
 Table with residuals
+
+Table with input parameters
+
+Table with input data
 }
 \description{
 \code{blandxtr.results.table} summarizes the results of

@@ -13,6 +13,8 @@
 #' @return Table with repeatability coefficients
 #' @return Table with individual residuals
 #' @return Table with residuals
+#' @return Table with input parameters
+#' @return Table with input data
 #'
 #' @export
 
@@ -24,14 +26,14 @@ generate_tables <- function (res) {
 
   # -----------------------------------------
 
-  if (bt < 1){
+  if (res$bt < 1){
     # analysis results: using matrix
     analysis_results_m <- matrix(NA, nrow=10, ncol=3)
     rownames(analysis_results_m)=(c("Bias", "SD of the differences",
       "lower limit of agreement", "upper limit of agreement",
       "MOVER CI lower LoA", "MOVER CI upper LoA",
       "BA CI lower LoA", "BA CI upper LoA",
-      "Within-subject variance (WSV)", "Between-subject variance (BSV)"))
+      "Within-subject variance (WSV)", "Between-subjects variance (BSV)"))
     colnames(analysis_results_m) = (c("value", " ", "+/- SE"))
     analysis_results_m["Bias",1]=res$bv$d
     analysis_results_m[,1] = c(res$bv$d, res$var_tvv$sd_d,
@@ -46,8 +48,8 @@ generate_tables <- function (res) {
 
     analysis_results_m[1,3]=c(res$var_loa$se_d)
     analysis_results_m[2,3]=c(res$var_tvv$se_sd_d)
-    analysis_results_m[11,3]=c(res$var_tvv$se_wsv)
-    analysis_results_m[12,3]=c(res$var_tvv$se_bsv)
+    analysis_results_m[9,3]=c(res$var_tvv$se_wsv)
+    analysis_results_m[10,3]=c(res$var_tvv$se_bsv)
 
     # -----------------------------------
     # modified analysis results: using matrix
@@ -56,7 +58,7 @@ generate_tables <- function (res) {
       "lower limit of agreement", "upper limit of agreement",
       "MOVER CI lower LoA", "MOVER CI upper LoA",
       "BA CI lower LoA", "BA CI upper LoA",
-      "Within-subject variance (WSV)", "Between-subject variance (BSV)"))
+      "Within-subject variance (WSV)", "Between-subjects variance (BSV)"))
     colnames(analysis_results_mod_m) = (c("value", " ", "+/- SE"))
     analysis_results_mod_m["Bias",1]=res$bv$d
     analysis_results_mod_m[,1] = c(res$bv$d, res$var_tvv$sd_d_mod,
@@ -69,10 +71,10 @@ generate_tables <- function (res) {
       res$loa_bt_mod$ci_u_loa_u_bt, res$loa_ba_mod$ci_u_loa_l_ba,
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
-    analysis_results_m[1,3]=c(res$var_loa_mod$se_d)
-    analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
-    analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
-    analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
+    analysis_results_mod_m[1,3]=c(res$var_loa_mod$se_d)
+    analysis_results_mod_m[2,3]=c(res$var_tvv$se_sd_d_mod)
+    analysis_results_mod_m[9,3]=c(res$var_tvv$se_wsv_mod)
+    analysis_results_mod_m[10,3]=c(res$var_tvv$se_bsv_mod)
 
   } else {
     # analysis results: using matrix
@@ -82,7 +84,7 @@ generate_tables <- function (res) {
       "MOVER CI lower LoA", "MOVER CI upper LoA",
       "BT CI lower LoA", "BT CI upper LoA",
       "BA CI lower LoA", "BA CI upper LoA",
-      "Within-subject variance (WSV)", "Between-subject variance (BSV)"))
+      "Within-subject variance (WSV)", "Between-subjects variance (BSV)"))
     colnames(analysis_results_m) = (c("value", " ", "+/- SE"))
     analysis_results_m["Bias",1]=res$bv$d
     analysis_results_m[,1] = c(res$bv$d, res$var_tvv$sd_d,
@@ -109,7 +111,7 @@ generate_tables <- function (res) {
       "MOVER CI lower LoA", "MOVER CI upper LoA",
       "BT CI lower LoA", "BT CI upper LoA",
       "BA CI lower LoA", "BA CI upper LoA",
-      "Within-subject variance (WSV)", "Between-subject variance (BSV)"))
+      "Within-subject variance (WSV)", "Between-subjects variance (BSV)"))
     colnames(analysis_results_mod_m) = (c("value", " ", "+/- SE"))
     analysis_results_mod_m["Bias",1]=res$bv$d
     analysis_results_mod_m[,1] = c(res$bv$d, res$var_tvv$sd_d_mod,
@@ -123,24 +125,24 @@ generate_tables <- function (res) {
       res$loa_bt_mod$ci_u_loa_u_bt, res$loa_ba_mod$ci_u_loa_l_ba,
       res$loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
-    analysis_results_m[1,3]=c(res$var_loa_mod$se_d)
-    analysis_results_m[2,3]=c(res$var_tvv$se_sd_d_mod)
-    analysis_results_m[11,3]=c(res$var_tvv$se_wsv_mod)
-    analysis_results_m[12,3]=c(res$var_tvv$se_bsv_mod)
+    analysis_results_mod_m[1,3]=c(res$var_loa_mod$se_d)
+    analysis_results_mod_m[2,3]=c(res$var_tvv$se_sd_d_mod)
+    analysis_results_mod_m[11,3]=c(res$var_tvv$se_wsv_mod)
+    analysis_results_mod_m[12,3]=c(res$var_tvv$se_bsv_mod)
   }
   # -----------------------------------
   # repCoeff_table
   # using data.table
 
   rep_coeff_m <- matrix(NA, nrow=5, ncol=1)
-  rownames(rep_coeff_m)=(c("SX:", "SY:",
-    "SX/SY:", "mean X:", "mean Y:"))
+  rownames(rep_coeff_m)=(c("SX", "SY",
+    "SX/SY", "mean X", "mean Y"))
   colnames(rep_coeff_m) = (c("value"))
-  rep_coeff_m["SX:",1]=res$bv$rep_coeff$s_x
-  rep_coeff_m["SY:",1]=res$bv$rep_coeff$s_y
-  rep_coeff_m["SX/SY:",1]=res$bv$rep_coeff$s_x_s_y
-  rep_coeff_m["mean X:",1]=res$bv$mean_x_a
-  rep_coeff_m["mean Y:",1]=res$bv$mean_y_a
+  rep_coeff_m["SX",1]=res$bv$rep_coeff$s_x
+  rep_coeff_m["SY",1]=res$bv$rep_coeff$s_y
+  rep_coeff_m["SX/SY",1]=res$bv$rep_coeff$s_x_s_y
+  rep_coeff_m["mean X",1]=res$bv$mean_x_a
+  rep_coeff_m["mean Y",1]=res$bv$mean_y_a
 
   # -----------------------------------
   # individualMeans_table
@@ -170,24 +172,22 @@ generate_tables <- function (res) {
 
   # -----------------------------------
   # table with input parameters (bias_alt, alpha, beta, bt, tau, tau_mod)
-  input_param_m <- matrix(NA, nrow=6, ncol=1)
-  rownames(input_param_m)=(c("bias_alt:", "alpha:",
-    "beta:", "number of bootstrapping samples:", "tau:", "tau_mod:"))
-  colnames(input_param_m) = (c("value"))
-  if(res$bias_alt){
-    input_param_m["bias_alt:",1]="TRUE"
-  } else {
-    input_param_m["bias_alt:",1]="FALSE"
-  }
-  input_param_m["alpha:",1]=res$alpha
-  input_param_m["beta:",1]=res$beta
+  input_param_m <- matrix(NA, nrow=1, ncol=6)
+  colnames(input_param_m)=(c("bias_alt", "alpha",
+    "beta", "number of bootstrapping samples", "tau", "tau_mod"))
+  rownames(input_param_m) = (c("value"))
+
+  input_param <- as.data.frame(input_param_m)
+  input_param[1,"bias_alt"]=res$bias_alt
+  input_param[1,"alpha"]=res$alpha
+  input_param[1,"beta"]=res$beta
   if(res$bt>0){
-    input_param_m["number of bootstrapping samples:",1]=res$bt
+    input_param[1,"number of bootstrapping samples"]=res$bt
   } else {
-    input_param_m["number of bootstrapping samples:",1]="no bootstrapping"
+    input_param[1,"number of bootstrapping samples"]="no bootstrapping"
   }
-  input_param_m["tau:",1]=res$var_tvv$tau
-  input_param_m["tau_mod:",1]=res$var_tvv$tau_mod
+  input_param[1,"tau"]=res$var_tvv$tau
+  input_param[1,"tau_mod"]=res$var_tvv$tau_mod
 
   # return(
   #   list(
@@ -197,7 +197,7 @@ generate_tables <- function (res) {
   #     ind_means = ind_means,
   #     resid = resid,
   #     input_data = input_data,
-  #     input_param_m = input_param_m
+  #     input_param = input_param
   #   )
   # )
 
@@ -209,7 +209,7 @@ generate_tables <- function (res) {
       ind_means = ind_means,
       resid = resid,
       input_data = input_data,
-      input_param_m = input_param_m
+      input_param = input_param
     )
   )
 }
