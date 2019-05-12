@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot.blandxtr}
 \alias{plot.blandxtr}
-\title{Visualization (plot) of the results of modified Bland Altman-analysis}
+\title{Visualization (plot) of the results of advanced Bland Altman-analysis}
 \usage{
 \method{plot}{blandxtr}(x, type, ...)
 }
@@ -32,7 +32,7 @@ A list with the following elements (ggplot2-objects) is returned
 }
 \description{
 \code{plot.blandxtr} visualizes (plot) the results of
-modified Bland Altman-analysis performed with \code{blandxtr}
+advanced Bland Altman-analysis performed with \code{blandxtr}
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

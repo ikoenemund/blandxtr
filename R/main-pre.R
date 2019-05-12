@@ -1,6 +1,6 @@
 #' @title Helper function for main method for blandxtr
 #'
-#' @description \code{main_pre} performs modified Bland Altman-analysis
+#' @description \code{main_pre} performs advanced Bland Altman-analysis
 #' as proposed by Olofsen et al. (2015) without calculation of
 #' confidence intervals. Helper function for \code{blandxtr} which performs
 #' the whole analysis.
@@ -73,8 +73,7 @@ main_pre <- function (input_dt, bt, bias_alt, beta) {
       loa = loa,
       loa_mod = loa_mod,
       var_loa = var_loa,
-      var_loa_mod = var_loa_mod,
-      bias_alt = bias_alt
+      var_loa_mod = var_loa_mod
     )
   )
 }

@@ -1,17 +1,17 @@
-#' @title Create report for modified Bland Altman-analysis
+#' @title Create report for advanced Bland Altman-analysis
 #'
 #' @description \code{report} returns a report of results (tables and figures)
-#' of modified Bland Altman-analysis as html-, pdf- or word-document.
+#' of advanced Bland Altman-analysis as html-, pdf- or word-document.
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param res A list (blandxtr S3 object) from \code{blandxtr}-function
-#' containing all results from modified Bland Altman-analysis
+#' containing all results from advanced Bland Altman-analysis
 #' @param output_format 'html_document' (default), 'pdf_document' or
 #' 'word_document'
 #' @param output_dir String specifying the directory for storing the output file
 #'
-#' @return A report of modified Bland Altman-analysis' results.
+#' @return A report of advanced Bland Altman-analysis' results.
 #'
 #' @export
 

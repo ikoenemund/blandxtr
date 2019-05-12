@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.R
 \name{print.blandxtr}
 \alias{print.blandxtr}
-\title{Print main results of modified Bland Altman-analysis}
+\title{Print main results of advanced Bland Altman-analysis}
 \usage{
 \method{print}{blandxtr}(x, ...)
 }
@@ -13,7 +13,7 @@
 }
 \description{
 \code{print.blandxtr} prints main results of
-modified Bland Altman-analysis performed with \code{blandxtr} to the console
+advanced Bland Altman-analysis performed with \code{blandxtr} to the console
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

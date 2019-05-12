@@ -9,7 +9,7 @@
 blandxtr realises comparison of two methods for 
     repeated measurements with changing true value of the measured
     quantity based on advanced Bland Altman analysis as proposed by
-    E Olofsen et al.in 2015 <doi:10.1007/s10877-014-9577-3>
+    E Olofsen et al.in 2015 <doi:10.1007/s10877-014-9577-3>.
 }
 \seealso{
 Useful links:

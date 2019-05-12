@@ -21,7 +21,7 @@ of bias (small between-subjects variance) and its variance}
 A list containing the return values of all used functions.
 }
 \description{
-\code{main_pre} performs modified Bland Altman-analysis
+\code{main_pre} performs advanced Bland Altman-analysis
 as proposed by Olofsen et al. (2015) without calculation of
 confidence intervals. Helper function for \code{blandxtr} which performs
 the whole analysis.

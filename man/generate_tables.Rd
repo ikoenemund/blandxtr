@@ -2,7 +2,7 @@
 % Please edit documentation in R/generate-tables.R
 \name{generate_tables}
 \alias{generate_tables}
-\title{Tables with results of modified Bland Altman-analysis}
+\title{Tables with results of advanced Bland Altman-analysis}
 \usage{
 generate_tables(res)
 }
@@ -25,8 +25,8 @@ Table with input parameters
 Table with input data
 }
 \description{
-\code{blandxtr.results.table} summarizes the results of
-modified Bland Altman-analysis performed with \code{blandxtr} as
+\code{genrate_tables} summarizes the results of
+advanced Bland Altman-analysis performed with \code{blandxtr} as
 tables.
 }
 \author{

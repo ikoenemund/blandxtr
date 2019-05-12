@@ -2,13 +2,13 @@
 % Please edit documentation in R/report.R
 \name{report}
 \alias{report}
-\title{Create report for modified Bland Altman-analysis}
+\title{Create report for advanced Bland Altman-analysis}
 \usage{
 report(res, output_format, output_dir)
 }
 \arguments{
 \item{res}{A list (blandxtr S3 object) from \code{blandxtr}-function
-containing all results from modified Bland Altman-analysis}
+containing all results from advanced Bland Altman-analysis}
 
 \item{output_format}{'html_document' (default), 'pdf_document' or
 'word_document'}
@@ -16,11 +16,11 @@ containing all results from modified Bland Altman-analysis}
 \item{output_dir}{String specifying the directory for storing the output file}
 }
 \value{
-A report of modified Bland Altman-analysis' results.
+A report of advanced Bland Altman-analysis' results.
 }
 \description{
 \code{report} returns a report of results (tables and figures)
-of modified Bland Altman-analysis as html-, pdf- or word-document.
+of advanced Bland Altman-analysis as html-, pdf- or word-document.
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}
