@@ -29,7 +29,7 @@ main_pre <- function (input_dt, bt, bias_alt, beta) {
   # check input
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_data_table(input_dt, add = coll)
-  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_int(bt, add = coll)
   checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)

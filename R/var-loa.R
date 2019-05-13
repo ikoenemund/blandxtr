@@ -37,8 +37,8 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
   # -----------------------------------------
   # check input
   coll <- checkmate::makeAssertCollection()
-  checkmate::assert_integer(n, add = coll)
-  checkmate::assert_integer(n_obs, add = coll)
+  checkmate::assert_int(n, add = coll)
+  checkmate::assert_int(n_obs, add = coll)
   checkmate::assert_numeric(bsv, add = coll)
   checkmate::assert_numeric(wsv, add = coll)
   checkmate::assert_data_table(output_subjects, add = coll)

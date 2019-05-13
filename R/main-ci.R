@@ -34,7 +34,7 @@ main_ci <- function(bt, input_dt, bias_alt, bv, var_tvv, loa, loa_mod,
   # -----------------------------------------
   # check input
   coll <- checkmate::makeAssertCollection()
-  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_int(bt, add = coll)
   checkmate::assert_data_table(input_dt, add = coll)
   checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_list(bv, add = coll)

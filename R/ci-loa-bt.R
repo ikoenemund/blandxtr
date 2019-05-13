@@ -34,7 +34,7 @@ ci_loa_bt <- function(bt, input_dt, bias_alt, loa_l, loa_u, var_loa,
   # -----------------------------------------
   # check input
   coll <- checkmate::makeAssertCollection()
-  checkmate::assert_integer(bt, add = coll)
+  checkmate::assert_int(bt, add = coll)
   checkmate::assert_data_table(input_dt, add = coll)
   checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(loa_l, add = coll)
