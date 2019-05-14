@@ -2,7 +2,7 @@
 % Please edit documentation in R/ci-loa-bt.R
 \name{ci_loa_bt}
 \alias{ci_loa_bt}
-\title{Confidence intervals for LoA (parametric bootsrap-t)}
+\title{Confidence intervals for limits of agreement (using parametric bootsrap-t)}
 \usage{
 ci_loa_bt(bt, input_dt, bias_alt, loa_l, loa_u, var_loa, alpha, beta)
 }
@@ -38,9 +38,6 @@ A list with the following elements is returned
 \code{ci_loa_bt} returns confidence intervals
 (CI) for limits of agreement (LoA). Calculation is based on
 parametric bootstrap-t.
-}
-\note{
-"_mod" labels results based on modified true value varies-method
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}
