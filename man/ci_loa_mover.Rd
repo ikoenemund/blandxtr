@@ -2,9 +2,9 @@
 % Please edit documentation in R/ci-loa-mover.R
 \name{ci_loa_mover}
 \alias{ci_loa_mover}
-\title{Confidence intervals for LoA (MOVER)}
+\title{Confidence intervals for limits of agreement (using MOVER method)}
 \usage{
-ci_loa_mover(n, n_obs, outputSubjects, mssi_mod, wsv, loa_l, loa_u, alpha,
+ci_loa_mover(n, n_obs, output_subjects, mssi_mod, wsv, loa_l, loa_u, alpha,
   beta)
 }
 \arguments{
@@ -12,12 +12,12 @@ ci_loa_mover(n, n_obs, outputSubjects, mssi_mod, wsv, loa_l, loa_u, alpha,
 
 \item{n_obs}{number of observations}
 
-\item{outputSubjects}{data.table containing subject ID and
+\item{output_subjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}
 
 \item{mssi_mod}{mssi (modified calculation)}
 
-\item{wsv}{within-subject variance}
+\item{wsv}{within-subject variance (unmodified)}
 
 \item{loa_l}{lower limit of agreement}
 

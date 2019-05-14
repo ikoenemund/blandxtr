@@ -21,8 +21,8 @@ A list with the following elements is returned
 }
 }
 \description{
-\code{calc_loa} returns limits of agreement (LoA)
-based on a method proposed by Bland and Altman (1999).
+\code{loa} returns limits of agreement (LoA).
+Calculation is based on a method proposed by Bland and Altman (1999).
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

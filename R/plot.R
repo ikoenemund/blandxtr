@@ -1,12 +1,12 @@
-#' @title Visualization (plot) of the results of modified Bland Altman-analysis
+#' @title Visualizationof the results of advanced Bland Altman-analysis
 #'
-#' @description \code{plot.blandxtr} visualizes (plot) the results of
-#' modified Bland Altman-analysis performed with \code{blandxtr}
+#' @description \code{plot.blandxtr} visualizes the results of
+#' advanced Bland Altman-analysis performed with \code{blandxtr}.
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param x list with results from \code{blandxtr}
-#' @param type which plot to produce (1: analysis results,
+#' @param type which plot to produce (1: unmodified analysis results,
 #' 2: modified analysis results, 3: list with all plots available)
 #' @param ... other arguments not used by this method
 #'
@@ -17,10 +17,11 @@
 #'  analysis results}
 #'  \item{\code{plot_res_mod}} {Bland Altman-plot showing modified
 #'  analysis results}
-#'  \item{\code{qq_ind_means}} {QQ-plot of individual means}
+#'  \item{\code{qq_ind_means}} {QQ-plot of individual means of differnces}
 #'  \item{\code{qq_resid}} {QQ-plot of individual residuals}
-#'  \item{\code{plot_res_means}} {Plot of residuals vs mean}
-#'  \item{\code{plot_res_id}} {Plot of residuals vs ID}
+#'  \item{\code{plot_res_means}} {Plot of residuals vs means of each
+#'  measurement}
+#'  \item{\code{plot_res_id}} {Plot of residuals vs subject ID}
 #'  }
 #'  type = 1 only \code{plot_res} or type = 2 only \code{plot_res_mod} will
 #'  be returned.
@@ -50,27 +51,48 @@ plot.blandxtr <- function (x, type, ...) {
   # black/white
     plot_res <- function(){
       plot_res <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-        # Add labels at points (without overlap) (increases runtime!)
-        # geom_text_repel(label=x$bv$output_measurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
+        ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij), shape = 1) +
         # Add a horizontal line at y = 0
-        ggplot2::geom_hline(aes(yintercept=0, linetype = "zeroline"), size=1) +
+        ggplot2::geom_hline(aes(yintercept=0, linetype = "Zeroline",
+          color = "Zeroline"), size=0.5) +
         # Add a horizontal line at y = mean of all differences (d)
-        ggplot2::geom_hline(aes(yintercept=x$bv$d, linetype = "bias"), size=1) +
+        ggplot2::geom_hline(aes(yintercept=x$bv$d, linetype = "Bias",
+          color= "Bias"), size=0.5) +
         # Add horizontal lines at limits of agreement
-        ggplot2::geom_hline(aes(yintercept=x$loa$loa_l, linetype = "limit of agreement"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa$loa_u, linetype = "limit of agreement"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$loa$loa_l, linetype =
+            "Limit of agreement", color = "Limit of agreement"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$loa$loa_u, linetype =
+            "Limit of agreement", color = "Limit of agreement"), size=0.5) +
         # Add horizontal lines at 95%-CI of limits of agreement
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover$ci_l_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover$ci_u_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover$ci_l_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover$ci_u_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)") +
-        scale_linetype_manual(name="Legend: ", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"),
-          values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
-        ggplot2::theme(legend.direction = "horizontal", legend.position = "bottom",
-          legend.key.size = unit(3, "lines"), legend.background=element_blank(),
-          legend.key=element_blank())
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_l_loa_l_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_u_loa_l_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_l_loa_u_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_u_loa_u_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::labs(x="Mean value of X_ij and Y_ij", y="Difference
+          (X_ij - Y_ij)") +
+        scale_linetype_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
+          "Limit of agreement", "CI of LoA"),
+          values = c("Zeroline" = 1, "Bias" = 2, "Limit of agreement" = 3,
+            "CI of LoA" = 4)) +
+        scale_color_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
+          "Limit of agreement", "CI of LoA"),
+          values = c("Zeroline" = "black", "Bias" = "green", "Limit of
+            agreement" = "blue", "CI of LoA" = "red")) +
+        ggplot2::theme(legend.direction = "horizontal",
+          legend.position = "bottom",
+          legend.key.size = unit(2, "lines"),
+          legend.key=element_blank(),
+          panel.background = element_rect(fill = "white",
+            colour = "black",
+            size = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+            colour = "grey"),
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+            colour = "grey"))
     }
 
   # ----------------------------------
@@ -78,34 +100,64 @@ plot.blandxtr <- function (x, type, ...) {
   # black/white
     plot_res_mod <- function(){
       plot_res_mod <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij)) +
-        # Add labels at points (without overlap) (increases runtime!)
-        # geom_text_repel(label=x$bv$output_measurements$subject, mapping = aes(x = m_ij, y = d_ij), size = 2) +
+        ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij), shape = 1) +
         # Add a horizontal line at y = 0
-        ggplot2::geom_hline(aes(yintercept=0, linetype = "zeroline"), size=1) +
+        ggplot2::geom_hline(aes(yintercept=0, linetype = "Zeroline",
+          color = "Zeroline"), size=0.5) +
         # Add a horizontal line at y = mean of all differences (d)
-        ggplot2::geom_hline(aes(yintercept=x$bv$d, linetype = "bias"), size=1) +
+        ggplot2::geom_hline(aes(yintercept=x$bv$d, linetype = "Bias",
+          color = "Bias"), size=0.5) +
         # Add horizontal lines at limits of agreement
-        ggplot2::geom_hline(aes(yintercept=x$loa_mod$loa_l, linetype = "limit of agreement"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mod$loa_u, linetype = "limit of agreement"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$loa_mod$loa_l, linetype =
+            "Limit of agreement", color = "Limit of agreement"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$loa_mod$loa_u, linetype =
+            "Limit of agreement", color = "Limit of agreement"), size=0.5) +
         # Add horizontal lines at 95%-CI of limits of agreement
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover_mod$ci_l_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover_mod$ci_u_loa_l_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover_mod$ci_l_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::geom_hline(aes(yintercept=x$loa_mover_mod$ci_u_loa_u_mover, linetype = "CI of LoA"), size=0.5) +
-        ggplot2::labs(x="mean value of X_ij and Y_ij", y="difference (X_ij - Y_ij)") +
-        scale_linetype_manual(name="Legend: ", breaks = c("zeroline", "bias", "limit of agreement", "CI of LoA"), values = c("zeroline" = 1, "bias" = 2, "limit of agreement" = 3, "CI of LoA" = 4)) +
-        ggplot2::theme(legend.direction = "horizontal", legend.position = "bottom",
-          legend.key.size = unit(3, "lines"), legend.background=element_blank(),
-          legend.key=element_blank())
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_l_loa_l_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_u_loa_l_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_l_loa_u_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_u_loa_u_mover,
+          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+        ggplot2::labs(x="Mean value of X_ij and Y_ij", y="Difference
+          (X_ij - Y_ij)") +
+        scale_linetype_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
+          "Limit of agreement", "CI of LoA"), values = c("Zeroline" = 1,
+            "Bias" = 2, "Limit of agreement" = 3, "CI of LoA" = 4)) +
+        scale_color_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
+          "Limit of agreement", "CI of LoA"),
+          values = c("Zeroline" = "black", "Bias" = "green",
+            "Limit of agreement" = "blue", "CI of LoA" = "red")) +
+        ggplot2::theme(legend.direction = "horizontal",
+          legend.position = "bottom",
+          legend.key.size = unit(2, "lines"),
+          legend.key=element_blank(),
+          panel.background = element_rect(fill = "white",
+            colour = "black",
+            size = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+            colour = "grey"),
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+            colour = "grey"))
     }
 
   # ----------------------------------
-  # QQ plot of individual means
+  # QQ plot of individual means of differnces
 
     plot_qq_ind_means <- function(){
       p <- ggplot2::ggplot (data = x$bv$output_subjects, aes(sample=d_i))
-      qq_ind_means <- p + ggplot2::stat_qq(col="black") + ggplot2::stat_qq_line(col="black")
+      qq_ind_means <- p + ggplot2::stat_qq(col="black", shape = 1) +
+        ggplot2::stat_qq_line(col="black") + xlab("Theoretical Quantiles") +
+        ylab("Sample Quantiles") +
+        ggplot2::theme(panel.background = element_rect(fill = "white",
+            colour = "black",
+            size = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+            colour = "grey"),
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+            colour = "grey"))
     }
 
   # ----------------------------------
@@ -113,32 +165,55 @@ plot.blandxtr <- function (x, type, ...) {
 
     plot_qq_resid <- function(){
       p <- ggplot2::ggplot (data = x$bv$output_measurements, aes(sample=r_ij))
-      qq_resid <- p + ggplot2::stat_qq(col="black") + ggplot2::stat_qq_line(col="black")
+      qq_resid <- p + ggplot2::stat_qq(col="black", shape = 1) +
+        ggplot2::stat_qq_line(col="black") + xlab("Theoretical Quantiles") +
+        ylab("Sample Quantiles") +
+        ggplot2::theme(panel.background = element_rect(fill = "white",
+            colour = "black",
+            size = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+            colour = "grey"),
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+            colour = "grey"))
     }
 
   # ----------------------------------
-  # plot of residuals vs mean
+  # plot of residuals vs mean of each measurement
 
     plot_res_means <- function(){
       plot_res_means <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = m_ij, y = r_ij)) +
+        ggplot2::geom_point(mapping = aes(x = m_ij, y = r_ij), shape = 1) +
         # # Add a horizontal line at y = 1.96
         # ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
         # # Add a horizontal line at y = -1.96
         # ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
-        ggplot2::labs(x="mean value of X_ij and Y_ij", y="residual of X_ij and Y_ij")
+        ggplot2::labs(x="Mean value of X_ij and Y_ij", y="Residual of X_ij and Y_ij") +
+        ggplot2::theme(panel.background = element_rect(fill = "white",
+            colour = "black",
+            size = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+            colour = "grey"),
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+            colour = "grey"))
     }
 
   # ----------------------------------
-  # plot of residuals vs ID
+  # plot of residuals vs subject ID
     plot_res_id <- function(){
       plot_res_id <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = subject, y = r_ij)) +
+        ggplot2::geom_point(mapping = aes(x = subject, y = r_ij), shape = 1) +
         # # Add a horizontal line at y = 1.96
         # ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
         # # Add a horizontal line at y = -1.96
         # ggplot2::geom_hline(aes(yintercept=-1.96), size=1, linetype = "dashed") +
-        ggplot2::labs(x="ID", y="residual of X_ij and Y_ij")
+        ggplot2::labs(x="Subject ID", y="Residual of X_ij and Y_ij") +
+        ggplot2::theme(panel.background = element_rect(fill = "white",
+            colour = "black",
+            size = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+            colour = "grey"),
+          panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+            colour = "grey"))
     }
 
   # ----------------------------------

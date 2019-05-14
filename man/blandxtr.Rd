@@ -2,7 +2,7 @@
 % Please edit documentation in R/blandxtr.R
 \name{blandxtr}
 \alias{blandxtr}
-\title{Main method for blandxtr}
+\title{Main method for blandxtr-package}
 \usage{
 blandxtr(input_dt, bt, bias_alt, alpha, beta)
 }
@@ -15,9 +15,11 @@ blandxtr(input_dt, bt, bias_alt, alpha, beta)
 within-subject variance) and its variance, set FALSE for standard calculation
 of bias (small between-subjects variance) and its variance}
 
-\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
+\item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA
+(default: 0.05)}
 
-\item{beta}{for 100*(1-beta)\%-confidence interval around bias}
+\item{beta}{for 100*(1-beta)\%-confidence interval around bias
+(default: 0.05)}
 }
 \value{
 A list (blandxtr S3 object) containing the return values of all used
@@ -30,7 +32,7 @@ blandxtr-package: \code{basic_variables}, \code{var_tvv}, \code{loa},
 \code{var_loa}, \code{ci_loa_ba},  \code{ci_loa_bt} and \code{ci_loa_mover}.
 }
 \note{
-"_mod" labels results based on modified true value varies-method
+'_mod' labels results based on modified analysis of variance
 
 Bootstrapping affects runtime severely. Set bt<=0
 if you want to skip bootstrapping.

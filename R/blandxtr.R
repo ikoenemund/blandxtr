@@ -1,4 +1,4 @@
-#' \code{blandxtr}: A package for advanced Bland Altman analysis
+#' \code{blandxtr}: A package for advanced Bland Altman-analysis
 #'
 #' @docType package
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
@@ -14,7 +14,7 @@
 #'
 "_PACKAGE"
 
-#' @title Main method for blandxtr
+#' @title Main method for blandxtr-package
 #'
 #' @description \code{blandxtr} performs advanced Bland Altman-analysis as
 #' proposed by Olofsen et al. (2015). Uses the following functions from
@@ -29,9 +29,11 @@
 #' within-subject variance) and its variance, set FALSE for standard calculation
 #' of bias (small between-subjects variance) and its variance
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
+#' (default: 0.05)
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
+#' (default: 0.05)
 #'
-#' @note "_mod" labels results based on modified true value varies-method
+#' @note '_mod' labels results based on modified analysis of variance
 #' @note Bootstrapping affects runtime severely. Set bt<=0
 #' if you want to skip bootstrapping.
 #'
@@ -57,7 +59,7 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
     warning("'bt' has been given a negative value.
       It has been automatically set 0 and
       bootstrapping has been skipped.")
-    bt <- 0L
+    bt <- 0
   }
 
   coll <- checkmate::makeAssertCollection()
@@ -73,6 +75,8 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
   input_dt <- prepare_data(input_dt)
 
   # -----------------------------------------
+  # use 'main_pre'- and 'main_ci'-function for calling all further functions
+  # necessary for analysis
 
   pre <- main_pre (input_dt, bt, bias_alt, beta)
   ci <- main_ci(bt, input_dt, bias_alt, pre$bv, pre$var_tvv, pre$loa,

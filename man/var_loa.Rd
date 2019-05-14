@@ -32,17 +32,17 @@ of bias (small between-subjects variance) and its variance}
 \code{se_d} standard error of bias
 }
 \description{
-\code{calc_var_loa} returns variance of
+\code{var_loa} returns variance of
 limits of agreement (LoA) based on a method proposed
 by Bland and Altman (1999).
 }
 \note{
-function calculates other variables as well (but does not return)
+Function calculates other variables as well (but does not return the,)
 \itemize{
- \item{\code{ev_var_d}} {expected value of variance of all differnces}
- \item{\code{var_d}} {variance of mean of all differences}
- \item{\code{var_d_mod}} {modified variance of mean of all differences}
- \item{\code{var_sd_d}} {variance of the standard deviation of the differences}
+ \item{\code{ev_var_d}} {expected value of variance of all differences}
+ \item{\code{var_bias}} {variance of mean of all differences}
+ \item{\code{var_sd_d}} {variance of the standard deviation of the
+ differences}
 }
 }
 \author{

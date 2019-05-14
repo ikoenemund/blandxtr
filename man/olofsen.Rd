@@ -19,7 +19,7 @@ The variables are as follows:
 }
 \details{
 \describe{
-  \item{patient}{patient ID}
+  \item{subject}{subject ID}
   \item{measurement_x}{results of measuring instrument X}
   \item{measurement_y}{results of measuring instrument Y}
 }

@@ -27,10 +27,7 @@ confidence intervals. Helper function for \code{blandxtr} which performs
 the whole analysis.
 }
 \note{
-\code{bias_alt} is automatically set TRUE for
-different number of measurements in each subject (unbalanced case)
-
-"_mod" labels results based on modified true value varies-method
+"_mod" labels results based on modified analysis of variance
 }
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}

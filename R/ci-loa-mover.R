@@ -1,4 +1,4 @@
-#' @title Confidence intervals for LoA (MOVER)
+#' @title Confidence intervals for limits of agreement (using MOVER method)
 #'
 #' @description \code{ci_loa_mover} returns confidence intervals
 #' (CI) for limits of agreement (LoA) based on MOVER-method
@@ -12,7 +12,7 @@
 #' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
 #' @param mssi_mod mssi (modified calculation)
-#' @param wsv within-subject variance
+#' @param wsv within-subject variance (unmodified)
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
@@ -45,45 +45,50 @@ ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
   checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)
+
   # -----------------------------------------
-
   # harmonic mean (m_h)
-  helper <- 0
-  helper <- 1/(output_subjects[, m_i])
-  ans <- sum(helper)
-  m_h <- n/ans
-  rm(ans, helper)
+  m_h <- n/(sum(1/(output_subjects[, m_i])))
 
+  # -----------------------------------------
+  # calculate some helper-variables for CI-calculation
+  # (naming of the variables derived from Zou 2013)
 
   # s ((s_tot)^2)
   s <- mssi_mod+((1-(1/m_h))*wsv)
 
   # l
-  chi1 <- stats::qchisq((1-(alpha/2)), df=n-1, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  chi2 <- stats::qchisq((1-(alpha/2)), df=n_obs-n, ncp = 0, lower.tail = TRUE, log.p = FALSE)
+  chi1 <- stats::qchisq((1-(alpha/2)), df=n-1, ncp = 0, lower.tail = TRUE,
+    log.p = FALSE)
+  chi2 <- stats::qchisq((1-(alpha/2)), df=n_obs-n, ncp = 0, lower.tail = TRUE,
+    log.p = FALSE)
   l <- s - ((((mssi_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*
       (1-((n_obs-n)/(chi2))))^2))^(1/2))
-
   rm (chi1, chi2)
 
   # u
-  chi3 <- stats::qchisq(alpha/2, df=n-1, ncp = 0, lower.tail = TRUE, log.p = FALSE)
-  chi4 <- stats::qchisq(alpha/2, df=n_obs-n, ncp = 0, lower.tail = TRUE, log.p = FALSE)
+  chi3 <- stats::qchisq(alpha/2, df=n-1, ncp = 0, lower.tail = TRUE,
+    log.p = FALSE)
+  chi4 <- stats::qchisq(alpha/2, df=n_obs-n, ncp = 0, lower.tail = TRUE,
+    log.p = FALSE)
   u <- s+((((mssi_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*
       ((((n_obs-n)/chi4))-1))^2))^(1/2))
-
   rm (chi3, chi4)
 
   #rme
-  z1 <- stats::qnorm(alpha/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-  z2 <- stats::qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
-
+  z1 <- stats::qnorm(alpha/2, mean = 0, sd = 1, lower.tail = TRUE,
+    log.p = FALSE)
+  z2 <- stats::qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE,
+    log.p = FALSE)
   rme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(s)-(sqrt(l))))^2)))^(1/2)
 
   #lme
   lme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(u)-(sqrt(s))))^2)))^(1/2)
 
   rm (z1, z2)
+
+  # -----------------------------------------
+  # calculation of CI of LoA
 
   # CI lower LoA
   ci_l_loa_l_mover <- loa_l-lme
@@ -93,6 +98,7 @@ ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
   ci_l_loa_u_mover <- loa_u-rme
   ci_u_loa_u_mover <- loa_u+lme
 
+  # -----------------------------------------
   return(
     list(
       ci_l_loa_l_mover = ci_l_loa_l_mover,

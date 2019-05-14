@@ -16,8 +16,9 @@ A list with the following elements is returned
      \item{\code{subject}} {subject ID}
      \item{\code{measurement_x}} {results of measurement with X}
      \item{\code{measurement_y}} {results of measurement with Y}
-     \item{\code{d_ij}} {difference of each pair of measurement}
-     \item{\code{m_ij}} {mean of each pair of measurement}
+     \item{\code{measurement_id}} {measurement ID}
+     \item{\code{d_ij}} {difference of each pair of measurements}
+     \item{\code{m_ij}} {mean of each pair of measurements}
  }
  \item{output_subjects}{data.table with}
  \itemize{
@@ -34,11 +35,13 @@ A list with the following elements is returned
   \item{mean_x_a}{alternative mean of all measurements with X}
   \item{mean_y}{mean of all measurements with Y}
   \item{mean_y_a}{alternative mean of all measurements with Y}
-  \item{rep_coeff}{repeatability coefficients}
+  \item{param_rep_coeff}{list with parameters for calculation of
+  repeatability coefficients}
 }
 \description{
 \code{basic_variables} returns basic variables of an input
-data.table containing three columns (subject, measurement_x and measurement_y).
+data.table containing three columns (subject, measurement_x and
+measurement_y).
 }
 \note{
 'Alternative' means are calculated with mean for each subject

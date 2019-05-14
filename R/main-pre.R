@@ -14,9 +14,7 @@
 #' of bias (small between-subjects variance) and its variance
 #' @param beta for 100*(1-beta)\%-confidence interval around bias
 #'
-#' @note \code{bias_alt} is automatically set TRUE for
-#' different number of measurements in each subject (unbalanced case)
-#' @note "_mod" labels results based on modified true value varies-method
+#' @note "_mod" labels results based on modified analysis of variance
 #'
 #' @return A list containing the return values of all used functions.
 #'
@@ -40,32 +38,31 @@ main_pre <- function (input_dt, bt, bias_alt, beta) {
   bv <- basic_variables(input_dt)
 
   # -----------------------------------------
-  # analysis of variances
+  # analysis of variances (standard and modified)
   var_tvv <- var_tvv(bv$n, bv$n_obs, bv$d, bv$d_a, bias_alt, bv$output_subjects,
     bv$output_measurements)
 
   # -----------------------------------------
   # calculate limits of agreement (loa) (standard and modified)
 
-  # limits of agreement (based on standard tvv)
+  # limits of agreement (based on standard analysis of variance)
   loa <- loa(bv$d, var_tvv$sd_d, beta)
 
-  # limits of agreement (based on modified tvv)
+  # limits of agreement (based on modified analysis of variance)
   loa_mod <- loa(bv$d_a, var_tvv$sd_d_mod, beta)
 
   # -----------------------------------------
   # calculate variance of limits of agreement (loa)
 
-  # variance of loa (based on standard tvv)
+  # variance of loa (based on standard analysis of variance)
   var_loa <- var_loa (bv$n, bv$n_obs, var_tvv$bsv, var_tvv$wsv,
     bv$output_subjects, var_tvv$var_var_d, bias_alt, beta)
 
-  # variance of loa (based on modified tvv)
+  # variance of loa (based on modified analysis of variance)
   var_loa_mod <- var_loa (bv$n, bv$n_obs, var_tvv$bsv_mod, var_tvv$wsv_mod,
     bv$output_subjects, var_tvv$var_var_d_mod, bias_alt, beta)
 
   # -----------------------------------------
-
   return(
     list(
       bv = bv,

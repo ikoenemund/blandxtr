@@ -4,7 +4,7 @@
 \name{blandxtr-package}
 \alias{blandxtr-package}
 \alias{_PACKAGE}
-\title{\code{blandxtr}: A package for advanced Bland Altman analysis}
+\title{\code{blandxtr}: A package for advanced Bland Altman-analysis}
 \description{
 blandxtr realises comparison of two methods for 
     repeated measurements with changing true value of the measured

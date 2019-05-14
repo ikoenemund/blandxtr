@@ -14,7 +14,7 @@ Table with analysis results
 
 Table with modified analysis results
 
-Table with repeatability coefficients
+Table with parameters for calculation of repeatability coefficients
 
 Table with individual residuals
 

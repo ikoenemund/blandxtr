@@ -15,14 +15,14 @@
 #' of bias (small between-subjects variance) and its variance
 #' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
-#' @param output_measurements data.table containing
+#' @param output_measurements data.table from \code{basic_variables}-function
 #'
 #' @return A list with the following elements is returned
 #' \itemize{
-#'  \item{\code{wsv}} {within-subjects variance}
+#'  \item{\code{wsv}} {within-subject variance}
 #'  \item{\code{bsv}} {between-subjects variance}
 #'  \item{\code{bsv_mod}} {modified between-subjects variance}
-#'  \item{\code{wsv_mod}} {modified within-subjects variance}
+#'  \item{\code{wsv_mod}} {modified within-subject variance}
 #'  \item{\code{var_d}} {variance of mean of all differences}
 #'  \item{\code{sd_d}} {standard deviation of all differences}
 #'  \item{\code{var_var_d}} {variance of the variance of mean
@@ -41,8 +41,8 @@
 #'  \item{\code{se_bsv}} {standard error of between-subjects variance}
 #'  \item{\code{se_bsv_mod}} {standard error of modified between-subjects
 #'  variance}
-#'  \item{\code{se_wsv}} {standard error of within-subjects variance}
-#'  \item{\code{se_wsv_mod}} {standard error of modified within-subjects
+#'  \item{\code{se_wsv}} {standard error of within-subject variance}
+#'  \item{\code{se_wsv_mod}} {standard error of modified within-subject
 #'  variance}
 #' }
 #'
@@ -64,21 +64,16 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
   # -----------------------------------------
 
   # -------------------------------------
-  # standard tvv
+  # standard analysis of variance
   # -------------------------------------
   # lambda
-  helper <- 0
-  ans <- 0
-  helper <- (output_subjects[, m_i])^2
-  ans <- sum(helper)
 
-  lambda <- ((n_obs^2)-ans)/((n-1)*n_obs)
-  rm(ans, helper)
+  lambda <- ((n_obs^2)-sum((output_subjects[, m_i])^2))/((n-1)*n_obs)
 
   # -------------------------------------
   # within subject-variance (wsv) based on mssr
-  # mssr
 
+  # mssr
   ans <- sum((output_measurements$d_ij - output_measurements$d_i)^2)
   output_measurements[, d_i:=NULL]
 
@@ -90,8 +85,8 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
 
   # -------------------------------------
   # between subject-variance (bsv) based on mssi
-  # mssi
 
+  # mssi
   helper <- 0
   ans <- 0
   if (bias_alt) {
@@ -107,7 +102,6 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
   rm(ans)
 
   # between subject-variance (bsv)
-
   bsv <- (mssi-wsv)/lambda
 
   # -------------------------------------
@@ -123,44 +117,30 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
   # -------------------------------------
   # variance of variance of differences
 
-  var_var_d <- ((2*(((1-(1/lambda))*wsv)^2))/(n_obs-n)) + ((2*(((wsv/lambda)+bsv)^2))/(n-1))
+  var_var_d <- ((2*(((1-(1/lambda))*wsv)^2))/(n_obs-n)) +
+    ((2*(((wsv/lambda)+bsv)^2))/(n-1))
 
   # -------------------------------------
-  # modified tvv
+  # modified analysis of variance
   # -------------------------------------
   # alternative lambda
 
-  helper <- 0
-  ans <- 0
-  helper <- 1/(output_subjects[, m_i])
-  ans <- sum(helper)
-
-  lambda_mod <- (1/n)*ans
-  rm(ans)
+  lambda_mod <- (1/n)*(sum(1/(output_subjects[, m_i])))
 
   # -------------------------------------
   # modified within subject-variance (wsv_mod)
-  # no changes (compared to standard tvv)
+  # no changes (compared to standard analysis of variance)
 
   mssr_mod <- mssr
   wsv_mod <- wsv
 
   # -------------------------------------
   # modified between subject-variance (bsv_mod) based on mssi_mod
+
   # mssi_mod
-
-  helper <- 0
-  ans <- 0
-  helper <- ((output_subjects[, d_i])-d_a)^2
-  ans <- sum(helper)
-  rm(helper)
-
-  mssi_mod <- (1/(n-1))*ans
-
-  rm(ans)
+  mssi_mod <- (1/(n-1))*(sum(((output_subjects[, d_i])-d_a)^2))
 
   # modified between subject-variance (bsv)
-
   bsv_mod <- (mssi_mod - (lambda_mod*mssr_mod))
 
   # -------------------------------------
@@ -176,7 +156,8 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
   # -------------------------------------
   # modified variance of variance of differences
 
-  var_var_d_mod <- ((2*(((1-lambda_mod)*wsv)^2))/(n_obs-n)) + ((2*(((wsv*lambda_mod)+bsv_mod)^2))/(n-1))
+  var_var_d_mod <- ((2*(((1-lambda_mod)*wsv)^2))/(n_obs-n)) +
+    ((2*(((wsv*lambda_mod)+bsv_mod)^2))/(n-1))
 
   # -------------------------------------
   # tau
@@ -227,6 +208,7 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
 
   rm(vmssr, vmssr_mod)
 
+  # -------------------------------------
   return(
     list(
       wsv = wsv,

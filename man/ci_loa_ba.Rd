@@ -2,7 +2,8 @@
 % Please edit documentation in R/ci-loa-ba.R
 \name{ci_loa_ba}
 \alias{ci_loa_ba}
-\title{Confidence intervals for LoA (Bland Altman)}
+\title{Confidence intervals for limits of agreement (using Bland
+Altman-method)}
 \usage{
 ci_loa_ba(loa_l, loa_u, var_loa, alpha)
 }

@@ -1,15 +1,15 @@
 #' @title Variance of limits of agreement
 #'
-#' @description \code{calc_var_loa} returns variance of
+#' @description \code{var_loa} returns variance of
 #' limits of agreement (LoA) based on a method proposed
 #' by Bland and Altman (1999).
 #'
-#' @note function calculates other variables as well (but does not return)
+#' @note Function calculates other variables as well (but does not return the,)
 #' \itemize{
-#'  \item{\code{ev_var_d}} {expected value of variance of all differnces}
-#'  \item{\code{var_d}} {variance of mean of all differences}
-#'  \item{\code{var_d_mod}} {modified variance of mean of all differences}
-#'  \item{\code{var_sd_d}} {variance of the standard deviation of the differences}
+#'  \item{\code{ev_var_d}} {expected value of variance of all differences}
+#'  \item{\code{var_bias}} {variance of mean of all differences}
+#'  \item{\code{var_sd_d}} {variance of the standard deviation of the
+#'  differences}
 #' }
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
@@ -36,6 +36,7 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
 
   # -----------------------------------------
   # check input
+
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_int(n, add = coll)
   checkmate::assert_int(n_obs, add = coll)
@@ -46,20 +47,26 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
   checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
   checkmate::reportAssertions(coll)
-  # -----------------------------------------
 
-  ans1 <- 0
-  ans2 <- 0
+  # -----------------------------------------
+  # calculation of expected value of variance of all differences
+
   helper <- 0
   ans1 <- 0
   helper <- ((output_subjects[, m_i])^2)
   ans1 <- sum(helper)
 
+  ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
+
+  rm(helper)
+
+  # -----------------------------------------
+  # calculation of variance of mean of all differences
+
   helper <- 0
+  ans2 <- 0
   helper <- 1/(output_subjects[, m_i])
   ans2 <- sum(helper)
-
-  ev_var_d <- ((1- (1/n_obs))*wsv)+((1-(ans1/(n_obs^2)))*bsv)
 
   if (bias_alt) {
     var_bias <- ((1/(n^2))*ans2*wsv)+(bsv/n)
@@ -67,19 +74,29 @@ var_loa <- function (n, n_obs, bsv, wsv, output_subjects, var_var_d,
     var_bias <- (wsv/n_obs)+((ans1/(n_obs^2))*bsv)
   }
 
+  rm(ans1, ans2, helper)
+
+  # -----------------------------------------
+  # calculation of variance of the standard deviation of the differences
+
   var_sd_d <- var_var_d/(4*ev_var_d)
+
+  # -----------------------------------------
+  # claculation of variance of limits of agreement
 
   z <- qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
   var_loa <- var_bias+((z^2)*var_sd_d)
 
+  # -----------------------------------------
   # calculate standard error of bias
+
   se_d <- sqrt(var_bias)
 
+  # -----------------------------------------
   return(
     list(
       var_loa = var_loa,
       se_d = se_d
     )
   )
-
 }

@@ -13,9 +13,10 @@ prepare_data(input_dt)
 Prepared input data as data.table
 }
 \description{
-\code{blandxtr.prepareData} checks input data.table for
+\code{prepare_data} checks input data.table for
 common errors (missing columns that are required, wrong type of input data)
-and reduces it to the columns necessary for analysis with \code{blandxtrMain}.
+and reduces it to the columns necessary for analysis with
+\code{blandxtr}.
 }
 \note{
 Rows with missing values will be removed from analysis.

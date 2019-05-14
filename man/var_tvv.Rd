@@ -22,15 +22,15 @@ of bias (small between-subjects variance) and its variance}
 \item{output_subjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}
 
-\item{output_measurements}{data.table containing}
+\item{output_measurements}{data.table from \code{basic_variables}-function}
 }
 \value{
 A list with the following elements is returned
 \itemize{
- \item{\code{wsv}} {within-subjects variance}
+ \item{\code{wsv}} {within-subject variance}
  \item{\code{bsv}} {between-subjects variance}
  \item{\code{bsv_mod}} {modified between-subjects variance}
- \item{\code{wsv_mod}} {modified within-subjects variance}
+ \item{\code{wsv_mod}} {modified within-subject variance}
  \item{\code{var_d}} {variance of mean of all differences}
  \item{\code{sd_d}} {standard deviation of all differences}
  \item{\code{var_var_d}} {variance of the variance of mean
@@ -49,8 +49,8 @@ A list with the following elements is returned
  \item{\code{se_bsv}} {standard error of between-subjects variance}
  \item{\code{se_bsv_mod}} {standard error of modified between-subjects
  variance}
- \item{\code{se_wsv}} {standard error of within-subjects variance}
- \item{\code{se_wsv_mod}} {standard error of modified within-subjects
+ \item{\code{se_wsv}} {standard error of within-subject variance}
+ \item{\code{se_wsv_mod}} {standard error of modified within-subject
  variance}
 }
 }

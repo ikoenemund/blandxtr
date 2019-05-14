@@ -1,7 +1,7 @@
 #' @title Limits of agreement (LoA)
 #'
-#' @description \code{calc_loa} returns limits of agreement (LoA)
-#' based on a method proposed by Bland and Altman (1999).
+#' @description \code{loa} returns limits of agreement (LoA).
+#' Calculation is based on a method proposed by Bland and Altman (1999).
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
@@ -29,16 +29,17 @@
    checkmate::assert_numeric(sd_d, add = coll)
    checkmate::assert_numeric(beta, lower = 0, upper = 1, add = coll)
    checkmate::reportAssertions(coll)
-   # -----------------------------------------
 
-   # lower
+   # -----------------------------------------
+   # calculate lower limit of agreement
    z <- qnorm(1-beta/2, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
    loa_l <- d-(z*sd_d)
 
-   # upper
-  loa_u <- d+(z*sd_d)
-  rm(z)
+   # calculate upper limit of agreement
+   loa_u <- d+(z*sd_d)
+   rm(z)
 
+   # -----------------------------------------
    return(
      list(
        loa_l = loa_l,
