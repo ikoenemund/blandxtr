@@ -1,5 +1,5 @@
 ---
-title: "Report of modified Bland Altman-analysis"
+title: "Report of advanced Bland Altman-analysis"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   # html_notebook: default
@@ -21,40 +21,58 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-options(knitr.kable.NA = '-')
+options(knitr.kable.NA = ' ')
 ```
 
-# Input parameters
+# Input parameters and 'tau'
 ```{r, results="asis"}
-knitr::kable(params$tab$input_param_m, format = 'markdown', digits = 7)
+knitr::kable(params$tab$input_param, format = 'markdown', digits = 3)
 ```
 Table: Input parameters
 
-# Analysis results
+# Main results of advanced Bland Altman-analysis
 ```{r, results="asis"}
 knitr::kable(params$tab$analysis_results_m, format = 'markdown', digits = 7)
 ```
-Table: Analysis results
+Table: Main results of advanced Bland Altman-analysis 
+(SD: standard deviation, SE: standard error, LoA: limit of agreement, 
+CI: confidence interval, BT: using bootstrapping, 
+BA: using method of Bland Altman)
 
 ```{r, echo=FALSE}
   params$fig$plot_res
 ```
-Figure: Plot of analysis results
+Figure: Bland Altman-plot
+(LoA: limit of agreement, CI: confidence interval (MOVER))
 
-# Analysis results (modified)
+# Main results of advanced, modified Bland Altman-analysis
 ```{r, results="asis"}
-knitr::kable(params$tab$analysis_results_mod_m, format = 'markdown', digits = 7, caption = "Analysis results (modified)")
+knitr::kable(params$tab$analysis_results_mod_m, format = 'markdown', digits = 7)
 ```
+Table: Main results of advanced modified Bland Altman-analysis
+(SD: standard deviation, SE: standard error, LoA: limit of agreement, 
+CI: confidence interval, BT: using bootstrapping, 
+BA: using method of Bland Altman)
 
-```{r, echo=FALSE, fig.cap="Plot of analysis results (modified)"}
+```{r, echo=FALSE}
   params$fig$plot_res_mod
 ```
+Figure: Bland Altman-plot (modified analysis)
+(LoA: limit of agreement, CI: confidence interval (MOVER))
 
-# Repeatability coefficients
+
+# Parameters for calculation of repeatability coefficients
 ```{r, results="asis"}
-knitr::kable(params$tab$rep_coeff_m, format = 'markdown', digits = 7)
+knitr::kable(params$tab$param_rep_coeff_m, format = 'markdown', digits = 7)
 ```
-Table: Repeatability coefficients
+Table: Parameters for calculation of repeatability coefficients
+
+Repeatability coefficients for 95% of the subjects can be calculated as 
+$1.96 \cdot \sqrt2 \cdot SX$/ $1.96 \cdot \sqrt2 \cdot SY$. Be careful when 
+using it for analysis with varying true value (for more information please see:
+Bland, J. M. & Altman, D. G., "Measuring agreement in method comparison
+studies", Statistical methods in medical research, 8 (2), 1999.
+DOI: 10.1177/096228029900800204).
 
 # QQ-plot of residuals
 ```{r, echo=FALSE}
@@ -62,29 +80,29 @@ Table: Repeatability coefficients
 ```
 Figure: QQ-plot of residuals
 
-# QQ-plot of individual means
+# QQ-plot of individual means of differences
 ```{r, echo=FALSE}
   params$fig$qq_ind_means
 ```
-Figure: QQ-plot of individual means
+Figure:  QQ-plot of individual means of differences
 
-# Plot of the residuals vs mean
+# Plot of the residuals vs means of each measurement
 ```{r, echo=FALSE}
   params$fig$plot_res_means
 ```
-Figure: Plot of the residuals vs mean
+Figure: Plot of the residuals vs means of each measurement
 
-# Plot of the residuals vs ID
+# Plot of the residuals vs subject ID
 ```{r, echo=FALSE}
   params$fig$plot_res_id
 ```
-Figure: Plot of the residuals vs ID
+Figure: Plot of the residuals vs subject ID
 
 # Individual means of differences
 ```{r, results="asis"}
 knitr::kable(params$tab$ind_means, format = 'markdown', digits = 7)
 ```
-Table: Individual means
+Table: Individual mean of differences and number of measurements of each subject
 
 # Residuals
 ```{r, results="asis"}
