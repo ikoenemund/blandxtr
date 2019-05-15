@@ -39,6 +39,16 @@ A list with the following elements is returned
 (CI) for limits of agreement (LoA). Calculation is based on
 parametric bootstrap-t.
 }
+\note{
+For further information please see:
+\itemize{
+ \item Efron, B. and Tibshirani, R. J., An introduction to the bootstrap.
+ Monographs on statistics and applied probability, 57, 1993.
+ \item Carpenter, J. and Bithell, J., Bootstrap confidence intervals:
+ when, which, what? A practical guide for medical statisticians.
+ Statistics in medicine, 19 (9), 2000.
+ }
+}
 \author{
 Inga Koenemund \email{inga.koenemund@web.de}
 }
