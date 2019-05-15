@@ -75,13 +75,12 @@ plot.blandxtr <- function (x, type, ...) {
         ggplot2::labs(x="Mean value of X_ij and Y_ij", y="Difference
           (X_ij - Y_ij)") +
         scale_linetype_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
-          "Limit of agreement", "CI of LoA"),
-          values = c("Zeroline" = 1, "Bias" = 2, "Limit of agreement" = 3,
-            "CI of LoA" = 4)) +
+          "Limit of agreement", "CI of LoA"), values = c("Zeroline" = 1,
+            "Bias" = 2, "Limit of agreement" = 3, "CI of LoA" = 4)) +
         scale_color_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
           "Limit of agreement", "CI of LoA"),
-          values = c("Zeroline" = "black", "Bias" = "green", "Limit of
-            agreement" = "blue", "CI of LoA" = "red")) +
+          values = c("Zeroline" = "black", "Bias" = "green",
+            "Limit of agreement" = "blue", "CI of LoA" = "red")) +
         ggplot2::theme(legend.direction = "horizontal",
           legend.position = "bottom",
           legend.key.size = unit(2, "lines"),
