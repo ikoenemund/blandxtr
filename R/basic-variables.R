@@ -78,10 +78,10 @@ basic_variables <- function(dt){
   # ------------------------------
   # all subjects (each subject):
   # mean of differences between measurements (each subject)
-  ans <- output_measurements[, mean(d_ij), by = .(subject)]
+  ans <- output_measurements[, mean(d_ij), keyby = .(subject)]
   setnames(ans,"V1", "d_i")
-
-  output_subjects <- merge(ans, output_subjects, by="subject")
+  setkey(output_subjects, "subject")
+  output_subjects <- output_subjects[ans]
   rm(ans)
 
   # -------------------------------
