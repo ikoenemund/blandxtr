@@ -8,7 +8,7 @@
 #' @import checkmate
 #' @import knitr
 #' @import rmarkdown
-#' @importFrom stats na.omit qchisq qnorm quantile
+#' @importFrom stats na.omit qchisq qnorm quantile rnorm
 #'
 #' @aliases blandxtr-package
 #'

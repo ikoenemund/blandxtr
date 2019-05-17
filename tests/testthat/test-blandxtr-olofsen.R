@@ -218,25 +218,25 @@ check_bt <- function(){
 
 test_that("lower limit of 95%-CI of lower loa is -1.815 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_l_bt_mod, -1.815,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_l_bt, -1.815,
     tolerance=1e-1)
 })
 
 test_that("upper limit of 95%-CI of lower loa is -0.727 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_l_bt_mod, -0.727,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_l_bt, -0.727,
     tolerance=1e-1)
 })
 
 test_that("lower limit of 95%-CI of upper loa is 1.714 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_u_bt_mod, 1.714,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_u_bt, 1.714,
     tolerance=1e-1)
 })
 
 test_that("upper limit of 95%-CI of upper loa is 2.788 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_u_bt_mod, 2.788,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_u_bt, 2.788,
     tolerance=1e-1)
 })
 
@@ -387,13 +387,13 @@ test_that("table of basic variables (mod) contains correct values", {
     analysis_results_mod_df["CI upper LoA (MOVER)", 1])
   expect_equal(olofsen_result$ci_loa_mover_mod$ci_u_loa_u_mover,
     analysis_results_mod_df["CI upper LoA (MOVER)", 2])
-  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_l_bt_mod,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_l_bt,
     analysis_results_mod_df["CI lower LoA (BT)", 1])
-  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_l_bt_mod,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_l_bt,
     analysis_results_mod_df["CI lower LoA (BT)", 2])
-  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_u_bt_mod,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_u_bt,
     analysis_results_mod_df["CI upper LoA (BT)", 1])
-  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_u_bt_mod,
+  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_u_bt,
     analysis_results_mod_df["CI upper LoA (BT)", 2])
   expect_equal(olofsen_result$ci_loa_ba_mod$ci_l_loa_l_ba,
     analysis_results_mod_df["CI lower LoA (BA)", 1])

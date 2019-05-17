@@ -4,7 +4,8 @@
 \alias{ci_loa_bt}
 \title{Confidence intervals for limits of agreement (using parametric bootsrap-t)}
 \usage{
-ci_loa_bt(bt, input_dt, bias_alt, loa_l, loa_u, var_loa, alpha, beta)
+ci_loa_bt(bt, input_dt, bias_alt, loa_l, loa_u, var_loa, alpha, beta, n,
+  n_obs, d, d_a, bsv, wsv)
 }
 \arguments{
 \item{bt}{number of bootstrap samples}
@@ -24,6 +25,18 @@ of bias (small between-subjects variance) and its variance}
 \item{alpha}{for 100*(1-alpha)\%-confidence interval around LoA}
 
 \item{beta}{for 100*(1-beta)\%-confidence interval around bias}
+
+\item{n}{number of subjects}
+
+\item{n_obs}{number of observations}
+
+\item{d}{mean of all differences}
+
+\item{d_a}{modified mean of all differences}
+
+\item{bsv}{between-subjects variance}
+
+\item{wsv}{within-subject variance}
 }
 \value{
 A list with the following elements is returned

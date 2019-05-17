@@ -73,18 +73,18 @@ main_ci <- function(bt, input_dt, bias_alt, bv, var_tvv, loa, loa_mod,
 
   # -----------------------------------------
   # calculation of confidence intervals (using parametric bootstrap-t)
-  # bootstraping is only executed if bt > 0
+  # bootstrapping is skipped if bt <= 0
 
   if (bt > 0){
-
     # CI bootstrap (based on standard analysis of variance)
-    ci_loa_bt <- ci_loa_bt (bt, input_dt, bias_alt, loa$loa_l, loa$loa_u,
-      var_loa, alpha, beta)
+    ci_loa_bt <- ci_loa_bt (bt, input_dt, bias_alt, loa$loa_l,
+      loa$loa_u, var_loa, alpha, beta, bv$n, bv$n_obs, bv$d, bv$d_a,
+      var_tvv$bsv, var_tvv$wsv)
 
     # CI bootstrap (based on modified analysis of variance)
     ci_loa_bt_mod <- ci_loa_bt (bt, input_dt, bias_alt, loa_mod$loa_l,
-      loa_mod$loa_u, var_loa_mod, alpha, beta)
-
+      loa_mod$loa_u, var_loa_mod, alpha, beta, bv$n, bv$n_obs, bv$d, bv$d_a,
+      var_tvv$bsv_mod, var_tvv$wsv_mod)
   }
 
   # -----------------------------------------
