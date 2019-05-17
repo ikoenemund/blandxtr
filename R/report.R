@@ -25,10 +25,9 @@ report <- function(res, output_format, output_dir){
   }
 
   if (missing(output_dir)) {
-    output_dir <- NULL
-    warning("Variable `output_dir` is missing. Setting to NULL. Check your
-      directory for installed packages and see 'blandxtr/rmd' to find the
-      report.")
+    output_dir <- getwd()
+    warning("Variable `output_dir` is missing. Check your current working
+      directory to find the report.")
   }
   # -----------------------
   # generate tables and figures to be displayed in the report
