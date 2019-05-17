@@ -72,7 +72,7 @@ test_that("negative value for bt creates warning", {
 })
 
 # perform modified Bland Altman-analysis
-olofsen_result <- blandxtr(input_dt, bt=2000, bias_alt=F, alpha=0.05, beta=0.05)
+olofsen_result <- blandxtr(input_dt, bt=1000, bias_alt=F, alpha=0.05, beta=0.05)
 
 # is.blandxtr (function)
 test_that("'is.blandxtr' returns correct logical values", {
@@ -218,26 +218,26 @@ check_bt <- function(){
 
 test_that("lower limit of 95%-CI of lower loa is -1.815 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_l_bt, -1.815,
-    tolerance=1e-2)
+  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_l_bt_mod, -1.815,
+    tolerance=1e-1)
 })
 
 test_that("upper limit of 95%-CI of lower loa is -0.727 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_l_bt, -0.727,
-    tolerance=1e-2)
+  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_l_bt_mod, -0.727,
+    tolerance=1e-1)
 })
 
 test_that("lower limit of 95%-CI of upper loa is 1.714 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_u_bt, 1.714,
-    tolerance=1e-2)
+  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_u_bt_mod, 1.714,
+    tolerance=1e-1)
 })
 
 test_that("upper limit of 95%-CI of upper loa is 2.788 (bootstrapping)", {
   check_bt()
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_u_bt, 2.788,
-    tolerance=1e-2)
+  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_u_bt_mod, 2.788,
+    tolerance=1e-1)
 })
 
 # -----------------------------------------
@@ -283,7 +283,24 @@ test_that("'print' generates non-standard output if bias_alt=F", {
 })
 
 # ----------------------
-# test 'plot'-function
+# test 'report'-function
+# creating report and saving it only temporarily
+
+package_path <- getwd()
+setwd(tempdir())
+
+test_that("'report' gives warning if using default", {
+  expect_warning(report(olofsen_result, output_dir=getwd()),
+    regexp="Variable `output_format` is missing. Setting to 'html_document'.")
+  expect_warning(report(olofsen_result, output_format="html_document"),
+    regexp="Variable `output_dir` is missing. Check your current working
+      directory to find the report.")
+})
+
+setwd(package_path)
+
+# ----------------------
+# test 'plot'-function (only check of input parameters)
 
 test_that("'plot' gives warning if type is missing", {
   expect_warning(plot(olofsen_result), regexp="Variable `type` is missing.")
@@ -294,7 +311,8 @@ test_that("'plot' gives warning if type is given an invalid value", {
 })
 
 # -----------------------
-# test generate_tables-function (bt>0: tables include bootstrapping-output)
+# test 'generate_tables'-function
+# bt>0: tables include bootstrapping-output
 
 tab <- generate_tables(olofsen_result)
 
@@ -369,13 +387,13 @@ test_that("table of basic variables (mod) contains correct values", {
     analysis_results_mod_df["CI upper LoA (MOVER)", 1])
   expect_equal(olofsen_result$ci_loa_mover_mod$ci_u_loa_u_mover,
     analysis_results_mod_df["CI upper LoA (MOVER)", 2])
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_l_bt,
+  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_l_bt_mod,
     analysis_results_mod_df["CI lower LoA (BT)", 1])
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_l_bt,
+  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_l_bt_mod,
     analysis_results_mod_df["CI lower LoA (BT)", 2])
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_l_loa_u_bt,
+  expect_equal(olofsen_result$ci_loa_bt$ci_l_loa_u_bt_mod,
     analysis_results_mod_df["CI upper LoA (BT)", 1])
-  expect_equal(olofsen_result$ci_loa_bt_mod$ci_u_loa_u_bt,
+  expect_equal(olofsen_result$ci_loa_bt$ci_u_loa_u_bt_mod,
     analysis_results_mod_df["CI upper LoA (BT)", 2])
   expect_equal(olofsen_result$ci_loa_ba_mod$ci_l_loa_l_ba,
     analysis_results_mod_df["CI lower LoA (BA)", 1])
