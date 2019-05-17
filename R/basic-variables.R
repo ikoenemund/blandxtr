@@ -22,7 +22,6 @@
 #'      \item{\code{subject}} {subject ID}
 #'      \item{\code{m_i}} {number of measurements of each subject}
 #'      \item{\code{d_i}} {mean of differences for each subject}
-#'      \item{\code{var_d_i}} {variance of d_i for each subject}
 #'  }
 #'   \item{n}{number of subjects}
 #'   \item{n_obs}{number of observations}
