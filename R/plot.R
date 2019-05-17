@@ -200,7 +200,7 @@ plot.blandxtr <- function (x, type, ...) {
   # plot of residuals vs subject ID
     plot_res_id <- function(){
       plot_res_id <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = subject, y = r_ij), shape = 1) +
+        ggplot2::geom_point(mapping = aes(x = factor(subject), y = r_ij), shape = 1) +
         # # Add a horizontal line at y = 1.96
         # ggplot2::geom_hline(aes(yintercept=1.96), size=1, linetype = "dashed") +
         # # Add a horizontal line at y = -1.96
