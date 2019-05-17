@@ -47,8 +47,7 @@ generate_tables <- function (res) {
       res$ci_loa_ba$ci_l_loa_u_ba, res$var_tvv$wsv, res$var_tvv$bsv)
 
     analysis_results_m[,2]=c(NA,NA,NA,NA,res$ci_loa_mover$ci_u_loa_l_mover,
-      res$ci_loa_mover$ci_u_loa_u_mover, res$ci_loa_bt$ci_u_loa_l_bt,
-      res$ci_loa_bt$ci_u_loa_u_bt, res$ci_loa_ba$ci_u_loa_l_ba,
+      res$ci_loa_mover$ci_u_loa_u_mover, res$ci_loa_ba$ci_u_loa_l_ba,
       res$ci_loa_ba$ci_u_loa_u_ba, NA, NA)
 
     analysis_results_m[1,3]=c(res$var_loa$se_d)
@@ -77,7 +76,6 @@ generate_tables <- function (res) {
     analysis_results_mod_m[,2]=c(NA,NA,NA,NA,
       res$ci_loa_mover_mod$ci_u_loa_l_mover,
       res$ci_loa_mover_mod$ci_u_loa_u_mover,
-      res$ci_loa_bt_mod$ci_u_loa_l_bt, res$ci_loa_bt_mod$ci_u_loa_u_bt,
       res$ci_loa_ba_mod$ci_u_loa_l_ba, res$ci_loa_ba_mod$ci_u_loa_u_ba, NA, NA)
 
     analysis_results_mod_m[1,3]=c(res$var_loa_mod$se_d)
