@@ -28,7 +28,7 @@ options(knitr.kable.NA = ' ')
 ```{r, results="asis"}
 knitr::kable(params$tab$input_param, format = 'markdown', digits = 3)
 ```
-Table: Input parameters
+Table: Input parameters and 'tau'
 
 # Main results of advanced Bland Altman-analysis
 ```{r, results="asis"}
