@@ -6,7 +6,7 @@
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
-#' @param dt input data.table
+#' @param input_data data.frame or data.table with input dataset
 #' @return A list with the following elements is returned
 #'  \item{output_measurements}{data.table with}
 #'  \itemize{
@@ -40,12 +40,16 @@
 #'
 #' @export
 
-basic_variables <- function(dt){
+basic_variables <- function(input_data){
 
   # ----------------------------
   # check input
 
-  checkmate::assert_data_table(dt)
+  checkmate::assert_data_frame(input_data)
+
+  # ----------------------------
+  # convert input data to data.table
+  dt <- data.table::as.data.table(input_data)
 
   # ----------------------------
   # some preparation

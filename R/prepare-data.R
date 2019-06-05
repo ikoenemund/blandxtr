@@ -7,7 +7,7 @@
 #'
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
-#' @param input_dt data.table with input dataset
+#' @param input_data data.frame or data.table with input dataset
 #'
 #' @note Rows with missing values will be removed from analysis.
 #'
@@ -18,24 +18,28 @@
 
 # Check and prepare input data
 
-prepare_data <- function (input_dt){
+prepare_data <- function (input_data){
 
   # -----------------------------------------
   # check input
 
-  checkmate::assert_data_table(input_dt, add = coll)
+  checkmate::assert_data_frame(input_data, add = coll)
 
   # -----------------------------------------
   # check columns
 
-  if (!(any(colnames(input_dt)=="subject"))){
+  if (!(any(colnames(input_data)=="subject"))){
     stop("Error in input dataset: No column named 'subject' found.")
-  } else if (!(any(colnames(input_dt)=="measurement_x"))) {
+  } else if (!(any(colnames(input_data)=="measurement_x"))) {
     stop("Error in input dataset: No column named 'measurement_x' found.")
-  } else if (!(any(colnames(input_dt)=="measurement_y"))){
+  } else if (!(any(colnames(input_data)=="measurement_y"))){
     stop("Error in input dataset: No column named 'measurement_y' found.")
   }
 
+  # -----------------------------------------
+  # convert input data to data.table
+
+  input_dt <- data.table::as.data.table(input_data)
   # -----------------------------------------
   # select only columns necessary for analysis
 

@@ -24,7 +24,7 @@
 #' @author Inga Koenemund \email{inga.koenemund@@web.de}
 #'
 #' @param bt number of bootstrap samples (no bootstrapping if bt <= 0)
-#' @param input_dt data.table with input dataset
+#' @param input_data data.frame or data.table with input dataset
 #' @param bias_alt set TRUE for alternative calculation of bias (small
 #' within-subject variance) and its variance, set FALSE for standard calculation
 #' of bias (small between-subjects variance) and its variance
@@ -41,7 +41,7 @@
 #' functions.
 #' @export
 
-blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
+blandxtr <- function(input_data, bt, bias_alt, alpha, beta){
 
   # -----------------------------------------
   # check input
@@ -63,7 +63,7 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
   }
 
   coll <- checkmate::makeAssertCollection()
-  checkmate::assert_data_table(input_dt, add = coll)
+  checkmate::assert_data_table(input_data, add = coll)
   checkmate::assert_int(bt, add = coll)
   checkmate::assert_logical(bias_alt, add = coll)
   checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
@@ -72,7 +72,7 @@ blandxtr <- function(input_dt, bt, bias_alt, alpha, beta){
 
   # -----------------------------------------
   # prepare input data for analysis
-  input_dt <- prepare_data(input_dt)
+  input_dt <- prepare_data(input_data)
 
   # -----------------------------------------
   # use 'main_pre'- and 'main_ci'-function for calling all further functions

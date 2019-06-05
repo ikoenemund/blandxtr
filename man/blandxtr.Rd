@@ -4,10 +4,10 @@
 \alias{blandxtr}
 \title{Main method for blandxtr-package}
 \usage{
-blandxtr(input_dt, bt, bias_alt, alpha, beta)
+blandxtr(input_data, bt, bias_alt, alpha, beta)
 }
 \arguments{
-\item{input_dt}{data.table with input dataset}
+\item{input_data}{data.frame or data.table with input dataset}
 
 \item{bt}{number of bootstrap samples (no bootstrapping if bt <= 0)}
 

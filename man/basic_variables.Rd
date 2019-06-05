@@ -4,10 +4,10 @@
 \alias{basic_variables}
 \title{Basic variables}
 \usage{
-basic_variables(dt)
+basic_variables(input_data)
 }
 \arguments{
-\item{dt}{input data.table}
+\item{input_data}{data.frame or data.table with input dataset}
 }
 \value{
 A list with the following elements is returned

@@ -4,10 +4,10 @@
 \alias{prepare_data}
 \title{Preparation of data for Bland Altman analysis}
 \usage{
-prepare_data(input_dt)
+prepare_data(input_data)
 }
 \arguments{
-\item{input_dt}{data.table with input dataset}
+\item{input_data}{data.frame or data.table with input dataset}
 }
 \value{
 Prepared input data as data.table
