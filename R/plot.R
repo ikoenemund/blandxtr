@@ -65,22 +65,22 @@ plot.blandxtr <- function (x, type, ...) {
             "Limit of agreement", color = "Limit of agreement"), size=0.5) +
         # Add horizontal lines at 95%-CI of limits of agreement
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_l_loa_l_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_u_loa_l_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_l_loa_u_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover$ci_u_loa_u_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::labs(x="Mean value of X_ij and Y_ij", y="Difference
           (X_ij - Y_ij)") +
         scale_linetype_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
-          "Limit of agreement", "CI of LoA"), values = c("Zeroline" = 1,
-            "Bias" = 2, "Limit of agreement" = 3, "CI of LoA" = 4)) +
+          "Limit of agreement", "(1-alpha)%-CI of LoA"), values = c("Zeroline" = 1,
+            "Bias" = 2, "Limit of agreement" = 3, "(1-alpha)%-CI of LoA" = 4)) +
         scale_color_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
-          "Limit of agreement", "CI of LoA"),
+          "Limit of agreement", "(1-alpha)%-CI of LoA"),
           values = c("Zeroline" = "black", "Bias" = "green",
-            "Limit of agreement" = "blue", "CI of LoA" = "red")) +
+            "Limit of agreement" = "blue", "(1-alpha)%-CI of LoA" = "red")) +
         ggplot2::theme(legend.direction = "horizontal",
           legend.position = "bottom",
           legend.key.size = unit(2, "lines"),
@@ -113,22 +113,22 @@ plot.blandxtr <- function (x, type, ...) {
             "Limit of agreement", color = "Limit of agreement"), size=0.5) +
         # Add horizontal lines at 95%-CI of limits of agreement
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_l_loa_l_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_u_loa_l_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_l_loa_u_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::geom_hline(aes(yintercept=x$ci_loa_mover_mod$ci_u_loa_u_mover,
-          linetype = "CI of LoA", color = "CI of LoA"), size=0.5) +
+          linetype = "(1-alpha)%-CI of LoA", color = "(1-alpha)%-CI of LoA"), size=0.5) +
         ggplot2::labs(x="Mean value of X_ij and Y_ij", y="Difference
           (X_ij - Y_ij)") +
         scale_linetype_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
-          "Limit of agreement", "CI of LoA"), values = c("Zeroline" = 1,
-            "Bias" = 2, "Limit of agreement" = 3, "CI of LoA" = 4)) +
+          "Limit of agreement", "(1-alpha)%-CI of LoA"), values = c("Zeroline" = 1,
+            "Bias" = 2, "Limit of agreement" = 3, "(1-alpha)%-CI of LoA" = 4)) +
         scale_color_manual(name="Legend: ", breaks = c("Zeroline", "Bias",
-          "Limit of agreement", "CI of LoA"),
+          "Limit of agreement", "(1-alpha)%-CI of LoA"),
           values = c("Zeroline" = "black", "Bias" = "green",
-            "Limit of agreement" = "blue", "CI of LoA" = "red")) +
+            "Limit of agreement" = "blue", "(1-alpha)%-CI of LoA" = "red")) +
         ggplot2::theme(legend.direction = "horizontal",
           legend.position = "bottom",
           legend.key.size = unit(2, "lines"),
@@ -251,5 +251,4 @@ plot.blandxtr <- function (x, type, ...) {
       )
     )
   }
-
 }

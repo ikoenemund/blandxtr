@@ -129,12 +129,12 @@ test_that("table of basic variables (mod) contains correct values", {
 # input_param_df <- as.data.frame(tab$input_param_m)
 test_that("table of input parameters contains correct values", {
   expect_equal(olofsen_unbalanced_result$bias_alt, tab$input_param[1,
-    "bias_alt"])
-  expect_equal(olofsen_unbalanced_result$alpha, tab$input_param[1, "alpha"])
-  expect_equal(olofsen_unbalanced_result$beta, tab$input_param[1, "beta"])
+    "Bias_alt"])
+  expect_equal(olofsen_unbalanced_result$alpha, tab$input_param[1, "Alpha"])
+  expect_equal(olofsen_unbalanced_result$beta, tab$input_param[1, "Beta"])
   expect_equal("no bootstrapping", tab$input_param[1,
-    "number of bootstrapping samples (bt)"])
-  expect_equal(olofsen_unbalanced_result$var_tvv$tau, tab$input_param[1, "tau"])
+    "Number of bootstrapping samples (bt)"])
+  expect_equal(olofsen_unbalanced_result$var_tvv$tau, tab$input_param[1, "Tau"])
   expect_equal(olofsen_unbalanced_result$var_tvv$tau_mod, tab$input_param[1,
-    "tau_mod"])
+    "Tau_mod"])
 })

@@ -29,6 +29,8 @@ options(knitr.kable.NA = ' ')
 knitr::kable(params$tab$input_param, format = 'markdown', digits = 3)
 ```
 Table: Input parameters and 'tau'
+(alpha: confidence niveau for calculation of confidence intervals of limits
+of agreement, beta: confidence niveau for calculation of limits of agreement)
 
 # Main results of advanced Bland Altman-analysis
 ```{r, results="asis"}

@@ -39,7 +39,7 @@ generate_tables <- function (res) {
       "Upper limit of agreement", "CI lower LoA (MOVER)",
       "CI upper LoA (MOVER)", "CI lower LoA (BA)", "CI upper LoA (BA)",
       "Within-subject variance", "Between-subjects variance"))
-    colnames(analysis_results_m) = (c("value", " ", "+/- SE"))
+    colnames(analysis_results_m) = (c("Value", " ", "+/- SE"))
     analysis_results_m["Bias (mean of all differences)",1]=res$bv$d
     analysis_results_m[,1] = c(res$bv$d, res$var_tvv$sd_d,
       res$loa$loa_l, res$loa$loa_u, res$ci_loa_mover$ci_l_loa_l_mover,
@@ -64,7 +64,7 @@ generate_tables <- function (res) {
       "Upper limit of agreement", "CI lower LoA (MOVER)",
       "CI upper LoA (MOVER)", "CI lower LoA (BA)", "CI upper LoA (BA)",
       "Within-subject variance", "Between-subjects variance"))
-    colnames(analysis_results_mod_m) = (c("value", " ", "+/- SE"))
+    colnames(analysis_results_mod_m) = (c("Value", " ", "+/- SE"))
     analysis_results_mod_m["Bias (mean of all differences)",1]=res$bv$d
     analysis_results_mod_m[,1] = c(res$bv$d, res$var_tvv$sd_d_mod,
       res$loa_mod$loa_l, res$loa_mod$loa_u,
@@ -94,7 +94,7 @@ generate_tables <- function (res) {
       "CI upper LoA (MOVER)", "CI lower LoA (BT)", "CI upper LoA (BT)",
       "CI lower LoA (BA)", "CI upper LoA (BA)",
       "Within-subject variance", "Between-subjects variance"))
-    colnames(analysis_results_m) = (c("value", " ", "+/- SE"))
+    colnames(analysis_results_m) = (c("Value", " ", "+/- SE"))
     analysis_results_m["Bias (mean of all differences)",1]=res$bv$d
     analysis_results_m[,1] = c(res$bv$d, res$var_tvv$sd_d,
       res$loa$loa_l, res$loa$loa_u, res$ci_loa_mover$ci_l_loa_l_mover,
@@ -123,7 +123,7 @@ generate_tables <- function (res) {
       "CI upper LoA (MOVER)", "CI lower LoA (BT)", "CI upper LoA (BT)",
       "CI lower LoA (BA)", "CI upper LoA (BA)",
       "Within-subject variance", "Between-subjects variance"))
-    colnames(analysis_results_mod_m) = (c("value", " ", "+/- SE"))
+    colnames(analysis_results_mod_m) = (c("Value", " ", "+/- SE"))
     analysis_results_mod_m["Bias (mean of all differences)",1]=res$bv$d
     analysis_results_mod_m[,1] = c(res$bv$d, res$var_tvv$sd_d_mod,
       res$loa_mod$loa_l, res$loa_mod$loa_u,
@@ -150,16 +150,16 @@ generate_tables <- function (res) {
 
   param_rep_coeff_m <- matrix(NA, nrow=7, ncol=1)
   rownames(param_rep_coeff_m)=(c("SX", "SY",
-    "SX/SY", "mean X", "mean Y", "mean X (alternative)",
-    "mean Y (alternative)"))
-  colnames(param_rep_coeff_m) = (c("value"))
+    "SX/SY", "Mean X", "Mean Y", "Mean X (alternative)",
+    "Mean Y (alternative)"))
+  colnames(param_rep_coeff_m) = (c("Value"))
   param_rep_coeff_m["SX",1]=res$bv$param_rep_coeff$s_x
   param_rep_coeff_m["SY",1]=res$bv$param_rep_coeff$s_y
   param_rep_coeff_m["SX/SY",1]=res$bv$param_rep_coeff$s_x_s_y
-  param_rep_coeff_m["mean X",1]=res$bv$mean_x
-  param_rep_coeff_m["mean Y",1]=res$bv$mean_y
-  param_rep_coeff_m["mean X (alternative)",1]=res$bv$mean_x_a
-  param_rep_coeff_m["mean Y (alternative)",1]=res$bv$mean_y_a
+  param_rep_coeff_m["Mean X",1]=res$bv$mean_x
+  param_rep_coeff_m["Mean Y",1]=res$bv$mean_y
+  param_rep_coeff_m["Mean X (alternative)",1]=res$bv$mean_x_a
+  param_rep_coeff_m["Mean Y (alternative)",1]=res$bv$mean_y_a
 
   # -----------------------------------
   # create table displaying individual means of the differences
@@ -192,21 +192,21 @@ generate_tables <- function (res) {
   # (bias_alt, alpha, beta, bt, tau, tau_mod)
 
   input_param_m <- matrix(NA, nrow=1, ncol=6)
-  colnames(input_param_m)=(c("bias_alt", "alpha",
-    "beta", "number of bootstrapping samples (bt)", "tau", "tau_mod"))
-  rownames(input_param_m) = (c("value"))
+  colnames(input_param_m)=(c("Bias_alt", "Alpha",
+    "Beta", "Number of bootstrapping samples (bt)", "Tau", "Tau_mod"))
+  rownames(input_param_m) = (c("Value"))
 
   input_param <- as.data.frame(input_param_m)
-  input_param[1,"bias_alt"]=res$bias_alt
-  input_param[1,"alpha"]=res$alpha
-  input_param[1,"beta"]=res$beta
+  input_param[1,"Bias_alt"]=res$bias_alt
+  input_param[1,"Alpha"]=res$alpha
+  input_param[1,"Beta"]=res$beta
   if(res$bt>0){
-    input_param[1,"number of bootstrapping samples (bt)"]=res$bt
+    input_param[1,"Number of bootstrapping samples (bt)"]=res$bt
   } else {
-    input_param[1,"number of bootstrapping samples (bt)"]="no bootstrapping"
+    input_param[1,"Number of bootstrapping samples (bt)"]="no bootstrapping"
   }
-  input_param[1,"tau"]=res$var_tvv$tau
-  input_param[1,"tau_mod"]=res$var_tvv$tau_mod
+  input_param[1,"Tau"]=res$var_tvv$tau
+  input_param[1,"Tau_mod"]=res$var_tvv$tau_mod
 
   # -----------------------------------
   invisible(

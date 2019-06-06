@@ -421,18 +421,18 @@ test_that("table of repeatability coefficients contains correct values", {
     param_rep_coeff_df["SY", 1])
   expect_equal(olofsen_result$bv$param_rep_coeff$s_x_s_y,
     param_rep_coeff_df["SX/SY", 1])
-  expect_equal(olofsen_result$bv$mean_x_a, param_rep_coeff_df["mean X", 1])
-  expect_equal(olofsen_result$bv$mean_y_a, param_rep_coeff_df["mean Y", 1])
+  expect_equal(olofsen_result$bv$mean_x_a, param_rep_coeff_df["Mean X", 1])
+  expect_equal(olofsen_result$bv$mean_y_a, param_rep_coeff_df["Mean Y", 1])
 })
 
 test_that("table of input parameters contains correct values", {
-  expect_equal(olofsen_result$bias_alt, tab$input_param[1, "bias_alt"])
-  expect_equal(olofsen_result$alpha, tab$input_param[1, "alpha"])
-  expect_equal(olofsen_result$beta, tab$input_param[1, "beta"])
+  expect_equal(olofsen_result$bias_alt, tab$input_param[1, "Bias_alt"])
+  expect_equal(olofsen_result$alpha, tab$input_param[1, "Alpha"])
+  expect_equal(olofsen_result$beta, tab$input_param[1, "Beta"])
   expect_equal(olofsen_result$bt,
-    tab$input_param[1, "number of bootstrapping samples (bt)"])
-  expect_equal(olofsen_result$var_tvv$tau, tab$input_param[1, "tau"])
-  expect_equal(olofsen_result$var_tvv$tau_mod, tab$input_param[1, "tau_mod"])
+    tab$input_param[1, "Number of bootstrapping samples (bt)"])
+  expect_equal(olofsen_result$var_tvv$tau, tab$input_param[1, "Tau"])
+  expect_equal(olofsen_result$var_tvv$tau_mod, tab$input_param[1, "Tau_mod"])
 })
 
 rm(tab)
