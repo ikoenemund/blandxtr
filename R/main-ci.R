@@ -63,13 +63,14 @@ main_ci <- function(bt, input_dt, bias_alt, bv, var_tvv, loa, loa_mod,
   # calculation of confidence intervals (MOVER method)
 
   # CI MOVER (based on standard analysis of variance)
-  ci_loa_mover <- ci_loa_mover (bv$n, bv$n_obs, bv$output_subjects,
-    var_tvv$mssi_mod, var_tvv$wsv, loa$loa_l, loa$loa_u, alpha, beta)
+  ci_loa_mover <- ci_loa_mover (bv$n, bv$n_obs, var_tvv$lambda_mod,
+    bv$output_subjects, var_tvv$mssi_mod, var_tvv$wsv, var_tvv$var_d_mod,
+    loa$loa_l, loa$loa_u, alpha, beta)
 
   # CI MOVER (based on modified analysis of variance)
-  ci_loa_mover_mod <- ci_loa_mover (bv$n, bv$n_obs, bv$output_subjects,
-    var_tvv$mssi_mod, var_tvv$wsv_mod, loa_mod$loa_l, loa_mod$loa_u, alpha,
-    beta)
+  ci_loa_mover_mod <- ci_loa_mover (bv$n, bv$n_obs, var_tvv$lambda_mod,
+    bv$output_subjects, var_tvv$mssi_mod, var_tvv$wsv_mod, var_tvv$var_d_mod,
+    loa_mod$loa_l, loa_mod$loa_u, alpha, beta)
 
   # -----------------------------------------
   # calculation of confidence intervals (using parametric bootstrap-t)

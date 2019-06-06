@@ -4,13 +4,16 @@
 \alias{ci_loa_mover}
 \title{Confidence intervals for limits of agreement (using MOVER method)}
 \usage{
-ci_loa_mover(n, n_obs, output_subjects, mssi_mod, wsv, loa_l, loa_u, alpha,
-  beta)
+ci_loa_mover(n, n_obs, lambda_mod, output_subjects, mssi_mod, wsv,
+  var_d_mod, loa_l, loa_u, alpha, beta)
 }
 \arguments{
 \item{n}{number of subjects}
 
 \item{n_obs}{number of observations}
+
+\item{lambda_mod}{helper variable for calculation of modified
+between-subjects variance, see Olofsen et al. 2015}
 
 \item{output_subjects}{data.table containing subject ID and
 number of measurements of each subject (m_i)}
@@ -18,6 +21,8 @@ number of measurements of each subject (m_i)}
 \item{mssi_mod}{mssi (modified calculation)}
 
 \item{wsv}{within-subject variance (unmodified)}
+
+\item{var_d_mod}{{modified variance of mean of all differences}}
 
 \item{loa_l}{lower limit of agreement}
 

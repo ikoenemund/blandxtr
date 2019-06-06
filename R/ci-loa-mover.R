@@ -9,10 +9,13 @@
 #'
 #' @param n number of subjects
 #' @param n_obs number of observations
+#' @param lambda_mod helper variable for calculation of modified
+#'  between-subjects variance, see Olofsen et al. 2015
 #' @param output_subjects data.table containing subject ID and
 #' number of measurements of each subject (m_i)
 #' @param mssi_mod mssi (modified calculation)
 #' @param wsv within-subject variance (unmodified)
+#' @param var_d_mod {modified variance of mean of all differences}
 #' @param loa_l lower limit of agreement
 #' @param loa_u upper limit of agreement
 #' @param alpha for 100*(1-alpha)\%-confidence interval around LoA
@@ -29,17 +32,19 @@
 #' @export
 #'
 
-ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
-  loa_u, alpha, beta) {
+ci_loa_mover <- function (n, n_obs, lambda_mod, output_subjects, mssi_mod, wsv,
+  var_d_mod, loa_l, loa_u, alpha, beta) {
 
   # -----------------------------------------
   # check input
   coll <- checkmate::makeAssertCollection()
   checkmate::assert_int(n, add = coll)
   checkmate::assert_int(n_obs, add = coll)
+  checkmate::assert_numeric(lambda_mod, add = coll)
   checkmate::assert_data_table(output_subjects, add = coll)
   checkmate::assert_numeric(mssi_mod, add = coll)
   checkmate::assert_numeric(wsv, add = coll)
+  checkmate::assert_numeric(var_d_mod, add = coll)
   checkmate::assert_numeric(loa_l, add = coll)
   checkmate::assert_numeric(loa_u, add = coll)
   checkmate::assert_numeric(alpha, lower = 0, upper = 1, add = coll)
@@ -47,22 +52,15 @@ ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
   checkmate::reportAssertions(coll)
 
   # -----------------------------------------
-  # harmonic mean (m_h)
-  m_h <- n/(sum(1/(output_subjects[, m_i])))
-
-  # -----------------------------------------
   # calculate some helper-variables for CI-calculation
   # (naming of the variables derived from Zou 2013)
-
-  # s ((s_tot)^2)
-  s <- mssi_mod+((1-(1/m_h))*wsv)
 
   # l
   chi1 <- stats::qchisq((1-(alpha/2)), df=n-1, ncp = 0, lower.tail = TRUE,
     log.p = FALSE)
   chi2 <- stats::qchisq((1-(alpha/2)), df=n_obs-n, ncp = 0, lower.tail = TRUE,
     log.p = FALSE)
-  l <- s - ((((mssi_mod*(1-((n-1)/(chi1))))^2)+(((1-(1/m_h))*wsv*
+  l <- var_d_mod - ((((mssi_mod*(1-((n-1)/(chi1))))^2)+(((1-lambda_mod)*wsv*
       (1-((n_obs-n)/(chi2))))^2))^(1/2))
   rm (chi1, chi2)
 
@@ -71,7 +69,7 @@ ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
     log.p = FALSE)
   chi4 <- stats::qchisq(alpha/2, df=n_obs-n, ncp = 0, lower.tail = TRUE,
     log.p = FALSE)
-  u <- s+((((mssi_mod*(((n-1)/chi3)-1))^2)+(((1-(1/m_h))*wsv*
+  u <- var_d_mod + ((((mssi_mod*(((n-1)/chi3)-1))^2)+(((1-lambda_mod)*wsv*
       ((((n_obs-n)/chi4))-1))^2))^(1/2))
   rm (chi3, chi4)
 
@@ -80,10 +78,10 @@ ci_loa_mover <- function (n, n_obs, output_subjects, mssi_mod, wsv, loa_l,
     log.p = FALSE)
   z2 <- stats::qnorm(beta/2, mean = 0, sd = 1, lower.tail = TRUE,
     log.p = FALSE)
-  rme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(s)-(sqrt(l))))^2)))^(1/2)
+  rme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(var_d_mod)-(sqrt(l))))^2)))^(1/2)
 
   #lme
-  lme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(u)-(sqrt(s))))^2)))^(1/2)
+  lme <- (((z1^2)*(mssi_mod/n))+((z2^2)*(((sqrt(u)-(sqrt(var_d_mod))))^2)))^(1/2)
 
   rm (z1, z2)
 
