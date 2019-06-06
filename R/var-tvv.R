@@ -44,6 +44,10 @@
 #'  \item{\code{se_wsv}} {standard error of within-subject variance}
 #'  \item{\code{se_wsv_mod}} {standard error of modified within-subject
 #'  variance}
+#'  \item{\code{lambda}} {helper variable for calculation of between-subjects
+#'  variance, see Olofsen et al. 2015}
+#'  \item{\code{lambda_mod}} {helper variable for calculation of modified
+#'  between-subjects variance, see Olofsen et al. 2015}
 #' }
 #'
 #' @export
@@ -232,7 +236,10 @@ var_tvv <- function (n, n_obs, d, d_a, bias_alt, output_subjects,
       se_bsv_mod = se_bsv_mod,
 
       se_wsv = se_wsv,
-      se_wsv_mod = se_wsv_mod
+      se_wsv_mod = se_wsv_mod,
+
+      lambda = lambda,
+      lambda_mod = lambda_mod
     )
   )
 }

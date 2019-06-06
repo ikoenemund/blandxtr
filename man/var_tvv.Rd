@@ -52,6 +52,10 @@ A list with the following elements is returned
  \item{\code{se_wsv}} {standard error of within-subject variance}
  \item{\code{se_wsv_mod}} {standard error of modified within-subject
  variance}
+ \item{\code{lambda}} {helper variable for calculation of between-subjects
+ variance, see Olofsen et al. 2015}
+ \item{\code{lambda_mod}} {helper variable for calculation of modified
+ between-subjects variance, see Olofsen et al. 2015}
 }
 }
 \description{
