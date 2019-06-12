@@ -45,7 +45,7 @@ BA: using method of Bland Altman)
   params$fig$plot_res
 ```
 Figure: Bland Altman-plot
-(LoA: limit of agreement, CI: confidence interval (MOVER))
+(The size of the data points symbolizes their absolute frequency; LoA: limit of agreement, CI: confidence interval (MOVER))
 
 # Main results of advanced, modified Bland Altman-analysis
 ```{r, results="asis"}
@@ -60,7 +60,7 @@ BA: using method of Bland Altman)
   params$fig$plot_res_mod
 ```
 Figure: Bland Altman-plot (modified analysis)
-(LoA: limit of agreement, CI: confidence interval (MOVER))
+(The size of the data points symbolizes their absolute frequency; LoA: limit of agreement, CI: confidence interval (MOVER))
 
 
 # Parameters for calculation of repeatability coefficients

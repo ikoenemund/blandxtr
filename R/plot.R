@@ -51,7 +51,8 @@ plot.blandxtr <- function (x, type, ...) {
   # black/white
     plot_res <- function(){
       plot_res <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij), shape = 1) +
+        ggplot2::geom_count(mapping = aes(x = m_ij, y = d_ij), shape = 1,
+          show.legend = FALSE) +
         # Add a horizontal line at y = 0
         ggplot2::geom_hline(aes(yintercept=0, linetype = "Zeroline",
           color = "Zeroline"), size=0.5) +
@@ -99,7 +100,8 @@ plot.blandxtr <- function (x, type, ...) {
   # black/white
     plot_res_mod <- function(){
       plot_res_mod <- ggplot2::ggplot(data = x$bv$output_measurements) +
-        ggplot2::geom_point(mapping = aes(x = m_ij, y = d_ij), shape = 1) +
+        ggplot2::geom_count(mapping = aes(x = m_ij, y = d_ij), shape = 1,
+          show.legend = FALSE) +
         # Add a horizontal line at y = 0
         ggplot2::geom_hline(aes(yintercept=0, linetype = "Zeroline",
           color = "Zeroline"), size=0.5) +
